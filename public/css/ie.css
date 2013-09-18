@@ -1,0 +1,12 @@
+/* 
+    Document   : ie
+    Created on : 2013-sep-16, 12:55:34
+    Author     : Stefan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+input ~ .empty, input:valid ~ .empty, input:focus ~ .empty {
+    display: none !important;
+}
+

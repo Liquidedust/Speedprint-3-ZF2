@@ -1,26 +1,267 @@
-<div class="hero-unit">
-    <h1><?php echo sprintf($this->translate('Welcome to %sZend Framework 2%s'), '<span class="zf-green">', '</span>') ?></h1>
-    <p><?php echo sprintf($this->translate('Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2.'), '<a href="https://github.com/zendframework/ZendSkeletonApplication" target="_blank">', '</a>', \Zend\Version\Version::VERSION) ?></p>
-    <p><a class="btn btn-success btn-large" href="https://github.com/zendframework/zf2" target="_blank"><?php echo $this->translate('Fork Zend Framework 2 on GitHub') ?> &raquo;</a></p>
-</div>
 
-<div class="row">
 
-    <div class="span4">
-        <h2><?php echo $this->translate('Follow Development') ?></h2>
-        <p><?php echo sprintf($this->translate('Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!'), '<a href="http://framework.zend.com/wiki/display/ZFDEV2/Home">', '</a>', '<a href="http://framework.zend.com/zf2/blog">', '</a>', '<a href="http://framework.zend.com/issues/browse/ZF2">', '</a>') ?></p>
-        <p><a class="btn btn-success" href="http://framework.zend.com/zf2" target="_blank"><?php echo $this->translate('ZF2 Development Portal') ?> &raquo;</a></p>
-    </div>
+                    <h2>Utvalda produkter</h2>
+                    
+                    <input type="radio" id="tab-4" name="listformat" class="list-type" data-format="boxes">
+                    <label for="tab-4" class="list-type"></label>
+                    
+                    <input type="radio" id="tab-3" name="listformat" class="list-type" data-format="list">
+                    <label for="tab-3" class="list-type"></label>
+                    
+                    <input type="radio" id="tab-2" name="listformat" class="list-type" data-format="compressed">
+                    <label for="tab-2" class="list-type"></label>
+                    
+                    <input type="radio" id="tab-1" name="listformat" class="list-type" data-format="expanded" checked>
+                    <label for="tab-1" class="list-type"></label>
+                    
+                    <div id="do_compare">
+                        <a href="#compare">
+                        <img src="img/ui/icons/magnifying_glass.svg">
+                            <div class="item_count">
+                                <span>0</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="clear"></div>
 
-    <div class="span4">
-        <h2><?php echo $this->translate('Discover Modules') ?></h2>
-        <p><?php echo sprintf($this->translate('The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2.'), '<a href="https://github.com/zendframework/modules.zendframework.com">', '</a>') ?></p>
-        <p><a class="btn btn-success" href="http://modules.zendframework.com/" target="_blank"><?php echo $this->translate('Explore ZF2 Modules') ?> &raquo;</a></p>
-   </div>
+                    <div class="splash container single backshadow">
 
-   <div class="span4">
-       <h2><?php echo $this->translate('Help &amp; Support') ?></h2>
-       <p><?php echo sprintf($this->translate('If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk.2 on Freenode%s. We\'d love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s.'), '<a href="irc://irc.freenode.net/zftalk.2">', '</a>', '<a href="http://framework.zend.com/wiki/display/ZFDEV/Mailing+Lists">', '</a>') ?></p>
-       <p><a class="btn btn-success" href="http://webchat.freenode.net?channels=zftalk.2" target="_blank"><?php echo $this->translate('Ping us on IRC') ?> &raquo;</a></p>
-   </div>
-</div>
+                        <div class="header">
+                            
+                            <div class="icon">
+                                <img src="img/manufacturers/logos/expolinc-logo.svg" class="manufacturer icon">
+                                <img src="img/produkter/rollup_classic_large.png" class="product icon">
+                            </div>
+                            
+                            <div class="actions">
+                                <ul>
+                                    <li data-sidebar-interact='true' data-for='varukorg'>
+                                        <a href="#buy"> <img src="img/ui/icons/buy.svg"> Köp </a>
+                                        <ul class="has-children backshadow">
+                                            <li>
+                                                <a href="#buy">
+                                                    <img src="img/ui/icons/buy.svg"> 85 x 215 cm
+                                                    <div class="clear"></div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#buy">
+                                                    <img src="img/ui/icons/buy.svg"> 100 x 215 cm
+                                                    <div class="clear"></div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#buy">
+                                                    <img src="img/ui/icons/buy.svg"> 145 x 215 cm
+                                                    <div class="clear"></div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li> <a href="#add"> <img src="img/ui/icons/add_to_list.svg"> Lägg till i lista </a> </li>
+                                    <li>
+                                        <input type="checkbox" id="compare-1" name="compare-1" class="compare">
+                                        <label for="compare-1" class="compare">Jämför</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <h3>Roll-Up Classic</h3>
+                            <h4>Expolinc</h4>
+
+                            <div class="price">
+                                <p class="fran">från</p>
+                                <p class="amount">2250:-</p>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="image">
+                            <img src="img/ui/arrow_down_indicator.svg" alt="Arrow Down Indicator" class="indicator">
+                            <div class="carousel">
+                                <img src="img/produkter/rollup_classic_large.png" alt="Roll-Up Classic" class="focus">
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p>
+                                Roll Up Classic har av Föreningen Svensk Forms Opinionsnämnd fått utmärkelsen "brukskonst"!
+                            </p>
+
+                            <p>
+                                Systemet är lätt att bära med sig och är snabbt klart för en presentation.
+                            </p>
+
+                            <p>
+                                Roll Up Classic finns i flera olika bredder och är tänkt för upprepad användning i olika typer av miljöer.
+                            </p>
+                        </div>
+                        
+                        <div class="data hidden" data-id="1" data-name="Roll-Up Classic" data-icon="rollup_classic_large.png" data-manufacturer="Expolinc" data-price="2250" data-vat="25"></div>
+                    </div>
+
+                    <div class="splash container single backshadow">
+
+                        <div class="header">
+                            
+                            <div class="icon">
+                                <img src="img/manufacturers/logos/expolinc-logo.svg" class="manufacturer icon">
+                                <img src="img/produkter/rollup_professional_large.png" class="product icon">
+                            </div>
+                            
+                            <div class="actions">
+                                <ul>
+                                    <li> <a href="#buy" data-sidebar-interact='true' data-for='varukorg'> <img src="img/ui/icons/buy.svg"> Köp </a> </li>
+                                    <li> <a href="#add"> <img src="img/ui/icons/add_to_list.svg"> Lägg till i lista </a> </li>
+                                    <li>
+                                        <input type="checkbox" id="compare-2" name="compare-2" class="compare">
+                                        <label for="compare-2" class="compare">Jämför</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <h3>Roll-Up Professional</h3>
+                            <h4>Expolinc</h4>
+
+                            <div class="price">
+                                <p class="fran">från</p>
+                                <p class="amount">2430:-</p>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="image">
+                            <img src="img/ui/arrow_down_indicator.svg" alt="Arrow Down Indicator" class="indicator">
+                            <div class="carousel">
+                                <img src="img/produkter/rollup_professional_large.png" alt="Roll-Up Professional" class="focus">
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p>
+                                Roll Up Professional är ett lite exklusivare displaysystem gjort för användning vid upprepade tillfällen i alla tänkbara miljöer.
+                            </p>
+                            <p>
+                                Roll Up Professional har ännu enklare bildbyten och finns även i ett dubbelsidigt utförande.
+                            </p>
+                            <p>
+                                Ett självklart val för event- och promotionaktiviteter.
+                            </p>
+                        </div>
+                        
+                        <div class="data hidden" data-id="2" data-name="Roll-Up Professional" data-icon="rollup_professional_large.png" data-manufacturer="Expolinc" data-price="2430" data-vat="25"></div>
+                    </div>
+
+                    <div class="splash container single backshadow">
+
+                        <div class="header">
+                            
+                            <div class="icon">
+                                <img src="img/manufacturers/logos/expolinc-logo.svg" class="manufacturer icon">
+                                <img src="img/produkter/rollup_compact_large.png" class="product icon">
+                            </div>
+                            
+                            <div class="actions">
+                                <ul>
+                                    <li> <a href="#buy" data-sidebar-interact='true' data-for='varukorg'> <img src="img/ui/icons/buy.svg"> Köp </a> </li>
+                                    <li> <a href="#add"> <img src="img/ui/icons/add_to_list.svg"> Lägg till i lista </a> </li>
+                                    <li>
+                                        <input type="checkbox" id="compare-3" name="compare-3" class="compare">
+                                        <label for="compare-3" class="compare">Jämför</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <h3>Roll-Up Compact</h3>
+                            <h4>Expolinc</h4>
+
+                            <div class="price">
+                                <p class="fran">från</p>
+                                <p class="amount">1730:-</p>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="image">
+                            <img src="img/ui/arrow_down_indicator.svg" alt="Arrow Down Indicator" class="indicator">
+                            <div class="carousel">
+                                <img src="img/produkter/rollup_compact_large.png" alt="Roll-Up Compact" class="focus">
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p>
+                                Roll Up Compact är en kompakt och lätthanterlig Roll Up och de rundade hörnen och sidorna gör den behaglig att handskas med.
+                            </p>
+                            <p>
+                                Den justerbara pinnen ger stor valfrihet vid val av bildmått och gör det lätt att sätta upp systemet utan att behöva sträcka sig.
+                            </p>
+                        </div>
+                        
+                        <div class="data hidden" data-id="3" data-name="Roll-Up Compact" data-icon="rollup_compact_large.png" data-manufacturer="Expolinc" data-price="1730" data-vat="25"></div>
+                    </div>
+
+                    <div class="splash container single backshadow">
+
+                        <div class="header">
+                            
+                            <div class="icon">
+                                <img src="img/manufacturers/logos/expolinc-logo.svg" class="manufacturer icon">
+                                <img src="img/produkter/case_and_counter_large.png" class="product icon">
+                            </div>
+                            
+                            <div class="actions">
+                                <ul>
+                                    <li> <a href="#buy" data-sidebar-interact='true' data-for='varukorg'> <img src="img/ui/icons/buy.svg"> Köp </a> </li>
+                                    <li> <a href="#add"> <img src="img/ui/icons/add_to_list.svg"> Lägg till i lista </a> </li>
+                                    <li>
+                                        <input type="checkbox" id="compare-4" name="compare-4" class="compare">
+                                        <label for="compare-4" class="compare">Jämför</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <h3>Case &amp; Counter</h3>
+                            <h4>Expolinc</h4>
+
+                            <div class="price">
+                                <p class="fran">från</p>
+                                <p class="amount">4990:-</p>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="image">
+                            <img src="img/ui/arrow_down_indicator.svg" alt="Arrow Down Indicator" class="indicator">
+                            <div class="carousel">
+                                <img src="img/produkter/case_and_counter_large.png" alt="Case &amp; Counter" class="focus">
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p>
+                                Expolinc Case &amp; Counter är en rymlig transportbox som på minuten konverteras till en snygg och stabil disk.
+                            </p>
+                            <p>
+                                De mjuka, rundade hörnen på toppskivan skapar en inbjudande mötesplats samtidigt som du kan exponera ditt budskap på omslagspanelen.
+                            </p>
+                            <p>
+                                Case & Counter finns som färdiga Pop Up-paket men kan med fördel även användas för transport av andra portabla displaysystem.
+                            </p>
+                        </div>
+                        
+                        <div class="data hidden" data-id="4" data-name="Case &amp; Counter" data-icon="case_and_counter_large.png" data-manufacturer="Expolinc" data-price="4490" data-vat="25"></div>
+                    </div>

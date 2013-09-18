@@ -1,49 +1,234 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
+<html lang="sv">
     <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle('SpeedPrint 3.0 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+
+        
+        <link rel="icon" type="image/png" href="img/ui/favicon.png" />
+        
+        <link href="css/layout.css" media="screen" rel="stylesheet" type="text/css" />
+        <!--[if IE]>
+        <link href="css/ie.css" media="screen" rel="stylesheet" type="text/css" />
+        <![endif]-->
 
         <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
-                        ->prependStylesheet($this->basePath() . '/css/style.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/png', 'href' => $this->basePath() . '/img/ui/favicon.png'))
+                        ->prependStylesheet($this->basePath() . '/css/layout.css') ?>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-                                      ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
-
+        <?php echo $this->headScript()->appendFile( '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js' )
+                                      ->appendFile( '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js' )
+                                      ->appendFile($this->basePath() . 'js/jquery.transit.min.js') 
+                                      ->appendFile($this->basePath() . 'plugins/dotdotdot/jquery.dotdotdot.min.js') ?>
+        
     </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Skeleton Application') ?></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
+    <body class="preload">
+        
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=488532077849321";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        <div id="sidebar">
+            <!-- Close Button -->
+            <div class="close">
+                <a>
+                    <img src="img/ui/icons/left_arrow.svg" alt="close sidebar">
+                </a>
             </div>
+
+            <!-- Produkter -->
+            <div data-tab="products" id="products" class="content active">
+                 <h2>Produkter</h2>
+                 <ul>
+                    <li><a href="#rollup">Rollups</a></li>
+                    <li><a href="#rollup">Gatupratare</a></li>
+                    <li><a href="#rollup">Smidesskyltar</a></li>
+                    <li><a href="#rollup">Broschyrställ</a></li>
+                    <li><a href="#rollup">Diskar &amp; Podium</a></li>
+                    <li><a href="#rollup">Montersystem</a></li>
+                    <li><a href="#rollup">Banderoller</a></li>
+                    <li><a href="#rollup">Bildekor &amp; Dekaler</a></li>
+                    <li><a href="#rollup">Affischer &amp; Ramar</a></li>
+                    <li><a href="#rollup">Storformat &amp; Canvas</a></li>
+                    <li><a href="#rollup">Tillbehör</a></li>
+                    <li><a href="#rollup">Övrigt</a></li>
+                 </ul>
+            </div>
+
+            <!-- Information -->
+            <div class="content" data-tab="information" id="information">
+                 <h2>Information</h2>
+                 <ul>
+                    <li><a href="#rollup">Kundtjänst</a></li>
+                    <li><a href="#rollup">Om Oss</a></li>
+                    <li><a href="#rollup">Försäljningsvillkor</a></li>
+                    <li><a href="#rollup">Om Cookies</a></li>
+                    <li><a href="#rollup">Reklamationer</a></li>
+                    <li><a href="#rollup">Referenser</a></li>
+                 </ul>
+            </div>
+
+            <!-- Sök Produkt -->
+            <div class="content" data-tab="search">
+                 <h2>Sök Produkt</h2>
+                     <div class="elements">
+                        <input type="text" id="sidebar-search" class="search" placeholder="Sök Produkt . . ." required ></input>
+                        <a href="#clear" class="empty">
+                            <img src="img/ui/icons/close.png">
+                        </a>
+                     </div>
+            </div>
+
+            <!-- Varukorg -->
+            <div id="sidebar-cart" class="content" data-tab="varukorg">
+                 <h2>Varukorg</h2>
+                 <p>
+                     <span class="amount">10</span> Artiklar i Varukorgen
+                 </p>
+                 <table>
+                     <thead>
+                         <tr>
+                            <th class="icon"></th>
+                            <th class="name">Produkt</th>
+                            <th class="amount">Antal</th>
+                            <th class="sum">Summa</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                     </tbody>
+                     <tfoot>
+                         <tr>
+                             <td colspan="3">Rabatter: </td>
+                             <td id="sidebar-rabatter"><span>0</span> kr</td>
+                         </tr>
+                         <tr>
+                             <td colspan="3">Subtotal: </td>
+                             <td id="sidebar-subtotal"><span>0</span> kr</td>
+                         </tr>
+                         <tr>
+                             <td colspan="3">Moms: </td>
+                             <td id="sidebar-vat"><span>0</span> kr</td>
+                         </tr>
+                         <tr>
+                             <td colspan="3">Öresavrundning: </td>
+                             <td id="sidebar-rounding"><span>0</span> kr</td>
+                         </tr>
+                         <tr>
+                             <td colspan="3">Summa: </td>
+                             <td id="sidebar-total"><span>0</span> kr</td>
+                         </tr>
+                     </tfoot>
+                 </table>
+            </div>
+
+            <!-- Sociala Medier -->
+            <div class="content" data-tab="social_media" id="social_media">
+                 <h2>Facebook</h2>
+                 <div class="fb-like-box" data-href="https://www.facebook.com/StlReklam" data-width="95%" data-show-faces="true" data-header="true" data-stream="true" data-show-border="false" style="display: block; margin: 0 auto;"></div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+
+                <div class="toggle active" data-for="products">
+                    <a title="Produkter">
+                        <img src="img/ui/icons/menu.svg" alt="Produkter">
+                    </a>
+                </div>
+
+                <div class="toggle" data-for="information">
+                    <a title="Information">
+                        <img src="img/ui/icons/information.svg" alt="Information">
+                    </a>
+                </div>
+
+                <div class="toggle" data-for="varukorg">
+                    <a title="Varukorg">
+                        <div class="item_count">0</div>
+                        <img src="img/ui/icons/shopping_trolley.svg" alt="Varukorg">
+                    </a>
+                </div>
+
+                <div class="toggle" data-for="search">
+                    <a title="Sök">
+                        <img src="img/ui/icons/magnifying_glass.svg" alt="Sök">
+                    </a>
+                </div>
+
+                <div class="toggle" data-for="user_account">
+                    <a title="Användarkonto">
+                        <img src="img/ui/icons/user_account.svg" alt="Användarkonto">
+                    </a>
+                </div>
+
+                <div class="toggle" data-for="social_media">
+                    <a title="Sociala Medier">
+                        <img src="img/ui/icons/facebook.svg" alt="Sociala Medier">
+                    </a>
+                </div>
+
+            </div>
+
         </div>
-        <div class="container">
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; 2005 - 2012 by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
-        </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
+        
+        <div id="wrap">
+        
+            <div id="header_wrapper">
+                <div id="header_top_wrapper">
+                    <div id="header_top">
+                        <a href="/">
+                            <h1><img src="img/speedprint.se.svg" class="logo" alt="Speedprint.se"></h1>
+                        </a>
+                    </div>
+                </div>
+                <div id="menu_wrapper">
+                    <ul id="menu" class="backshadow">
+                        <li><a href="#produkter" data-sidebar="open" data-for="products" data-toggle="true">Produkter</a></li>
+                        <li><a href="#information" data-sidebar="open" data-for="information" data-toggle="true">Information</a></li>
+                        <li class="search">
+                            <input type="text" id="menu_search" class="search" placeholder="Sök Produkt . . ." data-sidebar="open" data-for="search" required>
+                            <a href="#clear" class="empty">
+                                <img src="img/ui/icons/close.png">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--
+                <div id="breadcumbs_wrapper">
+                    <ul id="breadcrumbs">
+                        <li>Du är Här</li>
+                        <li><a href="/">Hem</a></li>
+                    </ul>
+                </div>
+                -->
+            </div>
+
+            <div id="body_wrapper">
+                <div id="body">
+
+<?php echo $this->content; ?>
+
+                    <div class="clear"></div>
+
+                </div>
+
+                <div class="clear"></div>
+            </div>
+            
+        </div>
+        
+        <script src="js/documentReady.js"></script>
+        <?php echo $this->inlineScript($this->basePath() . 'js/documentReady.js') ?>
+        
     </body>
 </html>
