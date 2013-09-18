@@ -30,7 +30,7 @@
     <body class="preload">
         
         <div id="fb-root"></div>
-        <?php echo $this->inlineScript($this->basePath() . 'js/facebook.js') ?>
+        <?php $this->inlineScript()->appendFile($this->basePath() . 'js/facebook.js') ?>
 
         <div id="sidebar">
             <!-- Close Button -->
@@ -221,8 +221,10 @@
             
         </div>
         
-        <script src="js/documentReady.js"></script>
-        <?php echo $this->inlineScript($this->basePath() . 'js/documentReady.js') ?>
+        <?php
+            $this->inlineScript()->appendFile($this->basePath() . 'js/documentReady.js');
+            echo $this->inlineScript();
+        ?>
         
     </body>
 </html>
