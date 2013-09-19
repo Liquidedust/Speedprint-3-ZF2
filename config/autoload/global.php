@@ -10,7 +10,7 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  * 
- * Add row to include in commit
+ * Add row to include in commit again.
  */
 
 return array(
