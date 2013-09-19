@@ -3,18 +3,22 @@ IFNULL(
 	CONCAT(products.id_products, '-', product_variants.id_product_variants),
 	products.id_products
 ) as product_id,
+
 IFNULL(
 	manufacturers.name_manufacturers,
 	''
 ) as product_manufacturer,
+
 IFNULL(
 	CONCAT(products.name_products, ' ', product_variants.name_product_variants),
 	products.name_products
 ) as product_name,
+
 IFNULL(
 	product_variants.description_product_variants,
 	products.description_products
 ) as product_description,
+
 IFNULL(
 	IFNULL(
 		MIN(product_variant_bulk.product_bulk_prices),
