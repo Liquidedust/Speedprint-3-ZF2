@@ -555,7 +555,7 @@ h2 {
     }
 }
 
-#body h2 {
+#body h1 {
     float: left;
 }
 
@@ -1171,8 +1171,8 @@ h2 {
 }
 
 #body .container .image img.error {
-    max-height: 260px;
-    max-width: 260px;
+    max-height: 220px;
+    max-width: 100%;
 }
 
 #body .list-type[data-format=boxes]:checked ~ .container .image img:not(.indicator) {
