@@ -839,6 +839,7 @@ h2 {
 }
 
 @media (min-width: 1920px) {
+    /* 3 columns when screen is equal to or wider than 1920px */
     #body .list-type[data-format=boxes]:checked ~ .container {
         width: calc( ( 100% / 3 ) - 8px );
     }
