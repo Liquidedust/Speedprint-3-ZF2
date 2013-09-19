@@ -838,6 +838,23 @@ h2 {
     margin-right: 12px;
 }
 
+@media (min-width: 1920px) {
+    #body .list-type[data-format=boxes]:checked ~ .container {
+        width: calc( ( 100% / 3 ) - 8px );
+    }
+
+    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n+1),
+    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n+2) {
+        margin-right: 12px;
+        margin-left: 0px;
+    }
+    
+    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n+3) {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+}
+
 #body .container .header {
     display: block;
     height: 88px;
