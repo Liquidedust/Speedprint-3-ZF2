@@ -1,6 +1,16 @@
 <h1><?php echo $this->translate('A 404 error occurred') ?></h1>
-<h2><?php echo $this->message ?></h2>
 
+<div class="container fullsize">
+    <div class="header">
+        <h2><?php echo $this->message ?></h2>
+    </div>
+    <div class="image">
+        <img src="<?php echo $this->basePath('/img/ui/arrow_down_indicator.svg'); ?>" alt="Arrow Down Indicator" class="indicator">
+        <div class="carousel">
+            <img src="<?php echo $this->basePath('/img/ui/bkg/404.png'); ?>" alt="404" class="error focus fade-in">
+        </div>
+    </div>
+    <div class="content">
 <?php if (isset($this->reason) && $this->reason): ?>
 
 <?php
@@ -105,3 +115,5 @@ if (isset($this->controller_class)
 <?php endif ?>
 
 <?php endif ?>
+    </div>
+</div>

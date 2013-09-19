@@ -86,10 +86,17 @@ h1, h2, h3, h4, h5, h6 {
     text-transform:capitalize;
 }
 
-h2 {
+h1 {
     margin: 12px auto;
     
     font-size: 2.6em;
+    line-height: 1em;
+}
+
+h2 {
+    margin: 12px auto;
+    
+    font-size: 2.4em;
     line-height: 1em;
 }
 
@@ -1161,6 +1168,11 @@ h2 {
     max-width: 180px;
     
     opacity: 0.0;
+}
+
+#body .container .image img.error {
+    max-height: 260px;
+    max-width: 260px;
 }
 
 #body .list-type[data-format=boxes]:checked ~ .container .image img:not(.indicator) {
