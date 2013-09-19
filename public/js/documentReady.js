@@ -393,6 +393,10 @@ if( $(document).width() >= 1100 ){
     $("#sidebar").addClass("maximized");
 }
 
+if( $(document).width() <= 1099 && cookie.read("sidebar") !== 'open' ){
+    $("#sidebar").removeClass("maximized");
+}
+
 $(window).resize(function() {
     $('#sidebar').addClass('notransition');
     $("#sidebar-cart .name").dotdotdot();
