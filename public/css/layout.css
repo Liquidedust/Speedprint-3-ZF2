@@ -843,13 +843,13 @@ h2 {
         width: calc( ( 100% / 3 ) - 8px );
     }
 
-    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n+1),
-    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n+2) {
+    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n),
+    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n+1) {
         margin-right: 12px;
         margin-left: 0px;
     }
     
-    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n+3) {
+    #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n+2) {
         margin-right: 0px;
         margin-left: 0px;
     }
