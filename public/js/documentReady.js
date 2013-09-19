@@ -31,8 +31,8 @@ var cookie = new Object({
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return unescape(c.substring(nameEQ.length, c.length));
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return unescape(c.substring(nameEQ.length, c.length));
         }
         return null;
     },
@@ -78,7 +78,7 @@ var cart = new Object({
         i.replaceWith( "<input type='text' value='" + i.html() + "'>");
         parent.children('input').focus();
         parent.children('input').bind('blur keypress', function(e){
-            if( e.type == 'blur' || ( e.type == 'keypress' && e.which == 13 ) ) {
+            if( e.type === 'blur' || ( e.type === 'keypress' && e.which === 13 ) ) {
                 if( functions.isNumber( parent.children('input').val() ) ){
                     new_amount = parent.children('input').val();
                 } else {
@@ -179,7 +179,7 @@ var cart = new Object({
 
         if( product.id in cart.contents ) {
             
-            if(product.amount == 'all') {
+            if(product.amount === 'all') {
                 product.amount = cart.contents[product.id].amount;
             }
             
@@ -224,7 +224,7 @@ var cart = new Object({
 
         $.each( cart.contents, function(index,value){
             subtotal = subtotal + (value.price * value.amount);
-            vat = vat + ( value.price * value.amount * ( value.vat/100 ) )
+            vat = vat + ( value.price * value.amount * ( value.vat/100 ) );
         });
         
         if( subtotal + vat - Math.floor(subtotal + vat) > 0 ){
@@ -282,7 +282,7 @@ var cart = new Object({
             });
         });
         
-        cart.elements[id] = $("#sidebar-cart table tbody tr[data-processed=false]")
+        cart.elements[id] = $("#sidebar-cart table tbody tr[data-processed=false]");
         cart.elements[id].removeAttr("data-processed");
         
         console.log( cart.elements[id] );
@@ -347,22 +347,22 @@ function resizeDone() {
 
 function toggleSideBar(){
     if( $('#sidebar').hasClass('maximized') ) {
-        $('#sidebar').removeClass('maximized')
+        $('#sidebar').removeClass('maximized');
         cookie.create('sidebar','closed');
     } else {
-        $('#sidebar').addClass('maximized')
+        $('#sidebar').addClass('maximized');
         cookie.create('sidebar','open');
     }
 }
 
 function closeSideBar(){
     if( $('#sidebar').hasClass('maximized') ){
-        $('#sidebar').removeClass('maximized')
+        $('#sidebar').removeClass('maximized');
         cookie.create('sidebar','closed');
     }
 }
 
-if( cookie.read("sidebar") == 'open' ){
+if( cookie.read("sidebar") === 'open' ){
     $('#sidebar').addClass('notransition');
     $('#sidebar').addClass('maximized');
     $('#sidebar').height();
