@@ -9,6 +9,8 @@
  * @NOTE: In practice, this file will typically be INCLUDED in your source
  * control, so do not include passwords or other sensitive information in this
  * file.
+ * 
+ * Add row to include in commit
  */
 
 return array(
