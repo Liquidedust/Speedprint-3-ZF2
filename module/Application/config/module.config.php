@@ -58,7 +58,7 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'en_US',
+        'locale' => 'sv_SE',
         'translation_file_patterns' => array(
             array(
                 'type'     => 'gettext',

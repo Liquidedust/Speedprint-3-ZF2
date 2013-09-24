@@ -1,6 +1,6 @@
 
 
-                    <h1>Utvalda produkter</h1>
+                    <h1><?php echo $this->translate('Utvalda Produkter'); ?></h1>
                     
                     <input type="radio" id="tab-4" name="listformat" class="list-type" data-format="boxes">
                     <label for="tab-4" class="list-type"></label>
@@ -16,7 +16,7 @@
                     
                     <div id="do_compare">
                         <a href="#compare">
-                        <img src="<?php echo $this->basePath('img/ui/icons/magnifying_glass.svg'); ?>">
+                        <img src="<?php echo $this->basePath('img/ui/icons/magnifying_glass.svg') . PHP_EOL; ?>">
                             <div class="item_count">
                                 <span>0</span>
                             </div>

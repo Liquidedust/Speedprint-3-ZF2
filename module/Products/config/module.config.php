@@ -25,10 +25,10 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/[:id[/:name]]',
                             'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'name'      => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
                             ),
@@ -44,7 +44,7 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'en_US',
+        'locale' => 'sv_SE',
         'translation_file_patterns' => array(
             array(
                 'type'     => 'gettext',
