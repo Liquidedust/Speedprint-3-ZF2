@@ -6,14 +6,15 @@
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
+namespace Products;
 
 return array(
     'router' => array(
         'routes' => array(
             'products' => array(
-                'type'    => 'Literal',
+                'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/products',
+                    'route'    => '/products[/:id[/:name]]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Products\Controller',
                         'controller'    => 'Index',
@@ -21,7 +22,7 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
-                'child_routes' => array(
+                /*'child_routes' => array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -34,7 +35,7 @@ return array(
                             ),
                         ),
                     ),
-                ),
+                ),*/
             ),
         ),
     ),
@@ -69,4 +70,19 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    // Doctrine config
+    'doctrine' => array(
+        'driver' => array(
+            __NAMESPACE__ . '_driver' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                )
+            )
+        )
+    )
 );

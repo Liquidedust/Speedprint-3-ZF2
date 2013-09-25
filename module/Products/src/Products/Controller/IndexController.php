@@ -9,13 +9,35 @@
 
 namespace Products\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Zend\Mvc\Controller\AbstractActionController,
+Zend\View\Model\ViewModel,
+Doctrine\ORM\EntityManager,
+Products\Entity\Product;
 
-class IndexController extends AbstractActionController
-{
-    public function indexAction()
-    {
+class IndexController extends AbstractActionController {
+    /**             
+    * @var Doctrine\ORM\EntityManager
+    */                
+    protected $em;
+    
+    public function getEntityManager() {
+        if (null === $this->em) {
+            $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        }
+        return $this->em;
+    }
+
+    public function indexAction() {
+        $objectManager = $this->getEntityManager();
+        
+        // $product = new \Products\Entity\Product();
+        // $product->setProductName('Marco Pivetta');
+
+        // $objectManager->persist($product);
+        // $objectManager->flush();
+
+        // die(var_dump($product->getId())); // yes, I'm lazy
         return new ViewModel();
+        
     }
 }
