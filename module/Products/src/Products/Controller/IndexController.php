@@ -38,6 +38,5 @@ class IndexController extends AbstractActionController {
 
         // die(var_dump($product->getId())); // yes, I'm lazy
         return new ViewModel();
-        
     }
 }
