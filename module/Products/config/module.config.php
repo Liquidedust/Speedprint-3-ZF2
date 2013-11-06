@@ -12,30 +12,46 @@ return array(
     'router' => array(
         'routes' => array(
             'products' => array(
-                'type'    => 'Segment',
+                'type'    => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/products[/:id[/:name]]',
+                    'route'    => '/produkter',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Products\Controller',
-                        'controller'    => 'Index',
+                        'controller'    => 'Products\Controller\Index',
                         'action'        => 'index',
                     ),
                 ),
                 'may_terminate' => true,
-                /*'child_routes' => array(
-                    'default' => array(
+                'child_routes' => array(
+                    'product' => array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'    => '/[:id[/:name]]',
                             'constraints' => array(
-                                'id'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'        => '[0-9]*',
                                 'name'      => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
+                                '__NAMESPACE__' => 'Products\Controller',
+                                'controller'    => 'Product',
+                                'action'        => 'index',
                             ),
                         ),
                     ),
-                ),*/
+                    'seo' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/[:seo]',
+                            'constraints' => array(
+                                'seo'      => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Products\Controller',
+                                'controller'    => 'Seo',
+                                'action'        => 'index',
+                            ),
+                        ),
+                    ),
+                ),
             ),
         ),
     ),
@@ -56,7 +72,9 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Products\Controller\Index' => 'Products\Controller\IndexController'
+            'Products\Controller\Index'   => 'Products\Controller\IndexController',
+            'Products\Controller\Product' => 'Products\Controller\ProductController',
+            'Products\Controller\Seo'     => 'Products\Controller\SeoController',
         ),
     ),
     'view_manager' => array(

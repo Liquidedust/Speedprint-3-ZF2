@@ -12,7 +12,8 @@ namespace Products\Controller;
 use Zend\Mvc\Controller\AbstractActionController,
 Zend\View\Model\ViewModel,
 Doctrine\ORM\EntityManager,
-Products\Entity\Product;
+Products\Entity\Product,
+Exception;
 
 class IndexController extends AbstractActionController {
     /**             
