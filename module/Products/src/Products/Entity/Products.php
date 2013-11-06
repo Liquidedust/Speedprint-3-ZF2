@@ -3,7 +3,7 @@ namespace Products\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\Entity */
-class Product {
+class Products {
     /**
     * @ORM\Id
     * @ORM\GeneratedValue(strategy="AUTO")
@@ -29,8 +29,11 @@ class Product {
     /** @ORM\Column(type="integer") */
     protected $price_products;
 
-    /** @ORM\Column(type="enum") */
+    /** @ORM\Column(type="string") */
     protected $enabled_products;
+
+    /** @ORM\Column(type="string") */
+    protected $seo_products;
 
     // getters/setters
 }

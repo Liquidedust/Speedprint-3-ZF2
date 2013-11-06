@@ -30,15 +30,18 @@ class ProductController extends AbstractActionController {
 
     public function indexAction() {
         $objectManager = $this->getEntityManager();
-        
-        // $product = new \Products\Entity\Product();
-        // $product->setProductName('Marco Pivetta');
-
-        // $objectManager->persist($product);
+        $this->product = new \Products\Entity\Products();
+        $objectManager->persist($this->product);
         // $objectManager->flush();
-
-        // die(var_dump($product->getId())); // yes, I'm lazy
         
-        return new ViewModel();
+        $id = $this->params()->fromRoute('id');
+        $product = $objectManager->find('\Products\Entity\Products',$id);
+        
+        if ($product === null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+        
+        // return new ViewModel();
     }
 }

@@ -16,6 +16,9 @@ Products\Entity\Product,
 Exception;
 
 class SeoController extends AbstractActionController {
+    
+    private $product;
+    
     /**             
     * @var Doctrine\ORM\EntityManager
     */                
@@ -30,15 +33,18 @@ class SeoController extends AbstractActionController {
 
     public function indexAction() {
         $objectManager = $this->getEntityManager();
-        
-        // $product = new \Products\Entity\Product();
-        // $product->setProductName('Marco Pivetta');
-
-        // $objectManager->persist($product);
+        $this->product = new \Products\Entity\Products();
+        $objectManager->persist($this->product);
         // $objectManager->flush();
-
-        // die(var_dump($product->getId())); // yes, I'm lazy
         
-        return new ViewModel();
+        $seo_products = $this->params()->fromRoute('seo');
+        $product = $objectManager->find('\Products\Entity\Products',$seo_products);
+        
+        if ($product === null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+        
+        // return new ViewModel();
     }
 }

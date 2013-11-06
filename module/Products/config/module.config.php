@@ -78,11 +78,14 @@ return array(
         ),
     ),
     'view_manager' => array(
-        'display_not_found_reason' => true,
-        'display_exceptions'       => true,
+        'display_not_found_reason' => false,
+        'display_exceptions'       => false,
         'doctype'                  => 'HTML5',
+        'not_found_template'       => 'error/product_not_found',
         'template_map' => array(
-            'products/index/index' => __DIR__ . '/../view/products/index/index.phtml'
+            'products/index/index' => __DIR__ . '/../view/products/index/index.phtml',
+            'products/product/index' => __DIR__ . '/../view/products/product/product.phtml',
+            'products/seo/index' => __DIR__ . '/../view/products/seo/seo.phtml'
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
@@ -98,7 +101,8 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    __NAMESPACE__ . '/Entity' => __NAMESPACE__ . '_driver'
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                    // 'Products\Entity' => 'products_entities'
                 )
             )
         )
