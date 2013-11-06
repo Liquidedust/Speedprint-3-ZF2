@@ -14,6 +14,9 @@ var templates = new Object;
 var functions = new Object({
     isNumber: function(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
+    },
+    supportsTouch: function() {
+        return !!('ontouchstart' in window) || !!('msmaxtouchpoints' in window.navigator);
     }
 });
 
