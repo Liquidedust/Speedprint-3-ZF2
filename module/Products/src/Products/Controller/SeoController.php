@@ -33,12 +33,8 @@ class SeoController extends AbstractActionController {
 
     public function indexAction() {
         $objectManager = $this->getEntityManager();
-        $this->product = new \Products\Entity\Products();
-        $objectManager->persist($this->product);
-        // $objectManager->flush();
-        
-        $seo_products = $this->params()->fromRoute('seo');
-        $product = $objectManager->find('\Products\Entity\Products',$seo_products);
+        $repository = $objectManager->getRepository('\Products\Entity\Products');
+        $product = $repository->findOneBy(array('seo_products' => $this->params()->fromRoute('seo')));
         
         if ($product === null) {
             $this->getResponse()->setStatusCode(404);

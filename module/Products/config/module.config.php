@@ -25,7 +25,7 @@ return array(
                     'product' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:id[/:name]]',
+                            'route'    => '/[:id[_:name]]',
                             'constraints' => array(
                                 'id'        => '[0-9]*',
                                 'name'      => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -78,8 +78,8 @@ return array(
         ),
     ),
     'view_manager' => array(
-        'display_not_found_reason' => false,
-        'display_exceptions'       => false,
+        'display_not_found_reason' => true,
+        'display_exceptions'       => true,
         'doctype'                  => 'HTML5',
         'not_found_template'       => 'error/product_not_found',
         'template_map' => array(
