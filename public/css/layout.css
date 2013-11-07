@@ -791,8 +791,7 @@ h2 {
 /***  Content Containers  ***/
 /****************************/
 
-#body .container:not(#product) {
-    
+#body .container {
     display: block;
     position: relative;
     box-sizing: border-box;
@@ -810,9 +809,6 @@ h2 {
     padding: 12px;
     
     background-color: rgb(241, 241, 241);
-    
-    cursor: pointer;
-    
 }
 
 #body .list-type[data-format=compressed]:checked ~ .container {
@@ -1129,11 +1125,42 @@ h2 {
 }
 
 #body .container h4 {
+    line-height:20px;
+    font-size: 14px;
+    
+    color: #666;
+}
+
+#body .container ul.information,
+#body .container ul.information li {
+    list-style: none;
+    list-style-type: none;
     
     line-height:20px;
     font-size: 14px;
     
     color: #666;
+}
+
+#body .container ul.information {
+    margin: 0;
+    padding: 0;
+}
+
+#body .container ul.information li {
+    float: left;
+}
+
+#body .container ul.information li:not(:first-child) {
+    padding-left: 8px;
+}
+
+#body .container ul.information li a {
+    color: #666;
+}
+
+#body .container ul.information li a:hover {
+    color: rgb(2, 144, 208);
 }
 
 #body .container .content, #body .container .image {
@@ -2079,6 +2106,16 @@ h2 {
 #sidebar-cart tfoot tr td:last-child {
     width: 76px;
     text-align: right;
+}
+
+a {
+    transition: color 350ms ease-in-out;
+    color: rgb(217,125,50);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(2, 144, 208);
 }
 
 @keyframes pulsate {
