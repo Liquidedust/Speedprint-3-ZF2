@@ -14,7 +14,7 @@
                             <div class="actions">
                                 <ul>
                                     <li data-sidebar-interact='true' data-for='varukorg'>
-                                        <a href="#buy" class='has-children'> <img src="<?php echo $this->basePath('img/ui/icons/buy.svg'); ?>"> Köp </a>
+                                        <a href="#buy" <?php if( array_key_exists('variants', $value ) ) { ?>class='has-children'<?php } ?>> <img src="<?php echo $this->basePath('img/ui/icons/buy.svg'); ?>"> Köp </a>
                                         <div class="data hidden" data-id="<?php echo( $value['product_id'] ); ?>" data-name="<?php echo( $value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="Expolinc" data-price="<?php echo( $value['fran_price'] ); ?>" data-vat="25"></div>
                                         
                                         <?php if( array_key_exists('variants', $value ) ) { ?>
