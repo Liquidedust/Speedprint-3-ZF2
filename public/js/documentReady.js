@@ -157,7 +157,9 @@ var cart = new Object({
                 cart.count();
                 cart.value();
             } else {
-                $.get("templates/cart_item.php", function(data){
+                console.log( document.domain + "/templates/cart_item.php" );
+                
+                $.get("/templates/cart_item.php", function(data){
                     templates['cart_item'] = data;
                     var template = templates['cart_item'];
                 
@@ -524,7 +526,7 @@ $("#body > .container").mouseleave(function(){
 
 // Add items to cart
 $("#body .actions a[href=#buy]:not(.has-children)").click(function(e){
-    var data = $(this).closest('.container').find('.data');
+    var data = $(this).siblings('div.data');
     if( data.attr('data-id') in cart.contents ) {
         cart.add({id:data.attr('data-id'),amount:1});
     } else {

@@ -810,8 +810,8 @@ h2 {
     padding: 12px;
     
     background-color: rgb(241, 241, 241);
-    
-    cursor: pointer;
+    /* @TODO remove this later */
+    /* cursor: pointer; */
     
 }
 
@@ -1110,17 +1110,54 @@ h2 {
     display: block;
 }
 
-#body .container h3, #body .container h4 {
+#body .container .header ul.infomation,
+#body .container .header ul.infomation li{
+    list-style: none;
+    list-style-type: none;
+    
+    padding: 0;
+    margin: 0;
+}
+
+#body .container .header ul.infomation li {
+    float: left;
+}
+
+#body .container .header ul.infomation li:not(first-child) {
+    padding-left: 4px;
+}
+
+#body .container .header ul.infomation li a {
+    font-family: 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    
+    text-transform:capitalize;
+    line-height:20px;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+}
+
+#body .container .header ul.infomation li a:hover {
+    color: rgb(217,125,50);
+}
+
+#body .container h3, #body .container h4,
+#body .container h3 a, #body .container h4 a{
     margin: 0;
     padding: 0;
     
     text-align: left;
+    text-decoration: none;
+    color: #000;
     font-family: 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
     font-weight: normal;
     font-style: normal;
 }
 
-#body .container h3 {
+#body .container h3,
+#body .container h3 a{
     
     line-height: 26px;
     font-size: 20px;
@@ -1128,7 +1165,9 @@ h2 {
     color: #000;
 }
 
-#body .container h4 {
+#body .container h4,
+#body .container h4 a{
+    float: left;
     
     line-height:20px;
     font-size: 14px;
@@ -2314,4 +2353,12 @@ input.search:valid + a.empty.show:hover {
 .fb-like-box {
     display: block;
     width: calc(100% - 36px) !important;
+}
+
+.left {
+    float: left;
+}
+
+.block {
+    display: block;
 }

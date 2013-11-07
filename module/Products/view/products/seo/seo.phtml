@@ -1,11 +1,83 @@
 
-
-                    <h1>{Produkt} - SEO Route</h1>
                     
-                    <div id="product" class="container">
-                        <div class="image">
+                    <?php  foreach($this->resultset as $key => $value) { ?>
+                    <h1><?php echo( $value['product_name'] ); ?></h1>
+                    
+                    <div class="splash container single backshadow">
+
+                        <div class="header">
                             
+                            <div class="icon">
+                                <img src="<?php echo $this->basePath('img/manufacturers/logos/expolinc-logo.svg'); ?>" class="manufacturer icon">
+                            </div>
+                            
+                            <div class="actions">
+                                <ul>
+                                    <li data-sidebar-interact='true' data-for='varukorg'>
+                                        <a href="#buy" class='has-children'> <img src="<?php echo $this->basePath('img/ui/icons/buy.svg'); ?>"> Köp </a>
+                                        <div class="data hidden" data-id="<?php echo( $value['product_id'] ); ?>" data-name="<?php echo( $value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="Expolinc" data-price="<?php echo( $value['fran_price'] ); ?>" data-vat="25"></div>
+                                        
+                                        <?php if( array_key_exists('variants', $value ) ) { ?>
+                                        <ul class="has-children backshadow">
+                                            
+                                            <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
+                                            <li>
+                                                <a href="#buy">
+                                                    <img src="<?php echo $this->basePath('img/ui/icons/buy.svg'); ?>"> <?php echo( $v_value['product_variant'] ); ?>
+                                                    <div class="clear"></div>
+                                                </a>
+                                                <div class="data hidden" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="Expolinc" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25"></div>
+                                            </li>
+                                            <?php } ?>
+                                            
+                                        </ul>
+                                        <?php } ?>
+                                        
+                                    </li>
+                                    <li> <a href="#add"> <img src="<?php echo $this->basePath('img/ui/icons/add_to_list.svg'); ?>"> Lägg till i lista </a> </li>
+                                    <li>
+                                        <input type="checkbox" id="compare-1" name="compare-1" class="compare">
+                                        <label for="compare-1" class="compare">Jämför</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <h3><a href="<?php echo $this->basePath('/produkter/'.$value['product_seo']) . PHP_EOL; ?>" title="<?php echo( $value['product_name'] ); ?>"><?php echo( $value['product_name'] ); ?></a></h3>
+                            
+                            <ul class='infomation'>
+                                <li>
+                                    <a href="<?php echo $this->basePath('/tillverkare/expolinc') . PHP_EOL; ?>" title="Expolinc">Expolinc</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->basePath('/kategori/roll_ups') . PHP_EOL; ?>" title="Roll-Ups">Roll-Ups</a>
+                                </li>
+                            </ul>
+                            
+                            <div class="price">
+                                <p class="fran">från</p>
+                                <p class="amount"><?php echo( $value['fran_price'] ); ?>:-</p>
+                            </div>
+
+                            <div class="clear"></div>
                         </div>
+
+                        <div class="clear"></div>
+
+                        <div class="image">
+                            <img src="<?php echo $this->basePath('img/ui/arrow_down_indicator.svg'); ?>" alt="Arrow Down Indicator" class="indicator">
+                            <div class="carousel">
+                                <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="focus">
+                            </div>
+                        </div>
+
                         <div class="content">
+                            <?php
+                                $paragraphs = explode( "\r\n\r\n" , $value['product_description'] );
+                                foreach( $paragraphs  as $p_key => $p_value ){
+                                    echo( "<p>".$p_value."</p>\n\n" );
+                                }
+                            ?>
                         </div>
+                        
                     </div>
+                    <?php } ?>

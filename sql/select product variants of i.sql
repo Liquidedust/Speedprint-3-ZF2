@@ -48,6 +48,8 @@ WHERE
 products.enabled_products = 'y'
 # AND
 # products.id_products = 1
+# AND
+# products.seo_products = 'roll_up_classic'
 
 GROUP BY
 product_variants.id_product_variants,
