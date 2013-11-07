@@ -904,6 +904,10 @@ h2 {
     margin: 0px 6px;
 }
 
+#body .container.product .header div.icon {
+    display: block;
+}
+
 #body .container .header div.actions {
     transition: all 400ms ease-in-out;
     
@@ -1098,6 +1102,10 @@ h2 {
     max-width: 64px;
 }
 
+#body .container.product .header img.icon {
+    display: block;
+}
+
 #body .list-type[data-format=compressed]:checked ~ .container .header img.product {
     display: block;
 }
@@ -1135,6 +1143,11 @@ h2 {
 #body .container ul.information li {
     list-style: none;
     list-style-type: none;
+    
+    text-align: left;
+    font-family: 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
     
     line-height:20px;
     font-size: 14px;
