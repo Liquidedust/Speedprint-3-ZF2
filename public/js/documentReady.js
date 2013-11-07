@@ -525,7 +525,11 @@ $("#body > .container").mouseleave(function(){
 });
 
 // Add items to cart
+$("#body .actions a[href=#buy]").click(function(e){
+    e.preventDefault();
+});
 $("#body .actions a[href=#buy]:not(.has-children)").click(function(e){
+    e.preventDefault();
     var data = $(this).siblings('div.data');
     if( data.attr('data-id') in cart.contents ) {
         cart.add({id:data.attr('data-id'),amount:1});
