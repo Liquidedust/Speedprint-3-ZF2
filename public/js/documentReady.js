@@ -131,7 +131,8 @@ var cart = new Object({
     amount: function(i,n) {
         
     },
-    add: function(product) {
+    add: function(product,animate) {
+        
         if( product.id in cart.contents ) {
             cart.contents[product.id].amount = parseInt( cart.contents[product.id].amount + product.amount );
 
@@ -172,8 +173,8 @@ var cart = new Object({
                 for(var item in cart.contents[product.id]){
                     template = template.replace(new RegExp(":" + item, 'g'), cart.contents[product.id][item]);
                 }
-                    
-                cart.insert( template, product.id );
+        
+                cart.insert( template, product.id, animate );
                 
                 cart.animations.addItem(product.id);
                 cart.count();
@@ -190,7 +191,7 @@ var cart = new Object({
                         template = template.replace(':' + item, cart.contents[product.id][item]);
                     }
                     
-                    cart.insert( template, product.id );
+                    cart.insert( template, product.id, animate );
 
                     cart.count();
                     cart.value();
@@ -296,24 +297,34 @@ var cart = new Object({
             $item_count.html( 0 ).removeClass('items');
         }
     },
-    insert: function(template,id){
+    insert: function(template,id,animate){
+        
+        console.log( '302 => ' + animate );
         
         $("#sidebar-cart table tbody").append( $.parseHTML( template ) );
-        $("#sidebar-cart table tbody tr[data-processed=false] ").transition({
-            'height': '45px'
-        },function(){
-            $(this).removeAttr("style");
-            $(this).find('td').css({'display':'table-cell'}).transition({
-                'opacity':  '1.0'
-            }, function(){
+        
+        if(animate!==false) {
+            $("#sidebar-cart table tbody tr[data-processed=false] ").transition({
+                'height': '45px'
+            },function(){
                 $(this).removeAttr("style");
+                $(this).find('td').css({'display':'table-cell'}).transition({
+                    'opacity':  '1.0'
+                }, function(){
+                    $(this).removeAttr("style");
+                });
             });
-        });
+        } else {
+            $("#sidebar-cart table tbody tr[data-processed=false] ")
+                    .css({'height': '45px'})
+                    .removeAttr("style")
+                    .find('td')
+                    .css({'display':'table-cell','opacity':  '1.0' })
+                    .removeAttr("style");
+        }
         
         cart.elements[id] = $("#sidebar-cart table tbody tr[data-processed=false]");
         cart.elements[id].removeAttr("data-processed");
-        
-        console.log( cart.elements[id] );
         
         cart.elements[id].find(".increase_amount").click( function(){
             $this = $(this);
@@ -378,7 +389,7 @@ var cart = new Object({
                 price:          cart_cookie[key]['price'],
                 amount:         cart_cookie[key]['amount'],
                 vat:            cart_cookie[key]['vat']
-            });
+            },false);
         }
     },
 });
