@@ -13,7 +13,11 @@ products.name_products as product_name,
 IFNULL(
 	manufacturers.name_manufacturers,
 	''
-) as product_manufacturer,
+) as manufacturer,
+
+manufacturers.id_manufacturers as manufacturer_id,
+
+manufacturers.seo_manufacturers as manufacturer_seo,
 
 products.description_products as product_description,
 
@@ -66,7 +70,7 @@ IFNULL(
 IFNULL(
 	manufacturers.name_manufacturers,
 	''
-) as product_manufacturer,
+) as manufacturer,
 
 IFNULL(
 	CONCAT(products.name_products, ' ', product_variants.name_product_variants),

@@ -3,9 +3,9 @@
                     <?php  foreach($this->resultset as $key => $value) { ?>
                     <h1><?php echo( $value['product_name'] ); ?></h1>
                     
-                    <div class="splash container single backshadow product">
+                    <div class="splash container single backshadow product draggable">
 
-                        <div class="header">
+                        <div class="header drag_handle">
                             
                             <div class="icon">
                                 <img src="<?php echo $this->basePath('/img/manufacturers/logos/expolinc-logo.svg'); ?>" class="manufacturer icon">
@@ -15,7 +15,7 @@
                                 <ul>
                                     <li data-sidebar-interact='true' data-for='varukorg'>
                                         <a href="#buy" <?php if( array_key_exists('variants', $value ) ) { ?>class='has-children'<?php } ?>> <img src="<?php echo $this->basePath('img/ui/icons/buy.svg'); ?>"> Köp </a>
-                                        <div class="data hidden" data-id="<?php echo( $value['product_id'] ); ?>" data-name="<?php echo( $value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="Expolinc" data-price="<?php echo( $value['fran_price'] ); ?>" data-vat="25"></div>
+                                        <div class="data hidden" data-id="<?php echo( $value['product_id'] ); ?>" data-name="<?php echo( $value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $value['manufacturer'] ); ?>" data-price="<?php echo( $value['fran_price'] ); ?>" data-vat="25"></div>
                                         
                                         <?php if( array_key_exists('variants', $value ) ) { ?>
                                         <ul class="has-children backshadow">
@@ -26,7 +26,7 @@
                                                     <img src="<?php echo $this->basePath('img/ui/icons/buy.svg'); ?>"> <?php echo( $v_value['product_variant'] ); ?>
                                                     <div class="clear"></div>
                                                 </a>
-                                                <div class="data hidden" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="Expolinc" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25"></div>
+                                                <div class="data hidden" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25"></div>
                                             </li>
                                             <?php } ?>
                                             
@@ -46,7 +46,7 @@
                             
                             <ul class='information'>
                                 <li>
-                                    <a href="<?php echo $this->basePath('/tillverkare/expolinc') . PHP_EOL; ?>" title="Expolinc">Expolinc</a>
+                                    <a href="<?php echo $this->basePath('/tillverkare/'.$value['manufacturer_seo']) . PHP_EOL; ?>" title="<?php echo( $value['manufacturer'] ); ?>"><?php echo( $value['manufacturer'] ); ?></a>
                                 </li>
                                 <li>
                                     <a href="<?php echo $this->basePath('/kategori/roll_ups') . PHP_EOL; ?>" title="Roll-Ups">Roll-Ups</a>

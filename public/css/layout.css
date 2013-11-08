@@ -904,6 +904,10 @@ h2 {
     margin: 0px 6px;
 }
 
+#body .container .header div.icon img.icon {
+    margin: 0 auto;
+}
+
 #body .container.product .header div.icon {
     display: block;
 }
@@ -1132,6 +1136,14 @@ h2 {
     color: #000;
 }
 
+#body .container h3 a {
+    color: #000;
+}
+
+#body .container h3 a:hover {
+    color: rgb(2, 144, 208);
+}
+
 #body .container h4 {
     line-height:20px;
     font-size: 14px;
@@ -1165,7 +1177,7 @@ h2 {
 }
 
 #body .container ul.information li:not(:first-child) {
-    padding-left: 8px;
+    padding-left: 12px;
 }
 
 #body .container ul.information li a {
@@ -1851,6 +1863,14 @@ h2 {
     background-color: #f0f0f0;
 }
 
+#sidebar-cart tbody tr.addItem {
+    background-color: rgba(129, 178, 69, 0.5);
+}
+
+#sidebar-cart tbody tr.removeItem {
+    background-color: rgba(217, 125, 50, 0.5);
+}
+
 #sidebar-cart td, #sidebar-cart th {
     display: table-cell;
 }
@@ -2351,6 +2371,14 @@ input.search:valid + a.empty.show:hover {
 
 .hidden {
     display: none !important;
+}
+
+.draggable .drag_handle {
+    cursor: url(https://mail.google.com/mail/images/2/openhand.cur) 8 8, move;
+}
+
+.draggable.dragging .drag_handle {
+    cursor: url(https://mail.google.com/mail/images/2/closedhand.cur) 8 8, move;
 }
 
 #fb-root {

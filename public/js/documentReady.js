@@ -9,6 +9,7 @@ $.fn.slideFadeToggle  = function(speed, easing, callback) {
 var cart_count = 0;
 var search_timer_obj;
 var resizeTimer;
+var flag_dragging = false;//counter Chrome dragging/text selection issue
 var templates = new Object;
 
 var functions = new Object({
@@ -59,6 +60,20 @@ var cart = new Object({
             item_count_bounceDown = setTimeout(function(){
                 $("#sidebar .toggle .item_count").removeClass("bounceDown");
             }, 300);
+        },
+        addItem: function(id){
+            
+            $("#cart-product-" + id).addClass("addItem");
+            item_count_addItem = setTimeout(function(i){
+                $("#cart-product-" + id).removeClass("addItem");
+            }, 350);
+        },
+        removeItem: function(id){
+            
+            $("#cart-product-" + id).addClass("removeItem");
+            item_count_addItem = setTimeout(function(i){
+                $("#cart-product-" + id).removeClass("removeItem");
+            }, 350);
         }
     }),
     increase: function(i,n){
@@ -95,13 +110,16 @@ var cart = new Object({
                 );
                     
                 if( new_amount > old_amount ){
+                    cart.animations.addItem(product.id);
                     cart.animations.bounceUp();
                 } else if( old_amount > new_amount ) {
+                    cart.animations.removeItem(product.id);
                     cart.animations.bounceDown();
                 }
 
                 cart.count();
                 cart.value();
+                cart.to_cookie();
             
                 parent.children('span').click( function(){
                     $this = $(this);
@@ -120,6 +138,7 @@ var cart = new Object({
             $("#cart-product-" + product.id + " > td.amount > span").html(
                 cart.contents[product.id].amount
             );
+                
             $("#cart-product-" + product.id + " > td.amount > input").val(
                 cart.contents[product.id].amount
             );
@@ -127,11 +146,13 @@ var cart = new Object({
             $("#cart-product-" + product.id + " > td.sum span span").html(
                 parseInt( cart.contents[product.id].amount * cart.contents[product.id].price )
             );
-
+            
+            cart.animations.addItem(product.id);
             cart.count();
             cart.value();
         } else {
             cart.contents[product.id] = new Object({
+                id:             product.id,
                 name:           product.name,
                 icon:           product.icon,
                 manufacturer:   product.manufacturer,
@@ -153,12 +174,11 @@ var cart = new Object({
                 }
                     
                 cart.insert( template, product.id );
-
+                
+                cart.animations.addItem(product.id);
                 cart.count();
                 cart.value();
             } else {
-                console.log( document.domain + "/templates/cart_item.php" );
-                
                 $.get("/templates/cart_item.php", function(data){
                     templates['cart_item'] = data;
                     var template = templates['cart_item'];
@@ -179,6 +199,7 @@ var cart = new Object({
         }
         
         cart.animations.bounceUp();
+        cart.to_cookie();
     },
     remove: function(product){
 
@@ -214,12 +235,14 @@ var cart = new Object({
             }
         
             cart.animations.bounceDown();
+            cart.animations.removeItem(product.id);
             
         } else {
         }
 
         cart.count();
         cart.value();
+        cart.to_cookie();
     },
     value: function() {
         var subtotal = 0;
@@ -341,7 +364,23 @@ var cart = new Object({
               }
             return false;
         });
-    }
+    },
+    to_cookie: function(){
+        cookie.create('cart', JSON.stringify( cart.contents ) );
+    },
+    from_cookie: function(){
+        for( var key in cart_cookie = JSON.parse( cookie.read('cart') ) ) {
+            cart.add({
+                id:             cart_cookie[key]['id'],
+                name:           cart_cookie[key]['name'],
+                icon:           cart_cookie[key]['icon'],
+                manufacturer:   cart_cookie[key]['manufacturer'],
+                price:          cart_cookie[key]['price'],
+                amount:         cart_cookie[key]['amount'],
+                vat:            cart_cookie[key]['vat']
+            });
+        }
+    },
 });
 
 function resizeDone() {
@@ -432,6 +471,7 @@ $(window).scroll(function(){
 
 // Reset Cart on Page Load
 cart.count();
+cart.from_cookie();
 
 // Hide Page Body
 $("#body .container").addClass('no-opacity');
