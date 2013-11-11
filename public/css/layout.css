@@ -1214,14 +1214,19 @@ h2 {
     position: relative;
     
     width: 48%;
-    height: 200px;
+    min-height: 200px;
         
     margin-right: 2%;
     
 }
 
+#body .container.product .image {
+    width: calc( 100% + 25px );
+    left: -12px;
+}
+
 #body .container .carousel {
-    display: block;
+    display: table;
     height: 200px;
     width: 100%;
     overflow: hidden;
@@ -1229,16 +1234,84 @@ h2 {
     position: relative;
 }
 
-#body .container .image img:not(.indicator) {
+#body .container .carousel ul,
+#body .container .carousel li {
+    list-style: none;
+    list-style-type: none;
+    
+    margin: 0;
+    padding: 0;
+}
+
+#body .container .carousel ul {
+    transition: left 300ms ease-in-out;
+    
     display: block;
-    margin: auto;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    width: 900px;
+    overflow: hidden;
+    position: relative;
+}
+
+#body .container .carousel li {
+    display: block;
+    width: 180px;
+    height: 180px;
+    
+    position: relative;
+    float: left;
+}
+
+#body .container .carousel img {
+    transition: all 300ms ease-in-out;
+    
+    display: block;
+    margin: auto 12px;
+    position: relative;
+    margin: 0 auto;
     
     max-height: 180px;
     max-width: 180px;
     
-    opacity: 0.0;
+    opacity: 1.0;
+    
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+}
+
+#body .container .carousel img.fade-in {
+    opacity: 1.0;
+}
+
+#body .container .image div.left,
+#body .container .image div.right {
+    display: block;
+    height: 100%;
+    width: 40px;
+    z-index: 10;
+}
+
+#body .container .image div.left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    background-image: url(../img/ui/carousel/left-border.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#body .container .image div.right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    
+    background-image: url(../img/ui/carousel/right-border.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 #body .container .image img.error {
@@ -1265,9 +1338,11 @@ h2 {
 
 #body .container .content {
     display: block;
+    box-sizing: border-box;
     width: 48%;
     height: 200px;
     max-height: 198px;
+    padding: 12px;
     
     position: relative;
     
@@ -1276,8 +1351,33 @@ h2 {
     z-index: 0;
 }
 
+#body .container.product .content {
+    display: block;
+    box-sizing: border-box;
+    
+    width: calc( 100% + 25px );
+    height: auto;
+    
+    margin: -12px;
+    margin-top: 12px;
+    padding: 12px;
+    
+    border-top: 2px solid #999;
+    border-radius: 0px 0px 12px 12px;
+    
+    background: #fff;
+
+    font-family: 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    
+    line-height: 20px;
+    
+    -webkit-column-count: 2;
+    -webkit-column-gap: 20px;
+}
+
 #body .container .content p {
-    margin: 12px 0px;
+    margin: 0px 0px 20px;
     
     z-index: 0;
 }
@@ -1823,6 +1923,9 @@ h2 {
 #sidebar-cart tbody {
     display: table-row-group;
     width: 100%;
+    height: 47px;
+    max-height: 235px;
+    overflow-y: auto;
     
     position: relative;
 }
@@ -1848,6 +1951,10 @@ h2 {
     border-top: 1px solid #ccc;
     
     z-index: 1;
+}
+
+#sidebar-cart tbody tr, #sidebar-cart tbody tr td {
+    max-height: 46px;
 }
 
 #sidebar-cart tbody tr:first-child {

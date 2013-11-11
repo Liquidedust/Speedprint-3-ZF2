@@ -396,7 +396,7 @@ var cart = new Object({
 
 function resizeDone() {
     $('#sidebar').removeClass('notransition');
-    $("#body .container .content").dotdotdot();
+    $("#body .container:not(.product) .content").dotdotdot();
     $("#sidebar-cart .name").dotdotdot();
 };
 
@@ -552,7 +552,7 @@ $('.search').change(function(){
     $(this).mouseleave();
 });
 
-$("#body .container .content").dotdotdot();
+$("#body .container:not(.product) .content").dotdotdot();
 $("#sidebar-cart .name").dotdotdot();
 
 $("input[name=listformat]").change(function(){
@@ -634,12 +634,59 @@ $("#body .actions .compare").click(function(e){
 /****    Body Containers on    ****/
 /****     Document.Ready       ****/
 /**********************************/
+
+$(".carousel li").bind('click', function(){
+    $this = $(".carousel li").index( this );
+    
+    $(this).addClass('focus').children('img').attr('style', '').parent().siblings('li').removeClass('focus');
+    
+    $(this).parent().find('.focus').nextAll().each(function(i){
+        $(this).children('img').css({
+            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+            'opacity'           :   1 - ((i+1)/10)
+        });
+    });
+    
+    $(this).parent().find('.focus').prevAll().each(function(i){
+        $(this).children('img').css({
+            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+            'opacity'           :   1 - ((i+1)/10)
+        });
+    });
+    
+    $(this).closest('ul').css({
+        'left'      :       function(){
+            $x1 = $(this).closest('.image').width() / 2;
+            $x2 = $this*180;
+            $x = $x1 - $x2 - 90;
+            return $x + 'px';
+        }
+    });
+    
+});
+
 $(document).ready(function(){
+    $(".carousel").css({opacity: 0.0});
     $("body").removeClass("preload",function(){
         $('#body .container').each(function(i) {
             $(this).delay(250*i).queue(function(next){
-                $(this).addClass('fade-in').removeClass('no-opacity').find(".image img:not(.indicator)").each(function(i){
+                $(this).addClass('fade-in').removeClass('no-opacity').find(".carousel").each(function(i){
                     $(this).delay(750 + 250*i).queue(function(next){
+                        $(this).find('ul').css({
+                            'left'      :       function(){
+                                $x1 = $(this).closest('.image').width() / 2;
+                                $x = $x1 - 90;
+                                return $x + 'px';
+                            }
+                        }).find('li').eq(0).nextAll().each(function(i){
+                            $(this).children('img').css({
+                                'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+                                '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                                'opacity'           :   1 - ((i+1)/10)
+                            });
+                        });
                        $(this).addClass('fade-in');
                     });
                 });
