@@ -1,4 +1,12 @@
-
+<?php
+    $this->inlineScript()->appendFile( $this->basePath('/plugins/ldscarousel/js/jquery.ldscarousel.js') );
+    $this->headScript()->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox.js') )
+                       ->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox-thumbs.js') );
+    $this->headLink()->appendStylesheet( $this->basePath('/plugins/ldscarousel/css/jquery.ldscarousel.css') )
+                     ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox.css') )
+                     ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-buttons.css') )
+                     ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-thumbs.css') );
+?>
                     
                     <?php  foreach($this->resultset as $key => $value) { ?>
                     <h1><?php echo( $value['product_name'] ); ?></h1>
@@ -63,38 +71,55 @@
 
                         <div class="clear"></div>
 
-                        <div class="image">
+                        <div class="image carousel_wrapper">
                             <img src="<?php echo $this->basePath('img/ui/arrow_down_indicator.svg'); ?>" alt="Arrow Down Indicator" class="indicator">
-                            <div class="left"></div>
+                            
+                            <div class="prev">
+                                <a href="#prev"> <img src="/plugins/ldscarousel/img/prev-arrow.png" /> </a>
+                            </div>
+                            
                             <div class="carousel">
                                 
                                 <ul>
                                     <li>
-                                        <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="focus">
+                                        <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" data-fancybox-group="roll_up_classic_carousel" class="fancybox">
+                                            <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="focus">
+                                        </a>
                                     </li>
                                     <li>
-                                        <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="">
+                                        <a href="<?php echo $this->basePath('img/produkter/rollup_classic_mekanik.png'); ?>" data-fancybox-group="roll_up_classic_carousel" class="fancybox">
+                                            <img src="<?php echo $this->basePath('img/produkter/rollup_classic_mekanik.png'); ?>" alt="Roll-Up Classic" class="">
+                                        </a>
                                     </li>
                                     <li>
-                                        <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="">
+                                        <a href="<?php echo $this->basePath('img/produkter/rollup_classic_komponenter.png'); ?>" data-fancybox-group="roll_up_classic_carousel" class="fancybox">
+                                            <img src="<?php echo $this->basePath('img/produkter/rollup_classic_komponenter.png'); ?>" alt="Roll-Up Classic" class="">
+                                        </a>
                                     </li>
                                     <li>
-                                        <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="">
+                                        <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" data-fancybox-group="roll_up_classic_carousel" class="fancybox">
+                                            <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="">
+                                        </a>
                                     </li>
                                     <li>
-                                        <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="">
+                                        <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" data-fancybox-group="roll_up_classic_carousel" class="fancybox">
+                                            <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="">
+                                        </a>
                                     </li>
                                 </ul>
                                 
                             </div>
-                            <div class="right"></div>
+                            
+                            <div class="next">
+                                <a href="#next"> <img src="/plugins/ldscarousel/img/next-arrow.png" /> </a>
+                            </div>
                                 
-                            <div style="display:block;width:auto;margin: 0px auto;text-align:center;">
-                                <a href="#" style="display:inline-block;box-sizing: border-box;height:10px;width:10px;background-color:#999;border-radius:5px;margin-right:5px;"></a>
-                                <a href="#" style="display:inline-block;box-sizing: border-box;height:10px;width:10px;background-color:transparent;border: 2px solid #999;border-radius:5px;margin-right:5px;"></a>
-                                <a href="#" style="display:inline-block;box-sizing: border-box;height:10px;width:10px;background-color:transparent;border: 2px solid #999;border-radius:5px;margin-right:5px;"></a>
-                                <a href="#" style="display:inline-block;box-sizing: border-box;height:10px;width:10px;background-color:transparent;border: 2px solid #999;border-radius:5px;margin-right:5px;"></a>
-                                <a href="#" style="display:inline-block;box-sizing: border-box;height:10px;width:10px;background-color:transparent;border: 2px solid #999;border-radius:5px;margin-right:5px;"></a>
+                            <div class="navigation">
+                                <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" class="focus"></a>
+                                <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>"></a>
+                                <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>"></a>
+                                <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>"></a>
+                                <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>"></a>
                             </div>
                             
                         </div>

@@ -8,18 +8,18 @@
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
 
-        
         <link rel="icon" type="image/png" href="img/ui/favicon.png" />
         
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/png', 'href' => $this->basePath() . '/img/ui/favicon.png'))
-                        ->prependStylesheet( $this->basePath('/css/layout.css') ) ?>
+                        ->prependStylesheet( $this->basePath('/css/layout.css') ); ?>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()->appendFile( '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js' )
-                                      ->appendFile( '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js' )
-                                      ->appendFile( $this->basePath( 'js/jquery.transit.min.js' ) ) 
-                                      ->appendFile( $this->basePath( 'plugins/dotdotdot/jquery.dotdotdot.min.js' ) ) ?>
+        <?php echo $this->headScript()->prependFile( $this->basePath( 'js/speedprint.js' ) )
+                                      ->prependFile( $this->basePath( 'plugins/dotdotdot/jquery.dotdotdot.min.js' ) )
+                                      ->prependFile( $this->basePath( 'js/jquery.transit.min.js' ) )
+                                      ->prependFile( '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js' )
+                                      ->prependFile( '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js' )?>
         
     </head>
     <body class="preload">
@@ -218,7 +218,7 @@
         </div>
         
         <?php
-            $this->inlineScript()->appendFile($this->basePath( 'js/documentReady.js' ) );
+            $this->inlineScript()->prependFile($this->basePath( 'js/documentReady.js' ) );
             echo $this->inlineScript();
         ?>
         

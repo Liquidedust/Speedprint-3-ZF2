@@ -1282,38 +1282,6 @@ h2 {
     opacity: 1.0;
 }
 
-#body .container .image div.left,
-#body .container .image div.right {
-    display: block;
-    height: 100%;
-    width: 40px;
-    z-index: 10;
-}
-
-#body .container .image div.left {
-    position: absolute;
-    top: 0;
-    left: 0;
-    
-    background-image: url(../img/ui/carousel/left-border.png);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-#body .container .image div.right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    
-    background-image: url(../img/ui/carousel/right-border.png);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
 #body .container .image img.error {
     max-height: 220px;
     max-width: 100%;
