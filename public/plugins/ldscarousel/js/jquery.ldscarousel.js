@@ -117,6 +117,9 @@ $(".carousel_wrapper .navigation a").bind('click', function(e){
 });
 
 $(".carousel_wrapper .next a").click(function(e){
+    
+    e.preventDefault();
+    
     var $active = $(this).closest(".carousel_wrapper");
     var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
     var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
@@ -176,6 +179,9 @@ $(".carousel_wrapper .next a").click(function(e){
 });
 
 $(".carousel_wrapper .prev a").click(function(e){
+    
+    e.preventDefault();
+    
     var $active = $(this).closest(".carousel_wrapper");
     var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
     var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
