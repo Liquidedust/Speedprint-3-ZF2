@@ -235,6 +235,7 @@ $(".carousel_wrapper .prev a").click(function(e){
 });
 
 $(window).resize(function(){
+    
     $(".carousel ul").css({
         'left'      :       function(){
             var $set = $(this).children('li');
