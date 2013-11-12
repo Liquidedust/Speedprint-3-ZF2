@@ -25,7 +25,7 @@ $(".carousel_wrapper .carousel ul li a").bind('click', function(event){
     
     $($element).parent().find('.focus').nextAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -33,7 +33,7 @@ $(".carousel_wrapper .carousel ul li a").bind('click', function(event){
     
     $($element).parent().find('.focus').prevAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -81,7 +81,7 @@ $(".carousel_wrapper .navigation a").bind('click', function(e){
     
     $( $active ).find('ul li.focus').nextAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -89,7 +89,7 @@ $(".carousel_wrapper .navigation a").bind('click', function(e){
     
     $( $active ).find('ul li.focus').prevAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -140,7 +140,7 @@ $(".carousel_wrapper .next a").click(function(e){
     
     $( $active ).find('ul li.focus').nextAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -148,7 +148,7 @@ $(".carousel_wrapper .next a").click(function(e){
     
     $( $active ).find('ul li.focus').prevAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -199,7 +199,7 @@ $(".carousel_wrapper .prev a").click(function(e){
     
     $( $active ).find('ul li.focus').nextAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -207,7 +207,7 @@ $(".carousel_wrapper .prev a").click(function(e){
     
     $( $active ).find('ul li.focus').prevAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
