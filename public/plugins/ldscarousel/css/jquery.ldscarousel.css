@@ -7,12 +7,14 @@
 */
 
 .carousel_wrapper {
-    
 }
 
 .carousel_wrapper .carousel {
     display: block;
     position: relative;
+}
+
+.carousel_wrapper .carousel img {
 }
 
 .carousel_wrapper .carousel img:hover {
@@ -48,14 +50,24 @@
     
     background-color: #000;
     
-    opacity: 0.45;
+    opacity: 0.65;
+}
+.carousel_wrapper div.prev:hover:not(.inactive) a,
+.carousel_wrapper div.next:hover:not(.inactive) a {
+    opacity: 0.85;
+    transform: scale(1.25);
+    -webkit-transform: scale(1.25);
 }
 
-.carousel_wrapper div.prev a:hover,
-.carousel_wrapper div.next a:hover {
+
+.carousel_wrapper div.prev:not(.inactive) a:hover,
+.carousel_wrapper div.next:not(.inactive) a:hover {
     background-color: #0290D0;
-    opacity: 0.85;
+    opacity: 1.0;
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
 }
+
 .carousel_wrapper div.next {
     position: absolute;
     top: 0;
