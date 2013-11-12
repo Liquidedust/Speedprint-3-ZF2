@@ -394,6 +394,11 @@ var cart = new Object({
     },
 });
 
+var lds_carousel = new Object({
+    elements: new Object({}),
+    contents: new Object({})
+});
+
 function resizeDone() {
     $('#sidebar').removeClass('notransition');
     $("#body .container:not(.product) .content").dotdotdot();
@@ -665,6 +670,17 @@ $(".carousel li").bind('click', function(){
         }
     });
     
+});
+
+$(window).resize(function(){
+    $(".carousel ul").css({
+        'left'      :       function(){
+            $x1 = $(this).closest('.image').width() / 2;
+            $x2 = $this*180;
+            $x = $x1 - $x2 - 90;
+            return $x + 'px';
+        }
+    });
 });
 
 $(document).ready(function(){
