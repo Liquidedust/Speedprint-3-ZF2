@@ -1,11 +1,13 @@
 <?php
     $this->inlineScript()->appendFile( $this->basePath('/plugins/ldscarousel/js/jquery.ldscarousel.js') );
-    $this->headScript()->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox.js') )
-                       ->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox-thumbs.js') );
-    $this->headLink()->appendStylesheet( $this->basePath('/plugins/ldscarousel/css/jquery.ldscarousel.css') )
-                     ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox.css') )
+    $this->headScript()->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox-thumbs.js') )
+                       ->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox.js') );
+    
+    $this->headLink()->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox.css') )
                      ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-buttons.css') )
-                     ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-thumbs.css') );
+                     ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-thumbs.css') )
+                     ->appendStylesheet( $this->basePath('/plugins/ldscarousel/css/jquery.ldscarousel.css') )
+                     ;
 ?>
                     
                     <?php  foreach($this->resultset as $key => $value) { ?>

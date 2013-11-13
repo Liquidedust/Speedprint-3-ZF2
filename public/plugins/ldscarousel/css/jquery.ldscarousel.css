@@ -163,3 +163,85 @@
     border-color: #0290D0;
     box-shadow: 0px 0px 2px #0290D0;
 }
+
+.fancybox-skin {
+    border: none;
+}
+
+.fancybox-prev {
+    margin-left: -10px;
+}
+
+.fancybox-next {
+    margin-right: -10px;
+}
+
+.fancybox-nav {
+    overflow: hidden;
+}
+
+.fancybox-nav span {
+    transition: all 300ms ease-in-out;
+    position: absolute;
+    
+    display: block;
+    height: 60px;
+    width: 60px;
+    
+    border-radius: 30px;
+    
+    background-color: #000;
+    
+    opacity: 0.65;
+    cursor: pointer;
+    z-index: 12040;
+    visibility: visible;
+}
+
+.fancybox-next span {
+    right: -60px;
+    background-image: url('../img/next-arrow.png');
+    background-repeat: no-repeat;
+    background-position: 20% 50%;
+}
+
+.fancybox-next:hover span {
+    opacity: 0.85;
+    transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+}
+
+.fancybox-next:hover span:hover {
+    background-color: #0290D0;
+    opacity: 1.0;
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+}
+
+.fancybox-prev span {
+    left: -60px;
+    background-image: url('../img/prev-arrow.png');
+    background-repeat: no-repeat;
+    background-position: 80% 50%;
+}
+
+.fancybox-prev:hover span {
+    opacity: 0.85;
+    transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+}
+
+.fancybox-prev:hover span:hover {
+    background-color: #0290D0;
+    opacity: 1.0;
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+}
+
+.fancybox-outer:hover .fancybox-next span {
+    right: -30px !important;
+}
+
+.fancybox-outer:hover .fancybox-prev span {
+    left: -30px !important;
+}

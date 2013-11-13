@@ -25,7 +25,7 @@ $(".carousel_wrapper .carousel ul li a").bind('click', function(event){
     
     $($element).parent().find('.focus').nextAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -33,7 +33,7 @@ $(".carousel_wrapper .carousel ul li a").bind('click', function(event){
     
     $($element).parent().find('.focus').prevAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -81,7 +81,7 @@ $(".carousel_wrapper .navigation a").bind('click', function(e){
     
     $( $active ).find('ul li.focus').nextAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -89,7 +89,7 @@ $(".carousel_wrapper .navigation a").bind('click', function(e){
     
     $( $active ).find('ul li.focus').prevAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -143,7 +143,7 @@ $(".carousel_wrapper .next a").click(function(e){
     
     $( $active ).find('ul li.focus').nextAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -151,7 +151,7 @@ $(".carousel_wrapper .next a").click(function(e){
     
     $( $active ).find('ul li.focus').prevAll().each(function(i){
         $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
+            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
             '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
             'opacity'           :   1 - ((i+1)/10)
         });
@@ -256,18 +256,61 @@ $(window).resize(function(){
 });
     
 $('.fancybox').fancybox({
-    padding : 10,
-    openEffect  :   'elastic',
-    closeEffect  :  'elastic',
-    loop : false,
-    autoResize : true,
+    padding         :   10,
+    openEffect      :   'elastic',
+    openMethod      :   'zoomIn',
+    closeEffect     :   'elastic',
+    closeMethod     :   'zoomOut',
+    loop            :   false,
+    autoResize      :   true,
+    mouseWheel      :   true,
     helpers:  {
         title : {
             type : 'inside'
         },
         buttons : {
             position : 'bottom'
+        },
+        thumbs : {
+            width: 50,
+            height: 50
         }
+    },
+    // @TODO Fancybox integration beforeShow
+    beforeShow      :   function(e){
+        this.disablescroll = new Object({
+            scrollposition  :   [ self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft, self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop ],
+            html            :   jQuery('html'),
+            header_wrapper  :   jQuery('#header_wrapper')
+        });
+        this.disablescroll.html.data('scroll-position',this.disablescroll.scrollposition);
+        this.disablescroll.html.data('previous-overflow-y',this.disablescroll.html.css('overflow-y'));
+        this.disablescroll.html.data('previous-overflow-x',this.disablescroll.html.css('overflow-x'));
+        this.disablescroll.html.css('overflow', 'hidden');
+        this.disablescroll.html.css('top', '0');
+        this.disablescroll.html.css('left', '0');
+        this.disablescroll.header_wrapper.addClass('notransition').css({
+            'left'  :   function(){
+                            console.log( ( ( $(document).width() - 18 ) * 0.35).toFixed(0) + 'px' );
+                            return ( ( $(document).width() - 18 ) * 0.35).toFixed(0) + 'px';
+                        },
+            'width' :   function(){
+                            console.log( ( ( $(document).width() - 18 ) * 0.5).toFixed(0) + 'px' );
+                            return ( ( $(document).width() - 18 ) * 0.5).toFixed(0) + 'px';
+            }
+        });
+        window.scrollTo(this.disablescroll.scrollposition[0], this.disablescroll.scrollposition[1]);
+    },
+    // @TODO Fancybox integration afterClose
+    afterClose      :   function(e){
+        var html = jQuery('html');
+        var scrollPosition = this.disablescroll.html.data('scroll-position');
+        this.disablescroll.html.css('overflow-y', this.disablescroll.html.data('previous-overflow-y'));
+        this.disablescroll.html.css('overflow-x', this.disablescroll.html.data('previous-overflow-x'));
+        this.disablescroll.html.css('top', '');
+        this.disablescroll.html.css('left', '');
+        this.disablescroll.header_wrapper.css({left:'',width:''}).removeClass('notransition');
+        window.scrollTo(this.disablescroll.scrollposition[0], this.disablescroll.scrollposition[1]);
     }
 
 });
