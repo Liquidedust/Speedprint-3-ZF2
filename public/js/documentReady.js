@@ -101,11 +101,17 @@ var cart = new Object({
         parent.children('input').focus();
         parent.children('input').bind('blur keypress', function(e){
             if( e.type === 'blur' || ( e.type === 'keypress' && e.which === 13 ) ) {
+                
                 if( functions.isNumber( parent.children('input').val() ) ){
-                    new_amount = parent.children('input').val();
+                    if( parent.children('input').val() <= 0 ){
+                        new_amount = 0;
+                    } else {
+                        new_amount = parent.children('input').val();
+                    }
                 } else {
                     new_amount = old_amount;
                 }
+                
                 $(this).replaceWith("<span>" + new_amount + "</span>");
                 cart.contents[ product.id ].amount = parseInt( new_amount );
                 
@@ -119,6 +125,10 @@ var cart = new Object({
                 } else if( old_amount > new_amount ) {
                     cart.animations.removeItem(product.id);
                     cart.animations.bounceDown();
+                }
+            
+                if( parseInt( cart.contents[product.id].amount ) <= 0 ){
+                    cart.flush(product);
                 }
 
                 cart.count();
@@ -228,15 +238,7 @@ var cart = new Object({
             );
             
             if( parseInt( cart.contents[product.id].amount ) <= 0 ){
-                delete cart.contents[product.id];
-                delete cart.elements[product.id]
-                $("#cart-product-" + product.id).css({"height": "45px"}).find('td').fadeOut(function(){
-                    $("#cart-product-" + product.id).transition({
-                        'height': '0px'
-                    }, function(){
-                        $(this).remove();
-                    });
-                });
+                cart.flush(product);
             }
         
             cart.animations.bounceDown();
@@ -248,6 +250,16 @@ var cart = new Object({
         cart.count();
         cart.value();
         cart.to_cookie();
+    },
+    flush: function(product){
+        delete cart.contents[product.id];
+        $("#cart-product-" + product.id).css({"height": "45px"}).find('td').fadeOut(function(){
+            $("#cart-product-" + product.id).transition({
+                'height': '0px'
+            }, function(){
+                $(this).remove();
+            });
+        });
     },
     value: function() {
         var subtotal = 0;

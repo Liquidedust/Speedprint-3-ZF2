@@ -15,9 +15,10 @@
                         ->prependStylesheet( $this->basePath('/css/layout.css') ); ?>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()->prependFile( $this->basePath( 'plugins/dotdotdot/jquery.dotdotdot.min.js' ) )
-                                      ->prependFile( $this->basePath( 'js/jquery.transit.min.js' ) )
-                                      // ->prependFile( 'http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js' )
+        <?php echo $this->headScript()->prependFile( $this->basePath( '/plugins/dotdotdot/jquery.dotdotdot.min.js' ) )
+                                      ->prependFile( $this->basePath( '/js/jquery.transit.min.js' ) )
+                                      ->prependFile( $this->basePath( '/plugins/event.swipe/js/jquery.event.swipe.js' ) )
+                                      ->prependFile( $this->basePath( '/plugins/event.move/js/jquery.event.move.js' ) )
                                       ->prependFile( '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js' )
                                       ->prependFile( '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js' )?>
         
