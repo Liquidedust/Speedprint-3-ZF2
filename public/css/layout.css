@@ -361,6 +361,7 @@ h2 {
     display: block;
     position: relative;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     height: 60px;
     border-radius: 0px;
     padding: 0 12px;
@@ -380,6 +381,7 @@ h2 {
 #menu li a:hover {
     
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     
     background-image: url('../img/ui/bkg/menu_glass_effect.png'), url(../img/ui/bkg/menu_hover_glow.png);
     background-repeat: repeat-x, no-repeat;
@@ -1307,6 +1309,7 @@ h2 {
 #body .container .content {
     display: block;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     width: 48%;
     height: 200px;
     max-height: 198px;
@@ -1322,6 +1325,7 @@ h2 {
 #body .container.product .content {
     display: block;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     
     width: calc( 100% + 25px );
     height: auto;
@@ -1415,6 +1419,7 @@ h2 {
     
     
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     
     border-width: 1px 0px 0px 0px;
     border-style: solid;
@@ -1750,6 +1755,9 @@ h2 {
 }
 
 #sidebar h2 {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    
     display: block;
     width: auto;
     
@@ -1773,6 +1781,7 @@ h2 {
 }
 
 #sidebar li {
+    transition: all 400ms ease-in-out;
     margin: 6px 0px;
 }
 

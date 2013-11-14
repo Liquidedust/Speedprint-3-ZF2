@@ -639,6 +639,16 @@ $("#body .actions .compare").click(function(e){
     }, 100);
 });
 
+$('#sidebar li').hover(function(e){
+    $(this).siblings('li').stop(true,true).transition({
+        opacity     :       0.5
+    });
+},function(e){
+    $(this).siblings('li').stop(true,true).transition({
+        opacity     :       1.0
+    });
+});
+
 /**********************************/
 /****    Body Containers on    ****/
 /****     Document.Ready       ****/

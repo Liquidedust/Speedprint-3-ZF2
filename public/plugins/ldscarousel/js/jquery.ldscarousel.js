@@ -278,39 +278,77 @@ $('.fancybox').fancybox({
     },
     // @TODO Fancybox integration beforeShow
     beforeShow      :   function(e){
-        this.disablescroll = new Object({
+        $.fancybox.fixed = new Object({
             scrollposition  :   [ self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft, self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop ],
             html            :   jQuery('html'),
-            header_wrapper  :   jQuery('#header_wrapper')
+            header_wrapper  :   jQuery('#header_wrapper'),
+            body_wrapper    :   jQuery('#body_wrapper'),
+            sidebar         :   jQuery('#sidebar')
         });
-        this.disablescroll.html.data('scroll-position',this.disablescroll.scrollposition);
-        this.disablescroll.html.data('previous-overflow-y',this.disablescroll.html.css('overflow-y'));
-        this.disablescroll.html.data('previous-overflow-x',this.disablescroll.html.css('overflow-x'));
-        this.disablescroll.html.css('overflow', 'hidden');
-        this.disablescroll.html.css('top', '0');
-        this.disablescroll.html.css('left', '0');
-        this.disablescroll.header_wrapper.addClass('notransition').css({
-            'left'  :   function(){
-                            console.log( ( ( $(document).width() - 18 ) * 0.35).toFixed(0) + 'px' );
-                            return ( ( $(document).width() - 18 ) * 0.35).toFixed(0) + 'px';
+        $.fancybox.fixed.html.data('scroll-position',$.fancybox.fixed.scrollposition);
+        $.fancybox.fixed.html.data('previous-overflow-y',$.fancybox.fixed.html.css('overflow-y'));
+        $.fancybox.fixed.html.data('previous-overflow-x',$.fancybox.fixed.html.css('overflow-x'));
+        $.fancybox.fixed.header_wrapper.addClass('notransition').transition({
+            left    :   function(){
+                            return $("#header_wrapper").offset().left + 'px';
                         },
-            'width' :   function(){
-                            console.log( ( ( $(document).width() - 18 ) * 0.5).toFixed(0) + 'px' );
-                            return ( ( $(document).width() - 18 ) * 0.5).toFixed(0) + 'px';
-            }
+            width   :   function(){
+                            return $("#header_wrapper").width();
+                        }
+        },0,function(){
+            $.fancybox.fixed.header_wrapper.removeClass('notransition').transition({'-webkit-filter':'blur(1px) grayscale(100%)'},300,function(){
+                $.fancybox.fixed.header_wrapper.addClass('notransition');
+            });
+            $.fancybox.fixed.body_wrapper.addClass('notransition').transition({
+                'left'          :   function(){
+                                        return $("#body_wrapper").offset().left + 'px';
+                                    },
+                'width'         :   function(){
+                                        return $("#body_wrapper").width();
+                                    },
+                margin          :   0
+            },0,function(){
+                $.fancybox.fixed.body_wrapper.removeClass('notransition').transition({'-webkit-filter':'blur(1px) grayscale(100%)'},300,function(){
+                    $.fancybox.fixed.body_wrapper.addClass('notransition');
+                });
+                $.fancybox.fixed.sidebar.addClass('notransition').transition({
+                    'left'              :   function(){
+                                                return $("#sidebar").offset().left + 'px';
+                                            },
+                    'width'             :   function(){
+                                                return $("#sidebar").width();
+                                            },
+                    margin              :   0
+                },0,function(){
+                    $.fancybox.fixed.sidebar.removeClass('notransition').transition({'-webkit-filter':'blur(1px) grayscale(100%)'},300,function(){
+                        $.fancybox.fixed.sidebar.addClass('notransition');
+                    });
+                    $.fancybox.fixed.html.css('overflow', 'hidden');
+                    $.fancybox.fixed.html.css('top', '0');
+                    $.fancybox.fixed.html.css('left', '0');
+                });
+            });
         });
-        window.scrollTo(this.disablescroll.scrollposition[0], this.disablescroll.scrollposition[1]);
+        window.scrollTo($.fancybox.fixed.scrollposition[0], $.fancybox.fixed.scrollposition[1]);
     },
     // @TODO Fancybox integration afterClose
     afterClose      :   function(e){
         var html = jQuery('html');
-        var scrollPosition = this.disablescroll.html.data('scroll-position');
-        this.disablescroll.html.css('overflow-y', this.disablescroll.html.data('previous-overflow-y'));
-        this.disablescroll.html.css('overflow-x', this.disablescroll.html.data('previous-overflow-x'));
-        this.disablescroll.html.css('top', '');
-        this.disablescroll.html.css('left', '');
-        this.disablescroll.header_wrapper.css({left:'',width:''}).removeClass('notransition');
-        window.scrollTo(this.disablescroll.scrollposition[0], this.disablescroll.scrollposition[1]);
+        var scrollPosition = $.fancybox.fixed.html.data('scroll-position');
+        $.fancybox.fixed.html.css('overflow-y', $.fancybox.fixed.html.data('previous-overflow-y'));
+        $.fancybox.fixed.html.css('overflow-x', $.fancybox.fixed.html.data('previous-overflow-x'));
+        $.fancybox.fixed.html.css('top', '');
+        $.fancybox.fixed.html.css('left', '');
+        $.fancybox.fixed.header_wrapper.transition({left:'',width:'','-webkit-filter':''},0,function(){
+            $(this).removeClass('notransition')
+        });
+        $.fancybox.fixed.body_wrapper.transition({left:'',width:'','-webkit-filter':''},0,function(){
+            $(this).removeClass('notransition')
+        });
+        $.fancybox.fixed.sidebar.transition({left:'',width:'','-webkit-filter':''},0,function(){
+            $(this).removeClass('notransition')
+        });
+        window.scrollTo($.fancybox.fixed.scrollposition[0], $.fancybox.fixed.scrollposition[1]);
     }
 
 });
