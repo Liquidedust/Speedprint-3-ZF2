@@ -407,7 +407,7 @@ var cart = new Object({
                 vat:            cart_cookie[key]['vat']
             },false);
         }
-    },
+    }
 });
 
 var lds_carousel = new Object({
