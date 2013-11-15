@@ -374,9 +374,9 @@ var wrap        =   $('.carousel_wrapper'),
     i           =   slides.index(active),
     width;
 
-$(".carousel_wrapper .carousel")
+$(".carousel_wrapper")
 .on('swipeleft', function(e){
-    var $active = $(this).closest(".carousel_wrapper");
+    var $active = $(this);
     var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
     var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
     var $index = $( $active ).find(".carousel li").index( $( $active ).find('li.focus') );
@@ -433,7 +433,7 @@ $(".carousel_wrapper .carousel")
     }
 })
 .on('swiperight', function(e){
-    var $active = $(this).closest(".carousel_wrapper");
+    var $active = $(this);
     var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
     var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
     var $index = $( $active ).find(".carousel li").index( $( $active ).find('li.focus') );

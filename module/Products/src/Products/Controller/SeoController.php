@@ -69,6 +69,22 @@ class SeoController extends AbstractActionController {
                     $row['variants'] = $variants_resultset;
                 }
                 
+                // @TODO Add the prices and rebate fetching here below
+                $prices_stmt = $this->getEntityManager()
+                            ->getConnection()
+                            ->prepare( ProductStatement::PricesById() );
+                $prices_stmt->bindValue(':id',$row['product_id']);
+                $prices_stmt->execute();
+            
+                $prices_resultset = array();
+                    
+                while($prices_row = $prices_stmt->fetch()){
+                    $prices_resultset[] = $prices_row;
+                }
+
+                $row['prices'] = $prices_resultset;
+                // End of prices and rebate fetching
+                
                 $resultset[] = $row;
             }
         

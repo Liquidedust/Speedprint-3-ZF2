@@ -858,7 +858,7 @@ h2 {
 #body .container .header {
     display: block;
     height: 88px;
-    width: calc( 100% +24px );
+    width: calc( 100% + 25px );
     
     overflow: hidden;
     
@@ -875,6 +875,10 @@ h2 {
     border-radius: 12px 12px 0px 0px;
     
     background: #fff;
+}
+
+#body .container.product .header { /* For product pages */
+    margin-bottom: 0px;
 }
 
 #body .list-type[data-format=compressed]:checked ~ .container .header {
@@ -1222,9 +1226,20 @@ h2 {
     
 }
 
-#body .container.product .image {
+#body .container.product .image { /* For Product Pages */
     width: calc( 100% + 25px );
     left: -12px;
+    
+    padding: 24px 0px 36px;
+}
+
+#body .container.product .carousel_wrapper,
+#body .container.product .carousel_wrapper *{
+    -ms-user-select: none; /* IE 10+ */
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 #body .container .carousel {
@@ -1306,6 +1321,10 @@ h2 {
     z-index: 11;
 }
 
+#body .container.product .image img.indicator {
+    top: -2px;
+}
+
 #body .container .content {
     display: block;
     box-sizing: border-box;
@@ -1331,11 +1350,15 @@ h2 {
     height: auto;
     
     margin: -12px;
-    margin-top: 12px;
+    margin-top: 0px;
     padding: 12px;
     
     border-top: 2px solid #999;
     border-radius: 0px 0px 12px 12px;
+    
+    position: relative;
+    
+    overflow: visible;
     
     background: #fff;
 
@@ -1346,6 +1369,76 @@ h2 {
     
     -webkit-column-count: 2;
     -webkit-column-gap: 20px;
+}
+
+#body .container .content .content_tabs {
+    display: block;
+    height: 18px;
+    
+    position: absolute;
+    top: -27px;
+}
+
+#body .container .content .content_tabs,
+#body .container .content .content_tabs li {
+    margin: 0;
+    padding: 0;
+    
+    list-style: none;
+    list-style-type: none;
+}
+
+#body .container .content .content_tabs li {
+    transition: all 400ms ease-in-out;
+    
+    display: block;
+    float: left;
+    
+    box-sizing: border-box;
+    
+    padding: 0px;
+    margin-left: 6px;
+    
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px 5px 0px 0px;
+    border-color: rgb(153, 153, 153);
+    
+    color: #000;
+    
+    font-size: 14px;
+    
+    background: rgb(247, 247, 247);
+}
+
+#body .container .content .content_tabs li.active {
+    border-bottom: 0px;
+    
+    background: rgb(255,255,255);
+}
+
+#body .container .content .content_tabs li:hover {
+    background: rgb(255, 255, 255);
+}
+
+#body .container .content .content_tabs li a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    
+    box-sizing: border-box;
+    
+    padding: 2px 6px 1px;
+    color: #999;
+}
+
+#body .container .content .content_tabs li.active a {
+    padding-bottom: 3px;
+}
+    
+#body .container .content .content_tabs li.active a,
+#body .container .content .content_tabs li a:hover {
+    color: #000;
 }
 
 #body .container .content p {

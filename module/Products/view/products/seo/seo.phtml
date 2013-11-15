@@ -126,14 +126,47 @@
                             
                         </div>
 
+                        <div class="clear"></div>
+
                         <div class="content">
+                            
+                            <ul class="content_tabs">
+                                <li class="active">
+                                    <a href="#beskrivning">Beskrivning</a>
+                                </li>
+                                <li>
+                                    <a href="#rabatter">Mängdrabatter</a>
+                                </li>
+                                <li>
+                                    <a href="#specifikation">Specifikationer</a>
+                                </li>
+                                <li>
+                                    <a href="#tillbehor">Tillbehör</a>
+                                </li>
+                            </ul>
+                            
+                            <div id="beskrivning">
                             <?php
                                 $paragraphs = explode( "\r\n\r\n" , $value['product_description'] );
                                 foreach( $paragraphs  as $p_key => $p_value ){
                                     echo( "<p>".$p_value."</p>\n\n" );
                                 }
                             ?>
+                            </div>
+                            
+                            <div id="rabatter">
+                                <ul>
+                                    <?php foreach( $value['prices'] as $p_key => $p_value ) { ?>
+                                    <!-- @TODO Infoga Prisrabatterna för alla varianter här -->
+                                    <?php } ?>
+                                <ul>
+                            </div>
+                        
                         </div>
+
+                        <div class="clear"></div>
                         
                     </div>
+
+                    <div class="clear"></div>
                     <?php } ?>
