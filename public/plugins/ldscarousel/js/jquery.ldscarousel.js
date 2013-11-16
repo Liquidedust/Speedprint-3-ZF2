@@ -377,6 +377,7 @@ var wrap        =   $('.carousel_wrapper'),
 $(".carousel_wrapper")
 .on('swipeleft', function(e){
     var $active = $(this);
+    console.log( 'swipe : left' );
     var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
     var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
     var $index = $( $active ).find(".carousel li").index( $( $active ).find('li.focus') );
@@ -434,6 +435,7 @@ $(".carousel_wrapper")
 })
 .on('swiperight', function(e){
     var $active = $(this);
+    console.log( 'swipe : right' );
     var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
     var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
     var $index = $( $active ).find(".carousel li").index( $( $active ).find('li.focus') );
@@ -488,4 +490,8 @@ $(".carousel_wrapper")
     } else {
         $( $active ).find(".prev,.next").removeClass('inactive').blur();
     }
-})
+});
+
+$("#body .container .content .content_tabs li a").click(function(e){
+    $(this).closest('li').addClass('active').siblings('li').removeClass('active');
+});

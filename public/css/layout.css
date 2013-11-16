@@ -1230,7 +1230,7 @@ h2 {
     width: calc( 100% + 25px );
     left: -12px;
     
-    padding: 24px 0px 36px;
+    padding: 12px 0px;
 }
 
 #body .container.product .carousel_wrapper,
@@ -1352,8 +1352,9 @@ h2 {
     margin: -12px;
     margin-top: 0px;
     padding: 12px;
+    padding-top: 36px;
     
-    border-top: 2px solid #999;
+    border-top: none;
     border-radius: 0px 0px 12px 12px;
     
     position: relative;
@@ -1373,10 +1374,14 @@ h2 {
 
 #body .container .content .content_tabs {
     display: block;
-    height: 18px;
+    width: 100%;
+    height: 20px;
     
     position: absolute;
-    top: -27px;
+    top: 0px;
+    left: 0px;
+    
+    border: none;
 }
 
 #body .container .content .content_tabs,
@@ -1386,39 +1391,49 @@ h2 {
     
     list-style: none;
     list-style-type: none;
+    
+    text-align: center;
 }
 
 #body .container .content .content_tabs li {
-    transition: all 400ms ease-in-out;
-    
     display: block;
+    width: 25%;
+    
     float: left;
     
     box-sizing: border-box;
     
     padding: 0px;
-    margin-left: 6px;
     
-    border-width: 2px;
+    border-width: 0px 0px 2px;
     border-style: solid;
-    border-radius: 5px 5px 0px 0px;
     border-color: rgb(153, 153, 153);
     
     color: #000;
     
     font-size: 14px;
     
-    background: rgb(247, 247, 247);
+    background: rgb(241, 241, 241);
 }
 
 #body .container .content .content_tabs li.active {
-    border-bottom: 0px;
+    border-width: 2px 2px 0px;
+    border-radius: 5px 5px 0px 0px;
     
     background: rgb(255,255,255);
 }
 
+#body .container .content .content_tabs li:first-child.active {
+    border-width: 2px 2px 0px 0px;
+    border-radius: 0px 5px 0px 0px;
+}
+
+#body .container .content .content_tabs li:last-child.active {
+    border-width: 2px 0px 0px 2px;
+    border-radius: 5px 0px 0px 0px;
+}
+
 #body .container .content .content_tabs li:hover {
-    background: rgb(255, 255, 255);
 }
 
 #body .container .content .content_tabs li a {
@@ -1428,17 +1443,48 @@ h2 {
     
     box-sizing: border-box;
     
-    padding: 2px 6px 1px;
+    padding: 4px 0px 2px;
     color: #999;
 }
 
 #body .container .content .content_tabs li.active a {
-    padding-bottom: 3px;
+    padding: 2px 0px 4px;
+}
+
+#body .container .content .content_tabs li:first-child.active a{
+    padding-left: 2px;
+}
+
+#body .container .content .content_tabs li:last-child.active a{
+    padding-right: 2px;
 }
     
 #body .container .content .content_tabs li.active a,
 #body .container .content .content_tabs li a:hover {
     color: #000;
+}
+
+#body .container .content .content_tabs li a img {
+    display: block;
+    width: 20px;
+    height: 20px;
+    
+    margin: 0 auto;
+    
+    position: relative;
+    
+    border: none;
+    
+    filter:grayscale(100%);
+    -webkit-filter:grayscale(100%);
+    -moz-filter:grayscale(100%);
+}
+
+#body .container .content .content_tabs li.active a img,
+#body .container .content .content_tabs li a:hover img {
+    filter:grayscale(0%);
+    -webkit-filter:grayscale(0%);
+    -moz-filter:grayscale(0%);
 }
 
 #body .container .content p {

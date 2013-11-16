@@ -132,10 +132,10 @@
                             
                             <ul class="content_tabs">
                                 <li class="active">
-                                    <a href="#beskrivning">Beskrivning</a>
+                                    <a href="#beskrivning" title="Beskrivning"><img src="/img/ui/icons/menu.svg"></a>
                                 </li>
                                 <li>
-                                    <a href="#rabatter">Mängdrabatter</a>
+                                    <a href="#rabatter" title="Mängdrabatter"><img src="/img/ui/icons/rebate.svg"></a>
                                 </li>
                                 <li>
                                     <a href="#specifikation">Specifikationer</a>
@@ -145,7 +145,7 @@
                                 </li>
                             </ul>
                             
-                            <div id="beskrivning">
+                            <div id="beskrivning" class="content_data">
                             <?php
                                 $paragraphs = explode( "\r\n\r\n" , $value['product_description'] );
                                 foreach( $paragraphs  as $p_key => $p_value ){
@@ -154,7 +154,7 @@
                             ?>
                             </div>
                             
-                            <div id="rabatter">
+                            <div id="rabatter" class="content_data">
                                 <ul>
                                     <?php foreach( $value['prices'] as $p_key => $p_value ) { ?>
                                     <!-- @TODO Infoga Prisrabatterna för alla varianter här -->
