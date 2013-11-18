@@ -14,7 +14,7 @@
 ?>
                     
                     <?php  foreach($this->resultset as $key => $value) { ?>
-                    <h1><?php echo( $value['product_name'] ); ?></h1>
+                    <h1><?php echo( $value['product_name'] ) ?></h1>
                     
                     <div class="splash container single backshadow product draggable">
 
@@ -167,10 +167,7 @@
                                         <thead>
                                             <tr>
                                                 <td>
-                                                    Produkt
-                                                </td>
-                                                <td>
-                                                    Antal
+                                                    Produkt / Antal
                                                 </td>
                                                 <td>
                                                     Pris
@@ -186,7 +183,7 @@
                                                 $price_variant = $p_value['product_name'];
                                             ?>
                                             <tr class="title">
-                                                <td colspan="3">
+                                                <td colspan="2">
                                                     <h5>
                                                         <?php echo( $price_variant ); ?>
                                                     </h5>
@@ -197,7 +194,7 @@
                                                 $price_variant = $p_value['product_name'];
                                             ?>
                                             <tr class="title">
-                                                <td colspan="3">
+                                                <td colspan="2">
                                                     <h5>
                                                         <?php echo( $price_variant ); ?>
                                                     </h5>
@@ -206,9 +203,6 @@
                                             <?php
                                             } ?>
                                             <tr>
-                                                <td>
-                                                    <?php echo( $p_value['product_name'] ) ?>
-                                                </td>
                                                 <td>
                                                     <?php
                                                         if( is_null($p_value['min_amount']) && is_null($p_value['max_amount']) && $p_length >= 2 ) {
@@ -227,7 +221,7 @@
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo( $p_value['price'] ) ?>
+                                                    <?php echo( $p_value['price'] ) ?>:-
                                                 </td>
                                             </tr>
                                         <?php } ?>
