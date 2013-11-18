@@ -1331,7 +1331,6 @@ h2 {
     -moz-box-sizing: border-box;
     width: 48%;
     height: 200px;
-    max-height: 198px;
     padding: 12px;
     
     position: relative;
@@ -1342,6 +1341,8 @@ h2 {
 }
 
 #body .container.product .content {
+    transition: all 300ms ease-in-out;
+    
     display: block;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -1367,7 +1368,9 @@ h2 {
     font-size: 15px;
     
     line-height: 20px;
-    
+}
+
+#body .container.product .content #beskrivning {
     -webkit-column-count: 2;
     -webkit-column-gap: 20px;
 }

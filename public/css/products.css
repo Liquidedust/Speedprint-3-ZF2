@@ -1,0 +1,99 @@
+/* 
+    Document   : product
+    Created on : 2013-nov-18, 11:32:57
+    Author     : Stefan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#body .container.product .content .content_data {
+    display: none;
+    height: auto;
+    position: relative;
+    opacity: 0.0;
+}
+
+#body .container.product .content .content_data h4 {
+    display: block;
+    column-span: all;
+    -webkit-column-span: all;
+    
+    color: #000;
+    font-size: 20px;
+    font-weight: normal;
+    
+    margin-bottom: 12px;
+}
+
+#body .container.product .content .content_data.active {
+    display: block;
+    opacity: 1.0;
+}
+
+#body .container.product .content #rabatter table {
+    display: table;
+    width: 100%;
+    
+    border-collapse: collapse;
+    
+    border-radius: 0px 0px 5px 5px;
+    
+    font-family:'Trebuchet MS', 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+}
+
+#body .container.product .content #rabatter table tobdy,
+#body .container.product .content #rabatter table tobdy tr:last-child {
+    border-radius: 0px 0px 5px 5px;
+}
+
+#body .container.product .content #rabatter table tobdy tr:last-child td:first-child {
+    border-radius: 0px 0px 0px 5px;
+}
+
+#body .container.product .content #rabatter table tobdy tr:last-child td:last-child {
+    border-radius: 0px 0px 5px 0px;
+}
+
+#body .container.product .content #rabatter table thead {
+    font-family:'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+}
+
+#body .container.product .content #rabatter table td {
+    width: calc( 100% / 3 );
+    padding: 3px 6px;
+}
+
+#body .container.product .content #rabatter table tbody tr:not(.title):nth-child(odd) {
+    background-color: #fafafa;
+}
+
+#body .container.product .content #rabatter table tbody tr:not(.title):nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+#body .container.product .content #rabatter table tbody tr.title:not(:first-child) td {
+    padding-top: 12px;
+}
+
+#body .container.product .content #rabatter table tr td {
+    text-align: center;
+}
+
+#body .container.product .content #rabatter table tr td:first-child {
+    text-align: left;
+}
+
+#body .container.product .content #rabatter table h5 {
+    width: 100%;
+    
+    color: rgb(217,125,50);
+    
+    font-family: 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    text-align: left;
+    font-size: 12px;
+    font-weight: bold;
+    
+    text-transform: none;
+}

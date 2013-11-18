@@ -532,7 +532,9 @@ $("#sidebar .toggle > a, a[data-sidebar=open]").click(function(event){
     $("#sidebar .content").not(active_tab).transition({
         'opacity': '0.0'
     }, 400 , function(){
-
+        
+        $(this).hide();
+        
         $("#sidebar .content").not(active_tab).hide();
 
         $(active_tab).show().transition({
