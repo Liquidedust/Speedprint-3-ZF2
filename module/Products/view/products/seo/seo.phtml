@@ -111,6 +111,11 @@
                                             <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>" alt="Roll-Up Classic" class="">
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="//www.youtube.com/embed/40p-DopZBXI?rel=0&autoplay=1" data-fancybox-group="roll_up_classic_carousel" class="various fancybox" data-fancybox-type="iframe">
+                                            <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large_video.png'); ?>" alt="Roll-Up Classic" class="">
+                                        </a>
+                                    </li>
                                 </ul>
                                 
                             </div>
@@ -125,6 +130,7 @@
                                 <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>"><span></span></a>
                                 <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>"><span></span></a>
                                 <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>"><span></span></a>
+                                <a href="<?php echo $this->basePath('img/produkter/rollup_classic_large.png'); ?>"><span></span></a>
                             </div>
                             
                         </div>
@@ -134,18 +140,20 @@
                         <div class="content">
                             
                             <ul class="content_tabs">
-                                <li class="active">
+                                <li class="active" style="width: 50%;">
                                     <a href="#beskrivning" title="Beskrivning"><img src="/img/ui/icons/information.svg" alt="Beskrivning"></a>
                                 </li>
-                                <li>
+                                <li style="width: 50%;">
                                     <a href="#rabatter" title="Priser"><img src="/img/ui/icons/price.svg" alt="Priser"></a>
                                 </li>
+                                <?php if(1==2) { ?>
                                 <li>
                                     <a href="#specifikation" title="Specifikationer"><img src="/img/ui/icons/list.svg" alt="Specifikationer"></a>
                                 </li>
                                 <li>
                                     <a href="#tillbehor">Tillbehör</a>
                                 </li>
+                                <?php } ?>
                             </ul>
                             
                             <div class="content_information">
@@ -175,10 +183,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <!-- @TODO Infoga Prisrabatterna för alla varianter här -->
                                         <?php
                                         $p_length = count( $value['prices'] );
                                         foreach( $value['prices'] as $p_key => $p_value ) { ?>
-                                        <!-- @TODO Infoga Prisrabatterna för alla varianter här -->
                                             <?php if( !isset( $price_variant ) ) {
                                                 $price_variant = $p_value['product_name'];
                                             ?>

@@ -18,7 +18,7 @@ $(document).ready(function(){
         });
         
         $('#body .content .content_information').css({
-            'height'    :   $contents_data_obj[ $(".content .content_data .content_data.active").attr('id') ].height
+            'height'    :   $contents_data_obj[ $(".content .content_information .content_data.active").attr('id') ].height
         });
     });
     
@@ -43,9 +43,9 @@ $(document).ready(function(){
             $active_product_height =  $contents_data_obj[ $($active_content).filter($active_product_tab).attr('id') ].height;
         }
 
-        console.log( $current_product_height );
-        console.log( $active_product_height );
-        console.log( $($active_content).filter($active_product_tab).height() );
+        console.log( 'Current Product height (Object) : ' + $current_product_height );
+        console.log( 'Switch Product height (Object) : ' + $active_product_height );
+        console.log( 'Switch Product height (Read) : ' + $($active_content).filter($active_product_tab).height() );
 
         $($active_content).not($active_product_tab).transition({
             'opacity': '0.0'

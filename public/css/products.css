@@ -146,6 +146,7 @@
     display: block;
     column-span: all;
     -webkit-column-span: all;
+    -moz-column-span: all;
     
     color: #000;
     font-size: 20px;
