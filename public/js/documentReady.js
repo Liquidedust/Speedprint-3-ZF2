@@ -487,8 +487,8 @@ $(window).scroll(function(){
     var sticky = false;
     var top = $(window).scrollTop();
     
-    $("#header_wrapper").addClass("notransition").delay(250).removeClass("notransition",0);
-    $("#menu_wrapper").addClass("notransition").delay(250).removeClass("notransition",0);
+    $("#header_wrapper").addClass("notransition");
+    $("#menu_wrapper").addClass("notransition");
     
     if ($("#header_wrapper").offset().top <= top - offset) {
         $("#header_top a").addClass("sticky");

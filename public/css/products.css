@@ -31,11 +31,11 @@
 
 #body .container .content .content_tabs li {
     display: block;
-    width: 25%;
     
     float: left;
     
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     
     padding: 0px;
     
@@ -48,6 +48,18 @@
     font-size: 14px;
     
     background: rgb(241, 241, 241);
+}
+
+#body .container .content .content_tabs.four li {
+    width: 25%;
+}
+
+#body .container .content .content_tabs.three li {
+    width: calc( 100% / 3 );
+}
+
+#body .container .content .content_tabs.two li {
+    width: 50%;
 }
 
 #body .container .content .content_tabs li.active {
@@ -134,7 +146,7 @@
     -webkit-filter:grayscale(0%);
     -moz-filter:grayscale(0%);
 }
-
+    
 #body .container.product .content .content_data {
     display: none;
     height: auto;
@@ -143,16 +155,18 @@
 }
 
 #body .container.product .content .content_data h4 {
-    display: block;
-    column-span: all;
-    -webkit-column-span: all;
-    -moz-column-span: all;
-    
     color: #000;
     font-size: 20px;
     font-weight: normal;
     
     margin-bottom: 12px;
+}
+
+#body .container.product .content .content_data .columns_two h4 {
+    display: block;
+    column-span: all;
+    -webkit-column-span: all;
+    -moz-column-span: all;
 }
 
 #body .container.product .content .content_data.active {
