@@ -15,7 +15,13 @@ $(document).ready(function(){
         
         if( $($active_content).filter('.active').attr('id') !== $(this).attr('href').replace('#','')  ) {
         
-            var $current_height = $($active_content).filter('.active').show().height();
+            
+            if( $($active_content).filter('.active').length >= 1 ){
+                var $current_height = $($active_content).filter('.active').show().height();
+            } else {
+                var $current_height = 0;
+            }
+            
             if( $($active_content).filter( $(this).attr('href') ).length >= 1 ){
                 var $new_height = $($active_content).filter( $(this).attr('href') ).show().height();
                 $($active_content).filter( $(this).attr('href') ).hide();

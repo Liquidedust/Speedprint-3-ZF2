@@ -15,6 +15,7 @@ var search_timer_obj;
 var resizeTimer;
 var flag_dragging = false;//counter Chrome dragging/text selection issue
 var templates = new Object;
+var notransition_timeout;
 
 var functions = new Object({
     isNumber: function(n) {
@@ -490,9 +491,15 @@ $(window).scroll(function(){
     $("#header_wrapper").addClass("notransition");
     $("#menu_wrapper").addClass("notransition");
     
+    clearTimeout( notransition_timeout );
+    notransition_timeout = setTimeout(function(){
+        $("#header_wrapper").removeClass("notransition");
+        $("#menu_wrapper").removeClass("notransition");
+    },500);
+    
     if ($("#header_wrapper").offset().top <= top - offset) {
-        $("#header_top a").addClass("sticky");
-        $("#menu_wrapper").addClass("sticky");
+        $("#header_top a").removeClass("sticky_return").addClass("sticky");
+        $("#menu_wrapper").removeClass("sticky_return").addClass("sticky");
         sticky = true;
         
     } else { 
@@ -501,6 +508,9 @@ $(window).scroll(function(){
         }
         if( $("#header_top a").hasClass('sticky') ) {
             $("#header_top a").removeClass("sticky").addClass('sticky_return');
+            header_logo_transition = setTimeout(function(){
+                $("#header_top a").removeClass("sticky_return")
+            },750);
         }
     }
 });
@@ -684,7 +694,7 @@ $("#header_top a").click(function(e){
 
 $(document).ready(function(){
     $(".carousel").css({opacity: 0.0});
-    
+    $('body').removeClass('preload');
     $("body").removeClass("preload",function(){
         $('#body .container').each(function(i) {
             $(this).delay(250*i).queue(function(next){
@@ -708,6 +718,7 @@ $(document).ready(function(){
                         .closest('.carousel_wrapper').find('.prev').addClass('inactive');
                         
                         $(this).addClass('fade-in');
+                        $(".carousel").css('opacity','');
                     
                     });
                 });

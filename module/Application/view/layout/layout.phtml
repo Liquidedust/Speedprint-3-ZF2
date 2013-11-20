@@ -22,6 +22,8 @@
                                       ->prependFile( '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js' )
                                       ->prependFile( '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js' )?>
         
+        <!--[if lte IE 8]><script type="text/javascript" src="/js/no-svg.js"></script><![endif]-->
+        
     </head>
     <body class="preload">
         
@@ -157,7 +159,7 @@
 
                 <div class="toggle" data-for="user_account">
                     <a title="Användarkonto">
-                        <img src="<?php echo $this->basePath('img/ui/icons/user_account.svg'); ?>" alt="Användarkonto">
+                        <img src="<?php echo $this->basePath('img/ui/icons/user.svg'); ?>" alt="Användarkonto">
                     </a>
                 </div>
 
@@ -181,7 +183,7 @@
                                 <div class="logo_wrapper">
                                     <img src="<?php echo $this->basePath('img/speedprint.se.s.svg'); ?>" class="logo" alt="S">
                                 </div>
-                                <div class="logo_wrapper">
+                                <div class="logo_wrapper hide-overflow">
                                     <img src="<?php echo $this->basePath('img/speedprint.se.block.svg'); ?>" class="logo" alt="Speedprint.se">
                                 </div>
                             </div>
@@ -193,9 +195,8 @@
                     <ul id="menu" class="backshadow">
                         <li><a href="#produkter" data-sidebar="open" data-for="products" data-toggle="true" title="Produkter"><img src="/img/ui/icons/menu_white.svg" alt="Produkter"></a></li>
                         <li><a href="#information" data-sidebar="open" data-for="information" data-toggle="true" title="Information"><img src="/img/ui/icons/information_white.svg" alt="Information"></a></li>
-                        <li><a href="#information" data-sidebar="open" data-for="varukorg" data-toggle="true" title="Varukorg"><img src="/img/ui/icons/shopping_trolley_white.svg" alt="Varukorg"></a></li>
-                        <li><a href="#information" data-sidebar="open" data-for="user_account" data-toggle="true" title="Användarkonto"><img src="/img/ui/icons/user_account_white.svg" alt="Användarkonto"></a></li>
-                        <li><a href="#information" data-sidebar="open" data-for="social_media" data-toggle="true" title="Facebook"><img src="/img/ui/icons/facebook_white.svg" alt="Facebook"></a></li>
+                        <li><a href="#varukorg" data-sidebar="open" data-for="varukorg" data-toggle="true" title="Varukorg"><img src="/img/ui/icons/shopping_trolley_white.svg" alt="Varukorg"></a></li>
+                        <li><a href="#user_account" data-sidebar="open" data-for="user_account" data-toggle="true" title="Användarkonto"><img src="/img/ui/icons/user_white.svg" alt="Användarkonto"></a></li>
                         <li class="search">
                             <input type="text" id="menu_search" class="search" placeholder="Sök Produkt . . ." data-sidebar="open" data-for="search" required>
                             <a href="#clear" class="empty">

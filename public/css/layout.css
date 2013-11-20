@@ -196,11 +196,33 @@ h2 {
 }
 
 #header_top a.sticky {
-    -webkit-animation:logoSlideDown linear 600ms;  /* call our keyframe named fadeIn, use animation ease-in and repeat it only 1 time */
-    -moz-animation:logoSlideDown linear 600ms;
-    animation:logoSlideDown linear 600ms;
+    -webkit-animation: logoSlideDown linear 600ms;
+    -moz-animation: logoSlideDown linear 600ms;
+    -ms-animation: logoSlideDown linear 600ms;
+    animation: logoSlideDown linear 600ms;
  
-    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -webkit-animation-fill-mode:forwards;
+    -moz-animation-fill-mode:forwards;
+    -ms-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+ 
+    -webkit-animation-duration:600ms;
+    -moz-animation-duration:600ms;
+    -ms-animation-duration:600ms;
+    animation-duration:600ms;
+    
+    width: 64px;
+    
+    top: 0px;
+    z-index: 10000;
+}
+
+#header_top a.sticky_return {
+    -webkit-animation:logoSlideUp linear 600ms;
+    -moz-animation:logoSlideUp linear 600ms;
+    animation:logoSlideUp linear 600ms;
+ 
+    -webkit-animation-fill-mode:forwards;
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
  
@@ -210,7 +232,8 @@ h2 {
     
     width: 64px;
     
-    top: -100px;
+    position: absolute;
+    top: 0px;
     z-index: 10000;
 }
 
@@ -235,9 +258,21 @@ h2 {
 #header_top a.sticky div.logo {
     transform: scale(1.0) rotate(0deg);
     -webkit-transform: scale(1.0) rotate(0deg);
+    -moz-transform: scale(1.0) rotate(0deg);
     width: 64px;
     
     margin-left: 12px;
+}
+
+#header_top a.sticky_return div.logo {
+    -webkit-animation: logoRotateBack linear 600ms;
+    animation: logoRotateBack linear 600ms;
+ 
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+ 
+    -webkit-animation-duration: 600ms;
+    animation-duration: 600ms;
 }
 
 #header_top div.logo_wrapper {
@@ -265,16 +300,38 @@ h2 {
 }
 
 #header_top div.logo_wrapper:last-child {
+    width: 351px;
+    overflow: hidden;
+    
+    left: 15px;
     z-index: 9;
 }
 
-#header_top div.logo_wrapper:last-child img {
-    float: right;
+#header_top a.sticky div.logo_wrapper:last-child {
+    width: 15px;
 }
 
-#header_top a.sticky div.logo_wrapper:last-child {
+#header_top div.logo_wrapper:last-child img {
+    transition: all 300ms ease-in-out;
+    
+    position: relative;
+    left: -15px;
+}
+
+#header_top a.sticky div.logo_wrapper:last-child img {
+    position: relative;
     left: -361px;
-    opacity: 0.0;
+}
+
+#header_top a.sticky_return div.logo_wrapper:last-child img {
+    -webkit-animation: logoSlideOut linear 600ms;
+    animation: logoSlideOut linear 600ms;
+ 
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+ 
+    -webkit-animation-duration: 600ms;
+    animation-duration: 600ms;
 }
 
 #menu_wrapper {
@@ -355,7 +412,8 @@ h2 {
 }
 
 #menu {
-    transition: 300ms padding-left ease-in-out;
+    transition: padding-left 300ms ease-in-out,
+                left 300ms ease-in-out;
     
     display: block;
     position: relative;
@@ -391,6 +449,8 @@ h2 {
 }
 
 #menu_wrapper.sticky #menu {
+    padding-left: 80px;
+    
     -webkit-animation: menuSlideToRight linear 600ms;
     animation: menuSlideToRight linear 600ms;
  
@@ -413,11 +473,10 @@ h2 {
 }
 
 #menu li {
--webkit-transition: all 500ms ease-in-out;
-   -moz-transition: all 500ms ease-in-out;
-    -ms-transition: all 500ms ease-in-out;
-     -o-transition: all 500ms ease-in-out;
-        transition: all 500ms ease-in-out;
+-webkit-transition: padding-left 500ms ease-in-out;
+    -ms-transition: padding-left 500ms ease-in-out;
+     -o-transition: padding-left 500ms ease-in-out;
+        transition: padding-left 500ms ease-in-out;
     font-smoothing: subpixel-antialiased;
     transform: translate3d(0,0,0) translateZ(0);
     
@@ -930,14 +989,22 @@ h2 {
     padding: 12px;
     
     background-color: rgb(241, 241, 241);
+    
+    z-index: 1;
+}
+
+#body .container:hover {
+    z-index: 2;
 }
 
 #body .list-type[data-format=compressed]:checked ~ .container {
     height: 88px;
+    overflow: visible;
 }
 
 #body .list-type[data-format=list]:checked ~ .container {
     height: 70px;
+    overflow: visible;
 }
 
 #body .list-type[data-format=boxes]:checked ~ .container {
@@ -959,7 +1026,7 @@ h2 {
     /* 3 columns when screen is equal to or wider than 1920px */
     /* This needs to be pushed                                */
     #body .list-type[data-format=boxes]:checked ~ .container {
-        width: calc( ( 100% / 3 ) - 8px );
+        width: calc( (100% / 3) - 9px );
     }
 
     #body .list-type[data-format=boxes]:checked ~ .container:nth-child(3n),
@@ -1052,8 +1119,6 @@ h2 {
     font-family: 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
     font-size: 10px;
     line-height: 20px;
-    
-    z-index: 10;
 }
 
 #body .container .header div.actions.active-compare {
@@ -1168,11 +1233,14 @@ h2 {
     position: absolute;
     top: 30px;
     left: -50%;
-    z-index: 1;    
-    background: #fff;	
-    /* background: linear-gradient(#fff, #eee); */
+    z-index: 9999;    
+    background: #fff;
     border: 2px solid #999;
     border-radius: 0px;
+    
+    -webkit-filter: drop-shadow( 0 0 4px rgba(0,0,0,0.45) );
+    -moz-filter: drop-shadow( 0 0 4px rgba(0,0,0,0.45) );
+    filter: drop-shadow( 0 0 4px rgba(0,0,0,0.45) );
 }
 
 #body .container .header div.actions ul > li:hover > ul.has-children {
@@ -1328,6 +1396,13 @@ h2 {
     font-family: Helvetica, Arial, sans-serif;
     font-weight: normal;
     font-style: normal;
+}
+
+#body .list-type[data-format=compressed]:checked ~ .container .content,
+#body .list-type[data-format=list]:checked ~ .container .content,
+#body .list-type[data-format=compressed]:checked ~ .container .image,
+#body .list-type[data-format=list]:checked ~ .container .image {
+    display: none;
 }
 
 #body .container .image {
@@ -1894,6 +1969,7 @@ h2 {
     display: block;
     width: 100%;
     height: 100%;
+    min-width: 241px;
     
     position: absolute;
     top: 0px;
@@ -2394,27 +2470,18 @@ a:hover {
     color: rgb(2, 144, 208);
 }
 
-@keyframes pulsate {
-    0%, 100% { transform: scale(1.0); }
-    50% { transform: scale(1.2); }
-}
-@-webkit-keyframes pulsate {
-    0%, 100% { -webkit-transform: scale(1.0); }
-    50% { -webkit-transform: scale(1.2); }
-}
-@-moz-keyframes pulsate {
-    0%, 100% { -moz-transform: scale(1.0); }
-    50% { -moz-transform: scale(1.2); }
-}
+@keyframes pulsate { 0%, 100% { transform: scale(1.0); } 50% { transform: scale(1.2); } }
+@-webkit-keyframes pulsate { 0%, 100% { -webkit-transform: scale(1.0); } 50% { -webkit-transform: scale(1.2); } }
+@-moz-keyframes pulsate { 0%, 100% { -moz-transform: scale(1.0); } 50% { -moz-transform: scale(1.2); } }
 
+@keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
 @-webkit-keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
 @-moz-keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
-@keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
 
 
+@keyframes bounceUp { 0% { top: -3px; } 25% { top: -9px; } 50% { top: -3px; } 75% { top: -6px; } }
 @-webkit-keyframes bounceUp { 0% { top: -3px; } 25% { top: -9px; } 50% { top: -3px; } 75% { top: -6px; } }
 @-moz-keyframes bounceUp { 0% { top: -3px; } 25% { top: -9px; } 50% { top: -3px; } 75% { top: -6px; } }
-@keyframes bounceUp { 0% { top: -3px; } 25% { top: -9px; } 50% { top: -3px; } 75% { top: -6px; } }
 
 
 @-webkit-keyframes bounceDown { 0% { top: -3px; } 25% { top: 3px; } 50% { top: -3px; } 75% { top: 0px; } }
@@ -2443,19 +2510,35 @@ a:hover {
 @keyframes slideOut { from { left: calc( -20% + 26px) } to { left: 0% } }
 
 
-@-webkit-keyframes menuSlideToRight { 0% { padding-left: 12px; } 50% { padding-left: 80px; } 100% { padding-left: 80px; } }
-@-moz-keyframes menuSlideToRight { 0% { padding-left: 12px; } 50% { padding-left: 80px; } 100% { padding-left: 80px; } }
-@keyframes menuSlideToRight { 0% { padding-left: 12px; } 50% { padding-left: 80px; } 100% { padding-left: 80px; } }
+@-webkit-keyframes menuSlideToRight { 0% { padding-left: 12px; } 50%, 100% { padding-left: 80px; } }
+@-moz-keyframes menuSlideToRight { 0% { padding-left: 12px; } 50%, 100% { padding-left: 80px; } }
+@keyframes menuSlideToRight { 0% { padding-left: 12px; } 50%, 100% { padding-left: 80px; } }
 
 
-@-webkit-keyframes menuSlideToRightReverse { 0% { padding-left: 80px; } 50% { padding-left: 80px; } 100% { padding-left: 12px; } }
-@-moz-keyframes menuSlideToRightReverse { 0% { padding-left: 80px; } 50% { padding-left: 80px; } 100% { padding-left: 12px; } }
-@keyframes menuSlideToRightReverse { 0% { padding-left: 80px; } 50% { padding-left: 80px; } 100% { padding-left: 12px; } }
+@-webkit-keyframes menuSlideToRightReverse { 0%,50% { padding-left: 80px; } 100% { padding-left: 12px; } }
+@-moz-keyframes menuSlideToRightReverse { 0%,50% { padding-left: 80px; } 100% { padding-left: 12px; } }
+@keyframes menuSlideToRightReverse { 0%,50% { padding-left: 80px; } 100% { padding-left: 12px; } }
 
 
-@-webkit-keyframes logoSlideDown { 0% { top: -100px; } 50% { top: -100px; } 100% { top: 0px; } }
-@-moz-keyframes menuSlideToRight { 0% { top: -100px; } 50% { top: -100px; } 100% { top: 0px; } }
-@keyframes menuSlideToRight { 0% { top: -100px; } 50% { top: -100px; } 100% { top: 0px; } }
+@-webkit-keyframes logoSlideDown { 0%,50% { top: -100px; opacity: 0.0; } 100% { top: 0px; opacity: 1.0; } }
+@-moz-keyframes logoSlideDown { 0%,50% { top: -100px; opacity: 0.0; } 100% { top: 0px; opacity: 1.0; } }
+@-ms-keyframes logoSlideDown { 0%,50% { top: -100px; opacity: 0.0; } 100% { top: 0px; opacity: 1.0; } }
+@keyframes logoSlideDown { 0%,50% { top: -100px; opacity: 0.0; } 100% { top: 0px; opacity: 1.0; } }
+
+
+@-webkit-keyframes logoSlideUp { 0% { position: absolute; top: 100px; } 50%,100% { top: 0px; } }
+@-moz-keyframes logoSlideUp { 0% { position: absolute; top: 100px; } 50%,100% { top: 0px; } }
+@keyframes logoSlideUp { 0% { position: absolute; top: 100px; } 50%,100% { top: 0px; } }
+
+
+@-webkit-keyframes logoRotateBack { 0% { transform: scale(1.0) rotate(0deg); } 100% { transform: scale(1.12) rotate(-2deg); } }
+@-moz-keyframes logoRotateBack { 0% { transform: scale(1.0) rotate(0deg); } 100% { transform: scale(1.12) rotate(-2deg); } }
+@keyframes logoRotateBack { 0% { transform: scale(1.0) rotate(0deg); } 100% { transform: scale(1.12) rotate(-2deg); } }
+
+
+@-webkit-keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
+@-moz-keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
+@keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
 
 
 @media (max-width: 1330px) {
@@ -2469,12 +2552,11 @@ a:hover {
 }
 
 .fade-in {
-    opacity:0;  /* make things invisible upon start */
-    -webkit-animation:fadeIn linear 500ms;  /* call our keyframe named fadeIn, use animation ease-in and repeat it only 1 time */
+    -webkit-animation:fadeIn linear 500ms;
     -moz-animation:fadeIn linear 500ms;
     animation:fadeIn linear 500ms;
  
-    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -webkit-animation-fill-mode:forwards;
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
  
@@ -2618,7 +2700,7 @@ input.search:valid + a.empty.show:hover {
 }
 
 .preload * {
-    display: none !important;
+    display: none;
 }
 
 .sticky {

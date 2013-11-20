@@ -31,7 +31,7 @@
                                         <div class="data hidden" data-id="<?php echo( $value['product_id'] ); ?>" data-name="<?php echo( $value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $value['manufacturer'] ); ?>" data-price="<?php echo( $value['fran_price'] ); ?>" data-vat="25"></div>
                                         
                                         <?php if( array_key_exists('variants', $value ) ) { ?>
-                                        <ul class="has-children backshadow">
+                                        <ul class="has-children">
                                             
                                             <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
                                             <li>
