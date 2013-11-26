@@ -9,30 +9,24 @@ $(document).ready(function(){
         // e.preventDefault();
         
         var $content_data_wrapper = $(this).closest('.content').find('.content_information');
-        
         var $active_content = $(this).closest('.content').find('.content_data');
         var $active_product_tab = $(this).attr('href');
         
         if( $($active_content).filter('.active').attr('id') !== $(this).attr('href').replace('#','')  ) {
-        
-            
             if( $($active_content).filter('.active').length >= 1 ){
                 var $current_height = $($active_content).filter('.active').show().height();
             } else {
                 var $current_height = 0;
             }
-            
             if( $($active_content).filter( $(this).attr('href') ).length >= 1 ){
                 var $new_height = $($active_content).filter( $(this).attr('href') ).show().height();
                 $($active_content).filter( $(this).attr('href') ).hide();
             } else {
                 var $new_height = 0;
             }
-            
             $($content_data_wrapper).css({
                 height      :       $current_height
             });
-            
             $($active_content).not($active_product_tab).transition({
                 'opacity': '0.0'
             }, 400 , function(){

@@ -45,7 +45,6 @@ html, body {
 
 body {
     display: block;
-    min-width: 748px;
     
     margin: 0;
     padding: 0;
@@ -161,6 +160,17 @@ h2 {
     }
     #sidebar.maximized ~  #wrap #header_wrapper {
         left: 2%;
+    }
+}
+
+@media (max-width: 730px) {
+    #sidebar ~  #wrap #header_wrapper {
+        width: calc(100% - 90px);
+        min-width: 400px;
+        left: 50px;
+    }
+    #sidebar.maximized ~  #wrap #header_wrapper {
+        left: calc(100% - 40px);
     }
 }
 
@@ -397,6 +407,15 @@ h2 {
 }
 
 @media (max-width: 800px) {
+    #sidebar ~  #wrap #menu_wrapper.sticky {
+        left: 1%;
+    }
+    #sidebar.maximized ~  #wrap #menu_wrapper.sticky {
+        left: 2%;
+    }
+}
+
+@media (max-width: 730px) {
     #sidebar ~  #wrap #menu_wrapper.sticky {
         left: 1%;
     }
@@ -670,7 +689,7 @@ h2 {
     display: block;
     position: relative;
     width: 100%;
-    height: auto;
+    min-height: 100px;
     overflow: visible;
     margin: 0 auto;
 }
@@ -687,7 +706,7 @@ h2 {
     overflow: visible;
     margin: 172.5px auto;
     margin-left: 25%;
-    padding-bottom: 12px;
+    padding-bottom: 192px;
 }
 
 @media (min-width: 1160px) {
@@ -732,6 +751,17 @@ h2 {
     }
     #sidebar.maximized ~ #wrap #body {
         margin-left: 2%;
+    }
+}
+
+@media (max-width: 730px) {
+    #body {
+        width: calc(100% - 90px);
+        min-width: 230px;
+        margin-left: 50px;
+    }
+    #sidebar.maximized ~ #wrap #body {
+        margin-left: calc(100% - 90px);
     }
 }
 
@@ -1024,7 +1054,6 @@ h2 {
 
 @media (min-width: 1920px) {
     /* 3 columns when screen is equal to or wider than 1920px */
-    /* This needs to be pushed                                */
     #body .list-type[data-format=boxes]:checked ~ .container {
         width: calc( (100% / 3) - 9px );
     }
@@ -1639,7 +1668,8 @@ h2 {
 }
 
 #wrap {
-    min-height: 100%; 
+    height: auto;
+    min-height: 100%;
 }
 
 #footer_wrapper {
@@ -1661,11 +1691,11 @@ h2 {
     
     background: #ddd;
     
-    background-image: linear-gradient(top , #ddd 0%, #ffffff 100%);
-    background-image: -o-linear-gradient(top , #ddd 0%, #ffffff 100%);
-    background-image: -webkit-linear-gradient(top , #ddd 0%, #ffffff 100%);
-    background-image: -ms-linear-gradient(top , #ddd 0%, #ffffff 100%);
-    background-image: -webkit-gradient( linear, top, bottom, color-stop(0.0, #ddd), color-stop(1.0, #ffffff) );
+    background-image: linear-gradient(top , #aaa 0%, #000 100%);
+    background-image: -o-linear-gradient(top , #aaa 0%, #000 100%);
+    background-image: -webkit-linear-gradient(top , #aaa 0%, #000 100%);
+    background-image: -ms-linear-gradient(top , #aaa 0%, #000 100%);
+    background-image: -webkit-gradient( linear, top, bottom, color-stop(0.0, #aaa), color-stop(1.0, #000) );
 }
 
 #body #product {
@@ -1724,6 +1754,17 @@ h2 {
         width: 20%;
         min-width: 241px;
         left: -241px
+    }
+
+    #sidebar.maximized {
+        left: 0px;
+    }
+}
+
+@media (max-width: 730px) {
+    #sidebar {
+        width: calc( 100% - 90px);
+        left: calc( -100% + 90px );
     }
 
     #sidebar.maximized {
@@ -1878,7 +1919,7 @@ h2 {
     -webkit-filter: grayscale(0);
 }
 
-@media (min-width: 1160px) {
+@media (min-width: 1160px), (max-width: 730px) {
     #sidebar .tabs {
         width: 41px;
         right: -41px;

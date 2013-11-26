@@ -697,10 +697,10 @@ $(document).ready(function(){
     $('body').removeClass('preload');
     $("body").removeClass("preload",function(){
         $('#body .container').each(function(i) {
+            $(this).css({opacity:'0.0'});
             $(this).delay(250*i).queue(function(next){
                 $(this).addClass('fade-in').removeClass('no-opacity').find(".carousel").each(function(i){
                     $(this).delay(750 + 250*i).queue(function(next){
-    
                         $(".carousel_wrapper ul").css({
                             'left'      :       function(){
                                 var $x1 = $(this).closest('.carousel_wrapper').width() / 2;
@@ -719,7 +719,6 @@ $(document).ready(function(){
                         
                         $(this).addClass('fade-in');
                         $(".carousel").css('opacity','');
-                    
                     });
                 });
             });
