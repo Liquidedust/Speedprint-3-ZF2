@@ -6,6 +6,12 @@
         Purpose of the stylesheet follows.
 */
 
+#body .container .header {
+    height: auto;
+    
+    overflow:visible;
+}
+
 #body .container .price {
     position: absolute;
     display: block;
@@ -17,18 +23,15 @@
 
 #body .container .buy {
     display: block;
-    min-width: 100%;
+    width: 100%;
     
-    position: absolute;
-    display: block;
-    right: 0px;
-    bottom: 6px;
+    position: relative;
     
     float: right;
 }
 
 #body .container .buy label,
-#body .container .buy div:not(.clear),
+#body .container .buy div:not(.clear):not(.add_to_cart),
 #body .container .buy select,
 #body .container .buy option,
 #body .container .buy input,
@@ -41,7 +44,7 @@
     min-width: 24px;
     
     margin: 6px;
-    border: 2px solid rgb(153, 153, 153);
+    border: 1px solid rgb(153, 153, 153);
     border-radius: 6px;
     padding: 2px 12px;
     
@@ -57,6 +60,12 @@
     position: relative;
     
     float: right;
+}
+
+#body .container .buy select {
+    position: relative;
+    
+    float: left;
 }
 
 #body .container .buy select option:last-child {
@@ -75,7 +84,6 @@
     
     border-style: solid;
     
-    color: rgb(217, 125, 50);
     font-weight: bold;
     text-align: center;
     
@@ -154,7 +162,7 @@
 }
 
 #body .container .buy button:not(.active):hover {
-    box-shadow: rgb(217,125,50) 0px 0px 12px;
+    box-shadow: rgb(239,176,129) 0px 0px 12px;
 }
 
 #body .container .buy button.active:hover {
@@ -181,6 +189,14 @@
     
     font-size: 18px;
     line-height: 28px;
+}
+
+#body .container .buy .add_to_cart {
+    display: block;
+    
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
 }
 
 #body .container .content .content_tabs {

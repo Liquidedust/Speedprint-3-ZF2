@@ -9,9 +9,9 @@ $(document).ready(function(){
         console.log( 'amount : ' + $(this).val() );
         console.log( 'selected : ' + $(this).siblings('select option:selected').attr('data-unselected') );
         if( parseInt( $(this).val() ) >= 1 && !isNaN(parseFloat($(this).val())) && isFinite($(this).val()) ){
-            $(this).addClass('valid').siblings('button').addClass('active');
+            $(this).siblings('button').addClass('active');
         } else {
-            $(this).removeClass('valid').siblings('button').removeClass('active');
+            $(this).siblings('button').removeClass('active');
         }
     });
     

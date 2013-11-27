@@ -9,76 +9,18 @@
                      ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-buttons.css') )
                      ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-thumbs.css') )
                      ->appendStylesheet( $this->basePath('/plugins/ldscarousel/css/jquery.ldscarousel.css') )
-                     ->appendStylesheet( $this->basePath('/css/products.css') )
-                     ;
+                     ->appendStylesheet( $this->basePath('/css/products.css') );
 ?>
                     
-                    <?php  foreach($this->resultset as $key => $value) { ?>
+                    <?php
+                    foreach($this->resultset as $key => $value) {
+                    $this->headTitle()->append( $value['product_name'] );
+                    ?>
                     <h1><?php echo( $value['product_name'] ) ?></h1>
                     
                     <div class="splash container single backshadow product draggable">
 
                         <div class="header drag_handle">
-                            
-                            <div class="icon">
-                                <img src="<?php echo $this->basePath('/img/manufacturers/logos/expolinc-logo.svg'); ?>" class="manufacturer icon">
-                            </div>
-                            
-                            <!--
-                            <div class="actions">
-                                <ul>
-                                    <li data-sidebar-interact='true' data-for='varukorg'>
-                                        <a href="#buy" <?php if( array_key_exists('variants', $value ) ) { ?>class='has-children'<?php } ?>> <img src="<?php echo $this->basePath('img/ui/icons/buy.svg'); ?>"> Köp </a>
-                                        <div class="data hidden" data-id="<?php echo( $value['product_id'] ); ?>" data-name="<?php echo( $value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $value['manufacturer'] ); ?>" data-price="<?php echo( $value['fran_price'] ); ?>" data-vat="25"></div>
-                                        
-                                        <?php if( array_key_exists('variants', $value ) ) { ?>
-                                        <ul class="has-children">
-                                            
-                                            <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
-                                            <li>
-                                                <a href="#buy">
-                                                    <img src="<?php echo $this->basePath('img/ui/icons/buy.svg'); ?>"> <?php echo( $v_value['product_variant'] ); ?>
-                                                    <div class="clear"></div>
-                                                </a>
-                                                <div class="data hidden" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25"></div>
-                                            </li>
-                                            <?php } ?>
-                                            
-                                        </ul>
-                                        <?php } ?>
-                                        
-                                    </li>
-                                    <li> <a href="#add"> <img src="<?php echo $this->basePath('img/ui/icons/add_to_list.svg'); ?>"> Lägg till i lista </a> </li>
-                                    <li>
-                                        <input type="checkbox" id="compare-1" name="compare-1" class="compare">
-                                        <label for="compare-1" class="compare">Jämför</label>
-                                    </li>
-                                </ul>
-                            </div>
-                            -->
-                            
-                            <div class="buy">
-                                <?php if( array_key_exists('variants', $value ) ) { ?>
-                                <select>
-                                    <option data-unselected="true" selected="selected"> --- Vad god välj produkt i listan nedan --- </option>
-                                    <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
-                                    <option value="" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25">
-                                        <?php echo( $value['product_name'] ); ?> <?php echo( $v_value['product_variant'] ); ?> (från <?php echo( $v_value['fran_price'] ); ?>:-)
-                                    </option>
-                                    <?php } ?>
-                                </select>
-                                <?php } else { ?>
-                                <div>
-                                    <?php echo( $value['product_name'] ); ?>
-                                </div>
-                                <?php } ?>
-                                <div class="clear"></div>
-                                <button> Lägg i varukorgen </button>
-                                <input id="produkt-<?php echo( $value['product_id'] ); ?>-antal" type="text" placeholder="0" class="antal" required>
-                                <label for="produkt-<?php echo( $value['product_id'] ); ?>-antal" class="antal">Antal</label>
-                            </div>
-
-                            <h3><a href="<?php echo $this->basePath('/produkter/'.$value['product_seo']) . PHP_EOL; ?>" title="<?php echo( $value['product_name'] ); ?>"><?php echo( $value['product_name'] ); ?></a></h3>
                             
                             <ul class='information'>
                                 <li>
@@ -88,6 +30,34 @@
                                     <a href="<?php echo $this->basePath('/kategori/roll_ups') . PHP_EOL; ?>" title="Roll-Ups">Roll-Ups</a>
                                 </li>
                             </ul>
+                            
+                            <div class="clear"></div>
+                            
+                            <div class="buy">
+                                
+                                <div class="add_to_cart">
+                                    <button> Lägg i varukorgen </button>
+                                    <input id="produkt-<?php echo( $value['product_id'] ); ?>-antal" type="text" placeholder="0" class="antal" required>
+                                    <label for="produkt-<?php echo( $value['product_id'] ); ?>-antal" class="antal">Antal</label>
+                                </div>
+                                
+                                <?php if( array_key_exists('variants', $value ) ) { ?>
+                                <select>
+                                    <option data-unselected="true" selected="selected"> -- Alternativ -- </option>
+                                    <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
+                                    <option value="" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25">
+                                        <?php echo( $v_value['product_variant'] ); ?> (från <?php echo( $v_value['fran_price'] ); ?>:-)
+                                    </option>
+                                    <?php } ?>
+                                </select>
+                                <?php } else { ?>
+                                <div>
+                                    <?php echo( $value['product_name'] ); ?>
+                                </div>
+                                <?php } ?>
+                                
+                                <div class="clear"></div>
+                            </div>
                             
                             <!--
                             <div class="price">
