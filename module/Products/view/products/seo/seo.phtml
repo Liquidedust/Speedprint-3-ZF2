@@ -24,6 +24,7 @@
                                 <img src="<?php echo $this->basePath('/img/manufacturers/logos/expolinc-logo.svg'); ?>" class="manufacturer icon">
                             </div>
                             
+                            <!--
                             <div class="actions">
                                 <ul>
                                     <li data-sidebar-interact='true' data-for='varukorg'>
@@ -54,6 +55,28 @@
                                     </li>
                                 </ul>
                             </div>
+                            -->
+                            
+                            <div class="buy">
+                                <?php if( array_key_exists('variants', $value ) ) { ?>
+                                <select>
+                                    <option data-unselected="true" selected="selected"> --- Vad god välj produkt i listan nedan --- </option>
+                                    <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
+                                    <option value="" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25">
+                                        <?php echo( $value['product_name'] ); ?> <?php echo( $v_value['product_variant'] ); ?> (från <?php echo( $v_value['fran_price'] ); ?>:-)
+                                    </option>
+                                    <?php } ?>
+                                </select>
+                                <?php } else { ?>
+                                <div>
+                                    <?php echo( $value['product_name'] ); ?>
+                                </div>
+                                <?php } ?>
+                                <div class="clear"></div>
+                                <button> Lägg i varukorgen </button>
+                                <input id="produkt-<?php echo( $value['product_id'] ); ?>-antal" type="text" placeholder="0" class="antal" required>
+                                <label for="produkt-<?php echo( $value['product_id'] ); ?>-antal" class="antal">Antal</label>
+                            </div>
 
                             <h3><a href="<?php echo $this->basePath('/produkter/'.$value['product_seo']) . PHP_EOL; ?>" title="<?php echo( $value['product_name'] ); ?>"><?php echo( $value['product_name'] ); ?></a></h3>
                             
@@ -66,10 +89,12 @@
                                 </li>
                             </ul>
                             
+                            <!--
                             <div class="price">
                                 <p class="fran">från</p>
                                 <p class="amount"><?php echo( $value['fran_price'] ); ?>:-</p>
                             </div>
+                            -->
 
                             <div class="clear"></div>
                         </div>
@@ -139,15 +164,12 @@
 
                         <div class="content">
                             
-                            <ul class="content_tabs four">
+                            <ul class="content_tabs three">
                                 <li class="active">
                                     <a href="#beskrivning" title="Beskrivning"><img src="/img/ui/icons/information.svg" alt="Beskrivning"></a>
                                 </li>
                                 <li>
                                     <a href="#rabatter" title="Priser"><img src="/img/ui/icons/price.svg" alt="Priser"></a>
-                                </li>
-                                <li>
-                                    <a href="#specifikation" title="Specifikationer"><img src="/img/ui/icons/list.svg" alt="Specifikationer"></a>
                                 </li>
                                 <li>
                                     <a href="#tillbehor" title="Tillbehör"><img src="/img/ui/icons/additionals.svg" alt="Tillbehör"></a>
@@ -157,13 +179,16 @@
                             <div class="content_information">
                                 <div id="beskrivning" class="content_data active">
                                     <div class="columns_two">
-                                    <h4>Beskrivning</h4>
-                                    <?php
-                                        $paragraphs = explode( "\r\n\r\n" , $value['product_description'] );
-                                        foreach( $paragraphs  as $p_key => $p_value ){
-                                            echo( "<p>".$p_value."</p>\n\n" );
-                                        }
-                                    ?>
+                                        <h4>Beskrivning</h4>
+                                        <?php
+                                            $paragraphs = explode( "\r\n\r\n" , $value['product_description'] );
+                                            foreach( $paragraphs  as $p_key => $p_value ){
+                                                echo( "<p>".$p_value."</p>\n\n" );
+                                            }
+                                        ?>
+                                    </div>
+                                    <div>
+                                        <h4>Specifikationer</h4>
                                     </div>
                                 </div>
 
