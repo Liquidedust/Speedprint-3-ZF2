@@ -1374,7 +1374,9 @@ h2 {
 }
 
 #body .container ul.information,
-#body .container ul.information li {
+#body > ul.information,
+#body .container ul.information li,
+#body > ul.information li {
     list-style: none;
     list-style-type: none;
     
@@ -1389,24 +1391,35 @@ h2 {
     color: #666;
 }
 
-#body .container ul.information {
+#body .container ul.information,
+#body > ul.information {
+    display: inline-block;
+    
     margin: 0;
     padding: 0;
 }
 
-#body .container ul.information li {
+#body > ul.information {
+    margin-left: 24px;
+}
+
+#body .container ul.information li,
+#body > ul.information li {
     float: left;
 }
 
-#body .container ul.information li:not(:first-child) {
+#body .container ul.information li:not(:first-child),
+#body > ul.information li:not(:first-child) {
     padding-left: 12px;
 }
 
-#body .container ul.information li a {
+#body .container ul.information li a,
+#body > ul.information li a {
     color: #666;
 }
 
-#body .container ul.information li a:hover {
+#body .container ul.information li a:hover,
+#body > ul.information li a:hover {
     color: rgb(2, 144, 208);
 }
 

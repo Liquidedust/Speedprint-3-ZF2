@@ -11,6 +11,7 @@ namespace Products\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController,
 Zend\View\Model\ViewModel,
+Zend\View\Model\JsonModel,
 Doctrine\ORM\EntityManager,
 Doctrine\ORM\Query\ResultSetMapping,
 Products\Entity\Products,
@@ -90,5 +91,18 @@ class SeoController extends AbstractActionController {
         
             return new ViewModel( array( 'resultset' => $resultset ) );
         }
+    }
+    
+    public function optionsAction() {
+        // @TODO Remember to fix this so we get a proper viewmodel return
+        
+        $variant = ( is_null( $this->params()->fromRoute('variant') ) ? 0 : $this->params()->fromRoute('variant')  );
+        
+        $result = new JsonModel(array(
+	    'v_id' => $variant,
+            'success' => true,
+        ));
+ 
+        return $result;
     }
 }

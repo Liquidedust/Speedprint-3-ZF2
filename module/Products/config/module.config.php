@@ -25,11 +25,11 @@ return array(
                     'product' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:id[_:name][/:page]]',
+                            'route'    => '/[:id[_:name][/:action]]',
                             'constraints' => array(
                                 'id'        => '[0-9]*',
                                 'name'      => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'page'      => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'      => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'Products\Controller',
@@ -41,10 +41,11 @@ return array(
                     'seo' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:seo[/:page]]',
+                            'route'    => '/[:seo[/:action[/:variant]]]',
                             'constraints' => array(
                                 'seo'      => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'page'      => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'      => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'variant'      => '[0-9]*',
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'Products\Controller',
@@ -91,6 +92,9 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy',
         ),
     ),
     // Doctrine config

@@ -34,6 +34,11 @@ IFNULL(
 	)
 ) as fran_price,
 
+IFNULL(
+    products.variants_title_products,
+    'Alternativ'
+) as variant_title,
+
 products.seo_products as product_seo
 
 FROM products

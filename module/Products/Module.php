@@ -18,6 +18,7 @@ class Module
     {
         $e->getApplication()->getServiceManager()->get('translator');
         $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager->attach('render', array($this, 'registerJsonStrategy'), 100);
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
@@ -36,5 +37,16 @@ class Module
                 ),
             ),
         );
+    }
+
+    public function registerJsonStrategy($e)
+    {
+        $app          = $e->getTarget();
+        $locator      = $app->getServiceManager();
+        $view         = $locator->get('Zend\View\View');
+        $jsonStrategy = $locator->get('ViewJsonStrategy');
+
+        // Attach strategy, which is a listener aggregate, at high priority
+        $view->getEventManager()->attach($jsonStrategy, 100);
     }
 }

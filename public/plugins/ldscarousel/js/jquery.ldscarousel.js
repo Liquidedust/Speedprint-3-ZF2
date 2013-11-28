@@ -231,18 +231,20 @@ $(".carousel_wrapper .prev a").click(function(e){
 });
 
 $(window).resize(function(){
-    
-    $(".carousel ul").css({
-        'left'      :       function(){
-            var $set = $(this).children('li');
-            var $active = $(this).children('li.focus');
-            var $this = $( $set ).index( $active );
-            
-            var $x1 = $(this).closest('.image').width() / 2;
-            var $x = $x1 - ($this*180) - 90;
-            return $x + 'px';
-        }
-    });
+    clearTimeout(reset_pos);
+    var reset_pos = setTimeout(function(){
+        $(".carousel ul").css({
+            'left'      :       function(){
+                var $set = $(this).children('li');
+                var $active = $(this).children('li.focus');
+                var $this = $( $set ).index( $active );
+
+                var $x1 = $(this).closest('.image').width() / 2;
+                var $x = $x1 - ($this*180) - 90;
+                return $x + 'px';
+            }
+        });
+    },600);
 });
     
 $('.fancybox').fancybox({

@@ -2,7 +2,8 @@
     $this->inlineScript()->appendFile( $this->basePath('/plugins/ldscarousel/js/jquery.ldscarousel.js') )
                          ->appendFile( $this->basePath('/js/products.js') );
     
-    $this->headScript()->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox-thumbs.js') )
+    $this->headScript()->prependFile( $this->basePath('/plugins/autogrow/js/jquery.input.autogrow.js') )
+                       ->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox-thumbs.js') )
                        ->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox.js') );
     
     $this->headLink()->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox.css') )
@@ -18,32 +19,46 @@
                     ?>
                     <h1><?php echo( $value['product_name'] ) ?></h1>
                     
+                    <div class="clear"></div>
+                            
+                    <ul class='information'>
+                        <li>
+                            <a href="<?php echo $this->basePath('/tillverkare/'.$value['manufacturer_seo']) . PHP_EOL; ?>" title="<?php echo( $value['manufacturer'] ); ?>"><?php echo( $value['manufacturer'] ); ?></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->basePath('/kategori/roll_ups') . PHP_EOL; ?>" title="Roll-Ups">Roll-Ups</a>
+                        </li>
+                    </ul>
+                    
                     <div class="splash container single backshadow product draggable">
 
                         <div class="header drag_handle">
                             
-                            <ul class='information'>
-                                <li>
-                                    <a href="<?php echo $this->basePath('/tillverkare/'.$value['manufacturer_seo']) . PHP_EOL; ?>" title="<?php echo( $value['manufacturer'] ); ?>"><?php echo( $value['manufacturer'] ); ?></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo $this->basePath('/kategori/roll_ups') . PHP_EOL; ?>" title="Roll-Ups">Roll-Ups</a>
-                                </li>
-                            </ul>
+                            <div class="price">
+                                <p class="fran">från</p>
+                                <p class="amount"><?php echo( $value['fran_price'] ); ?>:-</p>
+                            </div>
                             
                             <div class="clear"></div>
                             
                             <div class="buy">
                                 
                                 <div class="add_to_cart">
+                                    
                                     <button> Lägg i varukorgen </button>
-                                    <input id="produkt-<?php echo( $value['product_id'] ); ?>-antal" type="text" placeholder="0" class="antal" required>
-                                    <label for="produkt-<?php echo( $value['product_id'] ); ?>-antal" class="antal">Antal</label>
+                                    
+                                    <div class="amount">
+                                        <label for="produkt-<?php echo( $value['product_id'] ); ?>-antal" class="antal">Antal</label>
+                                        <input id="produkt-<?php echo( $value['product_id'] ); ?>-antal" type="text" placeholder="0" class="antal" required>
+                                    </div>
+                                    
                                 </div>
                                 
-                                <?php if( array_key_exists('variants', $value ) ) { ?>
-                                <select>
-                                    <option data-unselected="true" selected="selected"> -- Alternativ -- </option>
+                                <?php
+                                    if( array_key_exists('variants', $value ) ) {
+                                ?>
+                                <select id="product-<?php echo( $value['product_id'] ); ?>">
+                                    <option data-unselected="true" selected="selected"> -- <?php echo( $value['variant_title'] ); ?> -- </option>
                                     <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
                                     <option value="" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25">
                                         <?php echo( $v_value['product_variant'] ); ?> (från <?php echo( $v_value['fran_price'] ); ?>:-)
@@ -51,21 +66,12 @@
                                     <?php } ?>
                                 </select>
                                 <?php } else { ?>
-                                <div>
-                                    <?php echo( $value['product_name'] ); ?>
-                                </div>
+                                <div id="product-<?php echo( $value['product_id'] ); ?>" class="hidden"></div>
                                 <?php } ?>
                                 
                                 <div class="clear"></div>
+                                
                             </div>
-                            
-                            <!--
-                            <div class="price">
-                                <p class="fran">från</p>
-                                <p class="amount"><?php echo( $value['fran_price'] ); ?>:-</p>
-                            </div>
-                            -->
-
                             <div class="clear"></div>
                         </div>
 
@@ -152,6 +158,9 @@
                                         <h4>Beskrivning</h4>
                                         <?php
                                             $paragraphs = explode( "\r\n\r\n" , $value['product_description'] );
+                                            
+                                            $this->headMeta()->appendName('description',$paragraphs[0]);
+                                            
                                             foreach( $paragraphs  as $p_key => $p_value ){
                                                 echo( "<p>".$p_value."</p>\n\n" );
                                             }

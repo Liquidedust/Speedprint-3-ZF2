@@ -9,10 +9,27 @@ $(document).ready(function(){
         console.log( 'amount : ' + $(this).val() );
         console.log( 'selected : ' + $(this).siblings('select option:selected').attr('data-unselected') );
         if( parseInt( $(this).val() ) >= 1 && !isNaN(parseFloat($(this).val())) && isFinite($(this).val()) ){
-            $(this).siblings('button').addClass('active');
+            $(this).closest('.buy').find('button').addClass('active');
         } else {
-            $(this).siblings('button').removeClass('active');
+            $(this).closest('.buy').find('button').removeClass('active');
         }
+    }).bind('focus', function(e){
+        $(this).addClass('active').siblings('label').addClass('active');
+    }).bind('blur', function(e){
+        $(this).removeClass('active').siblings('label').removeClass('active');
+    });
+    
+    $("input.antal").autoGrowInput({
+        maxWidth    :   60,
+        minWidth    :   26,
+        comfortZone :    8
+    });
+    
+    $('button').click(function(e){
+        $(this).css({
+            'background-image'      :       "url('/img/ui/icons/product_processing.gif')",
+            'background-size'       :       '16px 16px'
+        });
     });
     
     $(".content_tabs a").click(function(e){
