@@ -4,6 +4,12 @@
  */
 
 $(document).ready(function(){
+    
+    $("#body .container .buy input, #body .container .buy select, #body .container .buy textarea").bind('focus', function(e){
+        $(this).addClass('active').siblings('label').addClass('active');
+    }).bind('blur', function(e){
+        $(this).removeClass('active').siblings('label').removeClass('active');
+    });
         
     $("input.antal").bind('change paste keyup keydown',function(e){
         console.log( 'amount : ' + $(this).val() );
@@ -13,10 +19,6 @@ $(document).ready(function(){
         } else {
             $(this).closest('.buy').find('button').removeClass('active');
         }
-    }).bind('focus', function(e){
-        $(this).addClass('active').siblings('label').addClass('active');
-    }).bind('blur', function(e){
-        $(this).removeClass('active').siblings('label').removeClass('active');
     });
     
     $("input.antal").autoGrowInput({
@@ -26,10 +28,44 @@ $(document).ready(function(){
     });
     
     $('button').click(function(e){
-        $(this).css({
-            'background-image'      :       "url('/img/ui/icons/product_processing.gif')",
-            'background-size'       :       '16px 16px'
-        });
+        
+        var $this = this;
+        
+        $(this).addClass('processing');
+        
+        $button_reset = setTimeout(function(){
+            $($this).removeClass('processing');
+        },1000);
+    });
+    
+    $("#body .container form.buy").validate({
+        // make sure error message isn't displayed
+        errorPlacement  : function(error, element) {
+            return true;
+        },
+        // set the errorClass as a random string to prevent label disappearing when valid
+        errorClass : "baconaise",
+        // use highlight and unhighlight
+        highlight: function (element, errorClass, validClass) {
+            $(element.form).find("label[for=" + element.id + "]").addClass("error_label");
+            $(element).addClass("error");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element.form).find("label[for=" + element.id + "]").removeClass("error_label");
+            $(element).removeClass("error");
+        },
+        onsubmit        : true,
+        submitHandler   : function(){
+    
+        }
+    });
+    
+    $("#body .container form.buy input.antal").rules('add', {
+        digits          :   true,
+    });
+    
+    $("#body .container form.buy select").rules('add', {
+        valueNotEquals  :   'default',
     });
     
     $(".content_tabs a").click(function(e){

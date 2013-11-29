@@ -36,7 +36,7 @@
 }
 
 #body .container .buy label,
-#body .container .buy div:not(.clear):not(.add_to_cart):not(.amount),
+#body .container .buy div:not(.clear):not(.add_to_cart):not(.amount):not(.buy_element),
 #body .container .buy select,
 #body .container .buy option,
 #body .container .buy input,
@@ -63,9 +63,8 @@
 
 #body .container .buy label {
     cursor: pointer;
-    
     position: absolute;
-    left: 6px;
+    left: 8px;
     top: -8px;
 }
 
@@ -79,7 +78,6 @@
     position: relative;
     
     float: right;
-    text-transform: capitalize;
 }
 
 #body .container .buy select option:last-child {
@@ -119,7 +117,9 @@
                 width 300ms ease-in-out;
 }
 
-#body .container .buy input.antal.active {
+#body .container .buy input.active,
+#body .container .buy select.active,
+#body .container .buy textarea.active {
     padding: 1px 11px;
     border-width: 2px;
     border-style: solid;
@@ -131,20 +131,18 @@
     color: #0290D0;
 }
 
-#body .container .buy input.antal.valid,
-#body .container .buy input.antal.valid:focus {
+#body .container .buy input.error,
+#body .container .buy select.error,
+#body .container .buy textarea.error {
+    padding: 1px 11px;
+    border-width: 2px;
     border-style: solid;
-    border-color: rgb(129,178,70);
-    
+    border-color: rgb(217,125,50);
     color: #000;
-    
-    background-color: rgb(195,235,153);
 }
 
-#body .container .buy input.antal.valid ~ label.antal,
-#body .container .buy input.antal.valid:focus ~ label.antal {
-    color: rgb(129,178,70);
-    font-weight: bold;
+#body .container .buy label.antal.error_label {
+    color: rgb(217,125,50);
 }
 
 #body .container .buy button {
@@ -205,6 +203,16 @@
 
 #body .container .buy button.active:hover {
     box-shadow: #80DC09 0px 0px 12px;
+}
+
+#body .container .buy button.processing {
+    background-image      :       url('../img/ui/icons/product_processing_invalid.gif');
+    background-size       :       16px 16px;
+}
+
+#body .container .buy button.active.processing {
+    background-image      :       url('../img/ui/icons/product_processing.gif');
+    background-size       :       16px 16px;
 }
 
 #body .container .buy button img {
