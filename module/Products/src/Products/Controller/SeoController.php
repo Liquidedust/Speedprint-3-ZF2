@@ -43,7 +43,6 @@ class SeoController extends AbstractActionController {
             $this->getResponse()->setStatusCode(404);
             return;
         } else {
-            
             $stmt = $this->getEntityManager()
                         ->getConnection()
                         ->prepare( ProductStatement::BySeo() );
