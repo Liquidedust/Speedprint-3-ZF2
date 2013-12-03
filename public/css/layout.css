@@ -344,6 +344,8 @@ h2 {
     animation-duration: 600ms;
 }
 
+
+
 #menu_wrapper {
     transition: left 400ms ease-in-out;
     display: block;
@@ -1759,28 +1761,38 @@ h2 {
 }
 
 #sidebar.maximized {
+    transition: all 500ms ease-in-out;
+    
     left: 0%;
 }
 
 @media (max-width: 1224px) {
     #sidebar {
+        transition: all 500ms ease-in-out;
+    
         width: 20%;
         min-width: 241px;
         left: -241px
     }
 
     #sidebar.maximized {
+        transition: all 500ms ease-in-out;
+    
         left: 0px;
     }
 }
 
 @media (max-width: 730px) {
     #sidebar {
-        width: calc( 100% - 90px);
-        left: calc( -100% + 90px );
+        transition: all 500ms ease-in-out;
+    
+        width: 80%;
+        left: -80%;
     }
 
     #sidebar.maximized {
+        transition: all 500ms ease-in-out;
+    
         left: 0px;
     }
 }
@@ -2559,11 +2571,6 @@ a:hover {
 }
 
 
-@-webkit-keyframes slideOut { from { left: calc( -20% + 26px) } to { left: 0% } }
-@-moz-keyframes slideOut { from { left: calc( -20% + 26px) } to { left: 0% } }
-@keyframes slideOut { from { left: calc( -20% + 26px) } to { left: 0% } }
-
-
 @-webkit-keyframes menuSlideToRight { 0% { padding-left: 12px; } 50%, 100% { padding-left: 80px; } }
 @-moz-keyframes menuSlideToRight { 0% { padding-left: 12px; } 50%, 100% { padding-left: 80px; } }
 @keyframes menuSlideToRight { 0% { padding-left: 12px; } 50%, 100% { padding-left: 80px; } }
@@ -2593,13 +2600,6 @@ a:hover {
 @-webkit-keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
 @-moz-keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
 @keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
-
-
-@media (max-width: 1330px) {
-    @-webkit-keyframes slideOut { from { left: -235px } to { left: 0px } }
-    @-moz-keyframes slideOut { from { left: -235px } to { left: 0px } }
-    @keyframes slideOut { from { left: -235px } to { left: 0px } }
-}
 
 .no-opacity {
     opacity: 0;

@@ -32,6 +32,9 @@ $(document).ready(function(){
         var $this = this;
         
         $(this).addClass('processing');
+        console.log( $(this).closest('form').valid() );
+        console.log( 'select variant : ' + $(this).closest('form').find('select').valid() );
+        console.log( 'input.antal    : ' + $(this).closest('form').find('input.antal').valid() );
         
         $button_reset = setTimeout(function(){
             $($this).removeClass('processing');
@@ -56,16 +59,11 @@ $(document).ready(function(){
         },
         onsubmit        : true,
         submitHandler   : function(){
-    
         }
     });
     
     $("#body .container form.buy input.antal").rules('add', {
         digits          :   true,
-    });
-    
-    $("#body .container form.buy select").rules('add', {
-        valueNotEquals  :   'default',
     });
     
     $(".content_tabs a").click(function(e){
