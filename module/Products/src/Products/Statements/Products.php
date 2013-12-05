@@ -188,7 +188,7 @@ product_id ASC,
 min_amount ASC";
     
     public static function ById() {
-        
+        return (string)Products::$select_by_id;
     }
     
     public static function BySeo() {

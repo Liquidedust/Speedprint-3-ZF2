@@ -35,17 +35,18 @@ class SeoController extends AbstractActionController {
     }
 
     public function indexAction() {
-        $objectManager = $this->getEntityManager();
-        $repository = $objectManager->getRepository('\Products\Entity\Products');
+        $em = $this->getEntityManager();
+        $repository = $em->getRepository('\Products\Entity\Products');
         $product = $repository->findOneBy(array('seo_products' => $this->params()->fromRoute('seo')));
+        
+        $request_uri = $this->getRequest()->getUri()->getPath();
         
         if ($product === null) {
             $this->getResponse()->setStatusCode(404);
             return;
         } else {
             
-            $stmt = $this->getEntityManager()
-                        ->getConnection()
+            $stmt = $em ->getConnection()
                         ->prepare( ProductStatement::BySeo() );
             $stmt->bindValue(':seo',$this->params()->fromRoute('seo'));
             $stmt->execute();
@@ -55,9 +56,8 @@ class SeoController extends AbstractActionController {
             while ($row = $stmt->fetch()) {
                 
                 if( !$row['product_variants'] == 0 ){
-                    $variants_stmt = $this->getEntityManager()
-                                ->getConnection()
-                                ->prepare( ProductStatement::VariantsById() );
+                    $variants_stmt = $em->getConnection()
+                                        ->prepare( ProductStatement::VariantsById() );
                     $variants_stmt->bindValue(':id',$row['product_id']);
                     $variants_stmt->execute();
             
@@ -71,9 +71,8 @@ class SeoController extends AbstractActionController {
                 }
                 
                 // @TODO Add the prices and rebate fetching here below
-                $prices_stmt = $this->getEntityManager()
-                            ->getConnection()
-                            ->prepare( ProductStatement::PricesById() );
+                $prices_stmt = $em  ->getConnection()
+                                    ->prepare( ProductStatement::PricesById() );
                 $prices_stmt->bindValue(':id',$row['product_id']);
                 $prices_stmt->execute();
             

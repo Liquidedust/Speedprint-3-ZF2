@@ -16,11 +16,13 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $e->getApplication()->getServiceManager()->get('translator');
-        $eventManager        = $e->getApplication()->getEventManager();
-        $eventManager->attach('render', array($this, 'registerJsonStrategy'), 100);
+        $app = $e->getApplication();
+        $em  = $app->getEventManager();
+        $sm  = $app->getServiceManager();
+        
+        $em->attach('render', array($this, 'registerJsonStrategy'), 100);
         $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        $moduleRouteListener->attach($em);
     }
 
     public function getConfig()
