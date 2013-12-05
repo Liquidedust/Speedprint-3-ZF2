@@ -43,4 +43,4 @@ GROUP BY
 products.id_products
 
 ORDER BY
-product_id ASC
+product_id ASC;

@@ -17,4 +17,4 @@ WHERE
 	AND
 	categories.lft_categories BETWEEN active_category.lft_categories AND active_category.rgt_categories
 	AND
-	enabled_products = 'y'
+	enabled_products = 'y';

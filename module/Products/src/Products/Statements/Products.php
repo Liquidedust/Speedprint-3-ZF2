@@ -1,4 +1,5 @@
 <?php
+
 namespace Products\Statements;
 
 class Products {
