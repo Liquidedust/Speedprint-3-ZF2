@@ -1,6 +1,7 @@
 SELECT
 	node.id_categories AS id,
 	node.name_categories AS name,
+	parent.id_categories AS parent,
 	(COUNT(parent.name_categories) - 1) AS depth
 
 FROM

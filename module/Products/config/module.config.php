@@ -84,7 +84,7 @@ return array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
         'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/product_not_found',
+        'not_found_template'       => 'products/error/404',
         'template_map' => array(
             'products/index/index' => __DIR__ . '/../view/products/index/index.phtml',
             'products/product/index' => __DIR__ . '/../view/products/product/product.phtml',

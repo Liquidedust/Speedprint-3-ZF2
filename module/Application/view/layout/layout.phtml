@@ -2,7 +2,7 @@
 
 <html lang="sv">
     <head>
-        <?php echo $this->headTitle('SpeedPrint 3.0 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle('SpeedPrint 3.0 '. $this->translate('Skeleton Application'))->setSeparator(' :: ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
@@ -30,6 +30,64 @@
         
         <div id="fb-root"></div>
         <?php $this->inlineScript()->appendFile($this->basePath( 'js/facebook.js' ) ) ?>
+        
+        <div id="wrap">
+        
+            <div id="header_wrapper">
+                <div id="header_top_wrapper">
+                    <div id="header_top">
+                        <a href="<?php echo $this->basePath(''); ?>" title="Speedprint.se">
+                            <div class="logo">
+                                <div class="logo_wrapper">
+                                    <img src="<?php echo $this->basePath('img/speedprint.se.s.svg'); ?>" class="logo" alt="S">
+                                </div>
+                                <div class="logo_wrapper hide-overflow">
+                                    <img src="<?php echo $this->basePath('img/speedprint.se.block.svg'); ?>" class="logo" alt="Speedprint.se">
+                                </div>
+                            </div>
+                            <!-- <img src="<?php echo $this->basePath('img/speedprint.se.svg'); ?>" class="logo" alt="Speedprint.se"> -->
+                        </a>
+                    </div>
+                </div>
+                <div id="menu_wrapper">
+                    <ul id="menu" class="backshadow">
+                        <li><a href="#produkter" data-sidebar="open" data-for="products" data-toggle="true" title="Produkter"><img src="/img/ui/icons/menu_white.svg" alt="Produkter"></a></li>
+                        <li><a href="#information" data-sidebar="open" data-for="information" data-toggle="true" title="Information"><img src="/img/ui/icons/information_white.svg" alt="Information"></a></li>
+                        <li><a href="#varukorg" data-sidebar="open" data-for="varukorg" data-toggle="true" title="Varukorg"><img src="/img/ui/icons/shopping_trolley_white.svg" alt="Varukorg"></a></li>
+                        <li><a href="#user_account" data-sidebar="open" data-for="user_account" data-toggle="true" title="Användarkonto"><img src="/img/ui/icons/user_white.svg" alt="Användarkonto"></a></li>
+                        <li class="search">
+                            <input type="text" id="menu_search" class="search" placeholder="Sök Produkt . . ." data-sidebar="open" data-for="search" required>
+                            <a href="#clear" class="empty">
+                                <img src="<?php echo $this->basePath('img/ui/icons/close.png'); ?>">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <?php echo $this->navigation()->breadcrumbs()->render(); ?>
+                <!--
+                <div id="breadcumbs_wrapper">
+                    <ul id="breadcrumbs">
+                        <li>Du är Här</li>
+                        <li><a href="/">Hem</a></li>
+                    </ul>
+                </div>
+                -->
+            </div>
+
+            <div id="body_wrapper">
+                <div id="body">
+
+                    <?php echo $this->content; ?>
+
+                    <div class="clear"></div>
+
+                </div>
+
+                <div class="clear"></div>
+                
+            </div>
+            
+        </div>
 
         <div id="sidebar">
             <!-- Close Button -->
@@ -172,64 +230,6 @@
 
             </div>
 
-        </div>
-        
-        <div id="wrap">
-        
-            <div id="header_wrapper">
-                <div id="header_top_wrapper">
-                    <div id="header_top">
-                        <a href="<?php echo $this->basePath(''); ?>" title="Speedprint.se">
-                            <div class="logo">
-                                <div class="logo_wrapper">
-                                    <img src="<?php echo $this->basePath('img/speedprint.se.s.svg'); ?>" class="logo" alt="S">
-                                </div>
-                                <div class="logo_wrapper hide-overflow">
-                                    <img src="<?php echo $this->basePath('img/speedprint.se.block.svg'); ?>" class="logo" alt="Speedprint.se">
-                                </div>
-                            </div>
-                            <!-- <img src="<?php echo $this->basePath('img/speedprint.se.svg'); ?>" class="logo" alt="Speedprint.se"> -->
-                        </a>
-                    </div>
-                </div>
-                <div id="menu_wrapper">
-                    <ul id="menu" class="backshadow">
-                        <li><a href="#produkter" data-sidebar="open" data-for="products" data-toggle="true" title="Produkter"><img src="/img/ui/icons/menu_white.svg" alt="Produkter"></a></li>
-                        <li><a href="#information" data-sidebar="open" data-for="information" data-toggle="true" title="Information"><img src="/img/ui/icons/information_white.svg" alt="Information"></a></li>
-                        <li><a href="#varukorg" data-sidebar="open" data-for="varukorg" data-toggle="true" title="Varukorg"><img src="/img/ui/icons/shopping_trolley_white.svg" alt="Varukorg"></a></li>
-                        <li><a href="#user_account" data-sidebar="open" data-for="user_account" data-toggle="true" title="Användarkonto"><img src="/img/ui/icons/user_white.svg" alt="Användarkonto"></a></li>
-                        <li class="search">
-                            <input type="text" id="menu_search" class="search" placeholder="Sök Produkt . . ." data-sidebar="open" data-for="search" required>
-                            <a href="#clear" class="empty">
-                                <img src="<?php echo $this->basePath('img/ui/icons/close.png'); ?>">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php echo $this->navigation()->breadcrumbs()->render(); ?>
-                <!--
-                <div id="breadcumbs_wrapper">
-                    <ul id="breadcrumbs">
-                        <li>Du är Här</li>
-                        <li><a href="/">Hem</a></li>
-                    </ul>
-                </div>
-                -->
-            </div>
-
-            <div id="body_wrapper">
-                <div id="body">
-
-                    <?php echo $this->content; ?>
-
-                    <div class="clear"></div>
-
-                </div>
-
-                <div class="clear"></div>
-                
-            </div>
-            
         </div>
         
         <?php

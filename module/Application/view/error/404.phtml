@@ -1,3 +1,6 @@
+<?php
+    $this->headLink()->appendStylesheet( $this->basePath('/css/error.css') );
+?>
 <h1><?php echo $this->translate('Vi har letat överallt!') ?></h1>
 
 <div class="container fullsize">
@@ -12,7 +15,7 @@
     </div>
     <div class="content">
         <p>
-            404 Sidan kan inte hittas! Vi har undersökt din förfrågan och sökt efter du leter efter, men vi kan tyvärr inte hitta det på vår sida.
+            404 Sidan kan inte hittas! Vi har undersökt din förfrågan och sökt efter du leter efter, men vi kan tyvärr inte hitta det på vår webbplats.
         </p>
         <p>
             Kontrollera så att du har skrivit in rätt adress i adressfältet eller hoppa tillbaka till <a href="<?php echo $this->basePath(''); ?>">förstasidan</a>.

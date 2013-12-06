@@ -31,13 +31,6 @@ class IndexController extends AbstractActionController {
     public function indexAction() {
         $objectManager = $this->getEntityManager();
         
-        // $product = new \Products\Entity\Product();
-        // $product->setProductName('Marco Pivetta');
-
-        // $objectManager->persist($product);
-        // $objectManager->flush();
-
-        // die(var_dump($product->getId())); // yes, I'm lazy
         return new ViewModel();
     }
 }

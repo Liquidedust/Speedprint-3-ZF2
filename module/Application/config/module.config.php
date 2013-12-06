@@ -20,11 +20,39 @@ return array(
                     ),
                 ),
             ),
+            'menu' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/menu',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'Menu',
+                        'action'        => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/[:type]',
+                            'constraints' => array(
+                                'type'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Application\Controller',
+                                'controller'    => 'Menu',
+                                'action'        => 'byId',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'application' => array(
+            /* 'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     'route'    => '/application',
@@ -45,11 +73,13 @@ return array(
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
+                                '__NAMESPACE__' => 'Application\Controller',
+                                'action'        => 'index',
                             ),
                         ),
                     ),
                 ),
-            ),
+            ), */
         ),
     ),
     'service_manager' => array(
@@ -69,7 +99,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index'  =>  'Application\Controller\IndexController',
+            'Application\Controller\Menu'   =>  'Application\Controller\MenuController',
         ),
     ),
     'view_manager' => array(
