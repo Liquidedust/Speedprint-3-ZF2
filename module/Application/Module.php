@@ -14,10 +14,14 @@ use Zend\Mvc\MvcEvent;
 
 class Module {
     public function onBootstrap(MvcEvent $e) {
-        $e->getApplication()->getServiceManager()->get('translator');
-        $eventManager        = $e->getApplication()->getEventManager();
+        $app = $e->getApplication();
+        $em  = $app->getEventManager();
+        $sm  = $app->getServiceManager();
+        
+        $em->attach('render', array($this, 'registerJsonStrategy'), 100);
+        $sm->get('translator');
         $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        $moduleRouteListener->attach($em);
     }
 
     public function getConfig() {
@@ -32,5 +36,15 @@ class Module {
                 ),
             ),
         );
+    }
+
+    public function registerJsonStrategy($e) {
+        $app          = $e->getTarget();
+        $locator      = $app->getServiceManager();
+        $view         = $locator->get('Zend\View\View');
+        $jsonStrategy = $locator->get('ViewJsonStrategy');
+
+        // Attach strategy, which is a listener aggregate, at high priority
+        $view->getEventManager()->attach($jsonStrategy, 100);
     }
 }

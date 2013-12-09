@@ -15,8 +15,7 @@ use Zend\Mvc\MvcEvent;
 
 class Module
 {
-    public function onBootstrap(MvcEvent $e)
-    {
+    public function onBootstrap(MvcEvent $e) {
         $app = $e->getApplication();
         $em  = $app->getEventManager();
         $sm  = $app->getServiceManager();
@@ -26,13 +25,11 @@ class Module
         $moduleRouteListener->attach($em);
     }
 
-    public function getConfig()
-    {
+    public function getConfig() {
         return include __DIR__ . '/config/module.config.php';
     }
 
-    public function getAutoloaderConfig()
-    {
+    public function getAutoloaderConfig() {
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
@@ -42,8 +39,7 @@ class Module
         );
     }
 
-    public function registerJsonStrategy($e)
-    {
+    public function registerJsonStrategy($e) {
         $app          = $e->getTarget();
         $locator      = $app->getServiceManager();
         $view         = $locator->get('Zend\View\View');

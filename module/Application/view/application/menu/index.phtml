@@ -1,1 +1,6 @@
-<h1><?php echo $this->translate('Produkter'); ?></h1>
+<h2><?php echo $this->translate('Produkter'); ?></h2>
+
+<?php // var_dump( $this->resultset ); ?>
+<div class="jScrollPane insertData">
+<?php echo $this->partial('application/menu/partial-treemap', array( 'categoryTreeMap' => $this->resultset ) ); ?>
+</div>

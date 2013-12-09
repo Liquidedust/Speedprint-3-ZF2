@@ -1,0 +1,6 @@
+<?php // view/application/menu/partial-treemap.phtml ?>
+<ul>
+    <?php foreach ($this->categoryTreeMap as $category) :
+        echo $this->partial('application/menu/partial-category', array('category' => $category));
+     endforeach; ?>
+</ul>

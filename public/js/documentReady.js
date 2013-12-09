@@ -15,6 +15,10 @@ var search_timer_obj;
 var resizeTimer;
 var flag_dragging = false;//counter Chrome dragging/text selection issue
 var templates = new Object;
+var api = new Object({
+    jScrollPane: new Object
+});
+
 var notransition_timeout;
 
 var functions = new Object({
@@ -48,6 +52,21 @@ var cookie = new Object({
     erase: function(namename, value, days) {
         cookie.create(name, "", -1);
     }
+});
+
+var sidebar = new Object({
+    products : new Object({
+        tree : new Object({})
+    }),
+    productTree:    new Object({
+        addNode: function(key) {
+        },
+        deleteNode: function(key) {
+        },
+        findKey: function(key){
+            return null;
+        }
+    })
 });
 
 var cart = new Object({
@@ -478,7 +497,11 @@ $(window).resize(function() {
     $('#sidebar').addClass('notransition');
     $("#sidebar-cart .name").dotdotdot();
     $('#sidebar').height();
-
+    
+    $.each(api.jScrollPane, function(index, value) {
+        value.reinitialise();
+    });
+    
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(resizeDone, 250);
 });
@@ -723,5 +746,47 @@ $(document).ready(function(){
                 });
             });
         });
+                        
+        $("#products").load("/menu",function(){
+        
+            $("#products a").click(function(e){
+                var $this = $(this);
+                e.preventDefault();
+                if( $this.siblings('ul.child').length > 0 ) {
+                    var $id = '#submenu_category_' + $this.attr('href').split(/\//)[2];
+                    if( $( $id ).length > 0 ) {
+                        $( $id ).addClass('show');
+                    } else {
+                        var $clone = $this.siblings('ul.child').clone(true);
+                        var $submenu = $(document.createElement('div'));
+                        $submenu.attr('id', 'submenu_category_' + $this.attr('href').split(/\//)[2] )
+                                .addClass('submenu')
+                                .css({
+                                    'z-index'       : 10000 + $this.attr('data-depth'),
+                                    'width'         : 'calc( 100% - ' + ( ( 19 * $this.attr('data-depth') ) ) + 'px)',
+                                    'height'        : '100%'
+                                })
+                                .prepend("<h2>" + $this.find("span").html() + "</h2>")
+                                .prepend("<div class='close'><a><img src='/img/ui/icons/left_arrow.svg' alt='close sidebar'></a></div>")
+                                .append( $clone );
+                        $submenu.prependTo("#products");
+                        setTimeout(function(){
+                            $submenu.addClass('show');
+                        },50);
+                        $( $id ).find("div.close a").bind('click',function(){
+                            if( $( $id ).hasClass('show') ) {
+                                $( $id ).removeClass('show');
+                            } else {
+                                $( $id ).addClass('show');
+                            }
+                        });
+                        
+                    }
+                }
+            });
+        });
+        
     });
 });
+
+console.log( sidebar.productTree.findKey(95) );

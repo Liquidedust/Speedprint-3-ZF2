@@ -12,16 +12,20 @@
         
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/png', 'href' => $this->basePath() . '/img/ui/favicon.png'))
-                        ->prependStylesheet( $this->basePath('/css/layout.css') ); ?>
+                            ->prependStylesheet( $this->basePath('/plugins/jscrollpane/css/jquery.jscrollpane.css') )
+                            ->prependStylesheet( $this->basePath('/css/layout.css') ); ?>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()->prependFile( $this->basePath( '/plugins/dotdotdot/jquery.dotdotdot.js' ) )
-                                      ->prependFile( $this->basePath( '/js/jquery.transit.min.js' ) )
-                                      ->prependFile( $this->basePath( '/plugins/event.swipe/js/jquery.event.swipe.js' ) )
-                                      ->prependFile( $this->basePath( '/plugins/event.move/js/jquery.event.move.js' ) )
-                                      ->prependFile( $this->basePath( '/plugins/modernizr/js/modernizr.2.7.0.js' ) )
-                                      ->prependFile( '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js' )
-                                      ->prependFile( '//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.js' )?>
+        <?php echo $this->headScript()->prependFile( $this->basePath( '/plugins/jscrollpane/js/jquery.jscrollpane.js' ) )
+                                        ->prependFile( $this->basePath('/plugins/jscrollpane/js/jquery.mousewheel.js') )
+                                        ->prependFile( $this->basePath('/plugins/jscrollpane/js/mwheelIntent.js') )
+                                        ->prependFile( $this->basePath( '/plugins/dotdotdot/jquery.dotdotdot.js' ) )
+                                        ->prependFile( $this->basePath( '/js/jquery.transit.min.js' ) )
+                                        ->prependFile( $this->basePath( '/plugins/event.swipe/js/jquery.event.swipe.js' ) )
+                                        ->prependFile( $this->basePath( '/plugins/event.move/js/jquery.event.move.js' ) )
+                                        ->prependFile( $this->basePath( '/plugins/modernizr/js/modernizr.2.7.0.js' ) )
+                                        ->prependFile( '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js' )
+                                        ->prependFile( '//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.js' )?>
         
         <!--[if lte IE 8]><script type="text/javascript" src="/js/no-svg.js"></script><![endif]-->
         
@@ -41,34 +45,19 @@
 
             <!-- Produkter -->
             <div data-tab="products" id="products" class="content active">
-                 <h2>Produkter</h2>
-                 <ul>
-                    <li><a href="#rollup">Rollups</a></li>
-                    <li><a href="#rollup">Gatupratare</a></li>
-                    <li><a href="#rollup">Smidesskyltar</a></li>
-                    <li><a href="#rollup">Broschyrställ</a></li>
-                    <li><a href="#rollup">Diskar &amp; Podium</a></li>
-                    <li><a href="#rollup">Montersystem</a></li>
-                    <li><a href="#rollup">Banderoller</a></li>
-                    <li><a href="#rollup">Bildekor &amp; Dekaler</a></li>
-                    <li><a href="#rollup">Affischer &amp; Ramar</a></li>
-                    <li><a href="#rollup">Storformat &amp; Canvas</a></li>
-                    <li><a href="#rollup">Tillbehör</a></li>
-                    <li><a href="#rollup">Övrigt</a></li>
-                 </ul>
             </div>
 
             <!-- Information -->
             <div class="content" data-tab="information" id="information">
-                 <h2>Information</h2>
-                 <ul>
-                    <li><a href="#rollup">Kundtjänst</a></li>
-                    <li><a href="#rollup">Om Oss</a></li>
-                    <li><a href="#rollup">Försäljningsvillkor</a></li>
-                    <li><a href="#rollup">Om Cookies</a></li>
-                    <li><a href="#rollup">Reklamationer</a></li>
-                    <li><a href="#rollup">Referenser</a></li>
-                 </ul>
+                <h2>Information</h2>
+                <ul>
+                   <li><a href="#rollup">Kundtjänst</a></li>
+                   <li><a href="#rollup">Om Oss</a></li>
+                   <li><a href="#rollup">Försäljningsvillkor</a></li>
+                   <li><a href="#rollup">Om Cookies</a></li>
+                   <li><a href="#rollup">Reklamationer</a></li>
+                   <li><a href="#rollup">Referenser</a></li>
+                </ul>
             </div>
 
             <!-- Sök Produkt -->

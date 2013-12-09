@@ -1,0 +1,22 @@
+<?php // view/application/menu/partial-category.phtml ?>
+<li>
+    <?php
+    $class = '';
+    if (isset($category['children'])) :
+        $class = 'has_children';
+    endif;
+    ?>
+    
+    <?php if( isset( $category['seo'] ) ): ?>
+    <?php else: ?>
+        <?php echo( "<a href='/kategori/".$category['id']."' class='".$class."' data-depth='".$category['depth']."' data-parent-id='".$category['parent']."' data-id='".$category['id']."'><span>".$category['name']."</span><div></div></a>" ) ?>
+    <?php endif; ?>
+    
+    <?php if (isset($category['children'])) : ?>
+    <ul class="child">
+        <?php foreach ($category['children'] as $child_category) :
+            echo $this->partial('application/menu/partial-category', array('category' => $child_category));
+        endforeach; ?>
+    </ul>
+    <?php endif; ?>
+</li>
