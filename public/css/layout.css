@@ -1787,7 +1787,7 @@ h2 {
         transition: all 500ms ease-in-out;
     
         width: 80%;
-        left: -80%;
+        left: 80%;
     }
 
     #sidebar.maximized {

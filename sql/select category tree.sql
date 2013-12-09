@@ -2,6 +2,8 @@ SELECT
 	node.id_categories AS id,
 	node.name_categories AS name,
 	parent.id_categories AS parent,
+	node.lft_categories AS left_c,
+	node.rgt_categories AS right_c,
 	(COUNT(parent.name_categories) - 1) AS depth
 
 FROM
