@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-$(".carousel_wrapper .carousel ul li a").bind('click', function(event){
+$(document).on("click",".carousel_wrapper .carousel ul li a", function(event){
     event.preventDefault();
     var $active = $(this).closest(".carousel_wrapper");
     var $this = $( $active ).find(".carousel li").index( $(this).closest('li') );
@@ -55,10 +55,9 @@ $(".carousel_wrapper .carousel ul li a").bind('click', function(event){
     } else {
         $( $active ).find(".prev,.next").removeClass('inactive');
     }
-    
 });
 
-$(".carousel_wrapper .navigation a").bind('click', function(e){
+$(document).on("click",".carousel_wrapper .navigation a", function(e){
     e.preventDefault();
     var $active = $(this).closest(".carousel_wrapper");
     var $this = $( $active ).find(".navigation a").index( this );
@@ -108,11 +107,10 @@ $(".carousel_wrapper .navigation a").bind('click', function(e){
         $( $active ).find(".next").addClass('inactive');
     } else {
         $( $active ).find(".prev,.next").removeClass('inactive');
-    }
-    
+    }   
 });
 
-$(".carousel_wrapper .next a").click(function(e){
+$(document).on("click",".carousel_wrapper .next a", function(e){
     e.preventDefault();
     var $active = $(this).closest(".carousel_wrapper");
     var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
@@ -171,7 +169,7 @@ $(".carousel_wrapper .next a").click(function(e){
     }
 });
 
-$(".carousel_wrapper .prev a").click(function(e){
+$(document).on("click",".carousel_wrapper .prev a", function(e){
     e.preventDefault();
     var $active = $(this).closest(".carousel_wrapper");
     var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
@@ -364,7 +362,7 @@ $('.fancybox').fancybox({
 
 });
 
-$('.carousel_wrapper img').on('dragstart', function(event) {
+$(document).on('dragstart', '.carousel_wrapper img', function(event) {
     event.preventDefault();
 });
 
@@ -494,6 +492,6 @@ $(".carousel_wrapper")
     }
 });
 
-$("#body .container .content .content_tabs li a").click(function(e){
+$(document).on("click","#body .container .content .content_tabs li a", function(e){
     $(this).closest('li').addClass('active').siblings('li').removeClass('active');
 });

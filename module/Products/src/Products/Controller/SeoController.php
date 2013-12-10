@@ -104,4 +104,80 @@ class SeoController extends AbstractActionController {
  
         return $result;
     }
+    
+    public function ajaxAction() {
+        $em = $this->getEntityManager();
+        $repository = $em->getRepository('\Products\Entity\Products');
+        $product = $repository->findOneBy(array('seo_products' => $this->params()->fromRoute('seo')));
+        
+        $request_uri = $this->getRequest()->getUri()->getPath();
+        
+        if ($product === null) {
+            $this->getResponse()->setStatusCode(404);
+
+            $jsonModel = new JsonModel(array(
+                'success' => false,
+            ));
+        } else {
+            
+            $stmt = $em ->getConnection()
+                        ->prepare( ProductStatement::BySeo() );
+            $stmt->bindValue(':seo',$this->params()->fromRoute('seo'));
+            $stmt->execute();
+            
+            $resultset = array();
+            
+            while ($row = $stmt->fetch()) {
+                
+                if( !$row['product_variants'] == 0 ){
+                    $variants_stmt = $em->getConnection()
+                                        ->prepare( ProductStatement::VariantsById() );
+                    $variants_stmt->bindValue(':id',$row['product_id']);
+                    $variants_stmt->execute();
+            
+                    $variants_resultset = array();
+                    
+                    while($variants_row = $variants_stmt->fetch()){
+                        $variants_resultset[] = $variants_row;
+                    }
+                    
+                    $row['variants'] = $variants_resultset;
+                }
+                
+                // @TODO Add the prices and rebate fetching here below
+                $prices_stmt = $em  ->getConnection()
+                                    ->prepare( ProductStatement::PricesById() );
+                $prices_stmt->bindValue(':id',$row['product_id']);
+                $prices_stmt->execute();
+            
+                $prices_resultset = array();
+                    
+                while($prices_row = $prices_stmt->fetch()){
+                    $prices_resultset[] = $prices_row;
+                }
+
+                $row['prices'] = $prices_resultset;
+                // End of prices and rebate fetching
+                
+                $resultset[] = $row;
+            }
+            
+            $viewModel = new ViewModel( array( 'resultset' => $resultset ) );
+            $viewModel->setTemplate('products/seo/seo')
+                      ->setTerminal(true);
+
+            $htmlOutput = $this->getServiceLocator()
+                               ->get('viewrenderer')
+                               ->render($viewModel);
+
+            $jsonModel = new JsonModel(array(
+                'success' => true,
+                'html' => $htmlOutput,
+            ));
+            
+        }
+        
+        return $jsonModel;
+        
+    }
 }

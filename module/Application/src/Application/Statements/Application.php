@@ -25,7 +25,7 @@ GROUP BY
 	node.id_categories
 
 ORDER BY
-	node.lft_categories ASC, node.sort_categories ASC;";
+	left_c, name ASC;";
     
     public static function menuTree() {
         return (string)Application::$select_menu_tree;

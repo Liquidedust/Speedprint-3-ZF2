@@ -9,6 +9,17 @@ if (!$.support.transition) {
 $.fn.slideFadeToggle  = function(speed, easing, callback) {
     return this.transition({opacity: 'toggle', height: 'toggle'}, speed, easing, callback);
 };
+$.fn.hasParent = function(objs) {
+	// ensure that objs is a jQuery array
+	objs = $(objs); var found = false;
+	$(this[0]).parents().andSelf().each(function() {
+		if ($.inArray(this, objs) !== -1) {
+			found = true;
+			return false; // stops the each...
+		}
+	});
+	return found;
+};
 
 var cart_count = 0;
 var search_timer_obj;
@@ -59,12 +70,38 @@ var sidebar = new Object({
         tree : new Object({})
     }),
     productTree:    new Object({
+        highestZIndex: 0,
         addNode: function(key) {
         },
         deleteNode: function(key) {
         },
+        closeChild: function(parent,e){
+            
+            if(parent === 'all') {
+                
+            } else if( e.target ) {
+                var index_parent = parseInt($(parent).css("zIndex"), 10);
+                $("#products .submenu.show").each(function(){
+                    var this_index = parseInt($(this).css("zIndex"), 10);
+                    if (this_index > index_parent && $(this).hasClass("show") ) {
+                        $(this).removeClass("show");
+                    }
+                });
+            }
+        },
         findKey: function(key){
             return null;
+        },
+        findZIndex: function(){
+            sidebar.products.productTree.highestZIndex = 0;
+            $("#products .submenu").each(function(){
+                var index_current = parseInt($(this).css("zIndex"), 10);
+                if (index_current > sidebar.products.productTree.highestZIndex) {
+                    sidebar.products.productTree.highestZIndex = index_current;
+                }
+            });
+            
+            return sidebar.products.productTree.highestZIndex;
         }
     })
 });
@@ -740,7 +777,7 @@ $(document).ready(function(){
                         .find('.navigation a').eq(0).addClass('focus').nextAll('a').removeClass('focus')
                         .closest('.carousel_wrapper').find('.prev').addClass('inactive');
                         
-                        $(this).addClass('fade-in');
+                        $(this).addClass('fade-in').delay(550).removeClass('fade-in');
                         $(".carousel").css('opacity','');
                     });
                 });
@@ -752,10 +789,13 @@ $(document).ready(function(){
             $("#products a").click(function(e){
                 var $this = $(this);
                 e.preventDefault();
+                
                 if( $this.siblings('ul.child').length > 0 ) {
                     var $id = '#submenu_category_' + $this.attr('href').split(/\//)[2];
                     if( $( $id ).length > 0 ) {
-                        $( $id ).addClass('show');
+                        setTimeout(function(){
+                            $( $id ).addClass('show');
+                        },50);
                     } else {
                         var $clone = $this.siblings('ul.child').clone(true);
                         var $submenu = $(document.createElement('div'));
@@ -772,6 +812,9 @@ $(document).ready(function(){
                         $submenu.prependTo("#products");
                         setTimeout(function(){
                             $submenu.addClass('show');
+                            $submenu.bind('click',function(e){
+                                sidebar.productTree.closeChild( $(this), e );
+                            });
                         },50);
                         $( $id ).find("div.close a").bind('click',function(){
                             if( $( $id ).hasClass('show') ) {
@@ -786,7 +829,15 @@ $(document).ready(function(){
             });
         });
         
+        $("#products").click(function(e){
+            if( !$( e.target ).hasParent(".submenu") ) {
+                $(".submenu").each(function(){
+                    if( $(this).hasClass("show") ) {
+                        $(this).removeClass("show");
+                    }
+                });
+            }
+        });
+        
     });
 });
-
-console.log( sidebar.productTree.findKey(95) );

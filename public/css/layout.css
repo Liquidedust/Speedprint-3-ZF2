@@ -419,10 +419,14 @@ h2 {
 
 @media (max-width: 730px) {
     #sidebar ~  #wrap #menu_wrapper.sticky {
-        left: 1%;
+        width: 100%;
+        min-width: 200px;
+        left: 0%;
     }
     #sidebar.maximized ~  #wrap #menu_wrapper.sticky {
-        left: 2%;
+        width: 100%;
+        min-width: 200px;
+        left: 0%;
     }
 }
 
@@ -434,7 +438,9 @@ h2 {
 
 #menu {
     transition: padding-left 300ms ease-in-out,
-                left 300ms ease-in-out;
+                left 300ms ease-in-out,
+                width 300ms ease-in-out,
+                border-radius 300ms ease-in-out;
     
     display: block;
     position: relative;
@@ -467,6 +473,12 @@ h2 {
 
 #menu_wrapper.sticky #menu {
     border-radius: 0px 0px 12px 12px;
+}
+
+@media (max-width: 730px) {
+    #menu_wrapper.sticky #menu {
+        border-radius: 0px;
+    }
 }
 
 #menu_wrapper.sticky #menu {
@@ -1377,8 +1389,10 @@ h2 {
 
 #body .container ul.information,
 #body > ul.information,
+#body > #fadeOut > ul.information,
 #body .container ul.information li,
-#body > ul.information li {
+#body > ul.information li,
+#body > #fadeOut > ul.information li {
     list-style: none;
     list-style-type: none;
     
@@ -1394,34 +1408,40 @@ h2 {
 }
 
 #body .container ul.information,
-#body > ul.information {
+#body > ul.information,
+#body > #fadeOut > ul.information {
     display: inline-block;
     
     margin: 0;
     padding: 0;
 }
 
-#body > ul.information {
+#body > ul.information,
+#body > #fadeOut > ul.information {
     margin-left: 24px;
 }
 
 #body .container ul.information li,
-#body > ul.information li {
+#body > ul.information li,
+#body > #fadeOut > ul.information li {
     float: left;
 }
 
 #body .container ul.information li:not(:first-child),
-#body > ul.information li:not(:first-child) {
+#body > ul.information li:not(:first-child),
+#body > #fadeOut > ul.information li:not(:first-child) {
     padding-left: 12px;
 }
 
 #body .container ul.information li a,
-#body > ul.information li a {
+#body > ul.information li a,
+#body > #fadeOut > ul.information li a {
     color: #666;
 }
 
 #body .container ul.information li a:hover,
-#body > ul.information li a:hover {
+#body > ul.information li a:hover,
+#body > #fadeOut > ul.information li a:hover {
     color: rgb(2, 144, 208);
 }
 
@@ -2143,7 +2163,6 @@ h2 {
 #sidebar ul a:hover {
     
     padding-left: 35px;
-    
     color: #000;
     background-color: rgba(2, 144, 208,0.5);
 }
@@ -2618,6 +2637,10 @@ a:hover {
 @-webkit-keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
 @-moz-keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
 
+@keyframes fadeOut { from { opacity:1; right: 0%; } to { opacity:0; right: 25%; } }
+@-webkit-keyframes fadeOut { from { opacity:1; right: 0%; } to { opacity:0; right: 25%; } }
+@-moz-keyframes fadeOut { from { opacity:1; right: 0%; } to { opacity:0; right: 25%; } }
+
 
 @keyframes bounceUp { 0% { top: -3px; } 25% { top: -9px; } 50% { top: -3px; } 75% { top: -6px; } }
 @-webkit-keyframes bounceUp { 0% { top: -3px; } 25% { top: -9px; } 50% { top: -3px; } 75% { top: -6px; } }
@@ -2680,9 +2703,27 @@ a:hover {
 }
 
 .fade-in {
+    display: block;
+    position: relative;
     -webkit-animation:fadeIn linear 500ms;
     -moz-animation:fadeIn linear 500ms;
     animation:fadeIn linear 500ms;
+ 
+    -webkit-animation-fill-mode:forwards;
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+ 
+    -webkit-animation-duration:500ms;
+    -moz-animation-duration:500ms;
+    animation-duration:500ms;
+}
+
+.fade-out {
+    display: block;
+    position: relative;
+    -webkit-animation:fadeOut linear 500ms;
+    -moz-animation:fadeOut linear 500ms;
+    animation:fadeOut linear 500ms;
  
     -webkit-animation-fill-mode:forwards;
     -moz-animation-fill-mode:forwards;

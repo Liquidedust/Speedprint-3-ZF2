@@ -43,9 +43,9 @@ return array(
                         'options' => array(
                             'route'    => '/[:seo[/:action[/:variant]]]',
                             'constraints' => array(
-                                'seo'      => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'      => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'variant'      => '[0-9]*',
+                                'seo'       =>  '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'    =>  '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'variant'   =>  '[0-9]*'
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'Products\Controller',
