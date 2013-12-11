@@ -1,24 +1,20 @@
 <?php
-
-    $this->inlineScript()->appendFile( $this->basePath('/plugins/ldscarousel/js/jquery.ldscarousel.js') )
-                         ->appendFile( $this->basePath('/js/products.js') );
     
-    $this->headScript()->prependFile( $this->basePath('/plugins/validate/js/jquery.validate.js') )
-                       ->prependFile( $this->basePath('/plugins/autogrow/js/jquery.input.autogrow.js') )
-                       ->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox-thumbs.js') )
-                       ->prependFile( $this->basePath('/plugins/fancybox/js/jquery.fancybox.js') );
+    foreach( $this->inlineScript as $key => $value ){
+       $this->inlineScript()->appendFile( $this->basePath( $value ) );
+    }
     
-    $this->headLink()->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox.css') )
-                     ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-buttons.css') )
-                     ->appendStylesheet( $this->basePath('/plugins/fancybox/css/jquery.fancybox-thumbs.css') )
-                     ->appendStylesheet( $this->basePath('/plugins/ldscarousel/css/jquery.ldscarousel.css') )
-                     ->appendStylesheet( $this->basePath('/css/products.css') );
+    foreach( $this->headScript as $key => $value ){
+       $this->headScript()->prependFile( $this->basePath( $value ) );
+    }
+    
+    foreach( $this->headLink as $key => $value ){
+       $this->headLink()->appendStylesheet( $this->basePath( $value ) );
+    }
+    
+    foreach($this->resultset as $key => $value) {
+    $this->headTitle()->append( $value['product_name'] );
 ?>
-                    
-                    <?php
-                    foreach($this->resultset as $key => $value) {
-                    $this->headTitle()->append( $value['product_name'] );
-                    ?>
                     <h1><?php echo( $value['product_name'] ) ?></h1>
                     
                     <div class="clear"></div>
@@ -255,4 +251,6 @@
                     </div>
 
                     <div class="clear"></div>
-                    <?php } ?>
+<?php
+    }
+?>

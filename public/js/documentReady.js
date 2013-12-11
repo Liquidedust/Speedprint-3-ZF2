@@ -840,4 +840,8 @@ $(document).ready(function(){
         });
         
     });
+    $(document).on('click','a.ajax',function(e){
+        e.preventDefault();
+        $.speedPrint.ajaxHandler.domLoad( $(this).attr('href') + "\/ajax", '#body' );
+    });
 });

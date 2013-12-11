@@ -6,13 +6,13 @@
         Purpose of the stylesheet follows.
 */
 
-#body .container .header {
+#body .container.product .header {
     height: auto;
     
     overflow:visible;
 }
 
-#body .container .price {
+#body .container.product .price {
     position: absolute;
     display: block;
     right: 12px;
@@ -21,7 +21,7 @@
     float: right;
 }
 
-#body .container .buy {
+#body .container.product .buy {
     display: block;
     width: auto;
     min-height: 40px;
@@ -35,16 +35,16 @@
     float: right;
 }
 
-#body .container .buy .buy_element {
+#body .container.product .buy .buy_element {
     margin-bottom: 6px;
 }
 
-#body .container .buy label,
-#body .container .buy div:not(.clear):not(.add_to_cart):not(.amount):not(.buy_element),
-#body .container .buy select,
-#body .container .buy option,
-#body .container .buy input,
-#body .container .buy button {
+#body .container.product .buy label,
+#body .container.product .buy div:not(.clear):not(.add_to_cart):not(.amount):not(.buy_element),
+#body .container.product .buy select,
+#body .container.product .buy option,
+#body .container.product .buy input,
+#body .container.product .buy button {
     position: relative;
     
     box-sizing: border-box;
@@ -65,30 +65,30 @@
     outline: none;
 }
 
-#body .container .buy label {
+#body .container.product .buy label {
     cursor: pointer;
     position: absolute;
     left: 8px;
     top: -8px;
 }
 
-#body .container .buy > * {
+#body .container.product .buy > * {
     position: relative;
     
     float: left;
 }
 
-#body .container .buy select {
+#body .container.product .buy select {
     position: relative;
     
     float: right;
 }
 
-#body .container .buy select option:last-child {
+#body .container.product .buy select option:last-child {
     border-radius: 0px 0px 6px 6px;
 }
 
-#body .container .buy label.antal {
+#body .container.product .buy label.antal {
     text-transform: lowercase;
     font-variant: small-caps;
     font-weight: bold;
@@ -96,7 +96,7 @@
     color: rgb(153,153,153);
 }
 
-#body .container .buy input.antal {
+#body .container.product .buy input.antal {
     box-sizing: content-box;
     -moz-box-sizing: content-box;
     width: 26px;
@@ -114,16 +114,16 @@
     background-color: rgb(252, 252, 252);
 }
 
-#body .container .buy input.antal,
-#body .container .buy input.antal ~ label.antal {
+#body .container.product .buy input.antal,
+#body .container.product .buy input.antal ~ label.antal {
     transition: border-color 300ms ease-in-out,
                 color 300ms ease-in-out,
                 width 300ms ease-in-out;
 }
 
-#body .container .buy input.active,
-#body .container .buy select.active,
-#body .container .buy textarea.active {
+#body .container.product .buy input.active,
+#body .container.product .buy select.active,
+#body .container.product .buy textarea.active {
     padding: 1px 11px;
     border-width: 2px;
     border-style: solid;
@@ -131,13 +131,13 @@
     color: #0290D0;
 }
 
-#body .container .buy label.antal.active {
+#body .container.product .buy label.antal.active {
     color: #0290D0;
 }
 
-#body .container .buy input.error,
-#body .container .buy select.error,
-#body .container .buy textarea.error {
+#body .container.product .buy input.error,
+#body .container.product .buy select.error,
+#body .container.product .buy textarea.error {
     padding: 1px 11px;
     border-width: 2px;
     border-style: solid;
@@ -145,11 +145,11 @@
     color: #000;
 }
 
-#body .container .buy label.antal.error_label {
+#body .container.product .buy label.antal.error_label {
     color: rgb(217,125,50);
 }
 
-#body .container .buy button {
+#body .container.product .buy button {
     transition: border-color 300ms ease-in-out,
                 background-color 300ms ease-in-out,
                 box-shadow 300ms ease-in-out,
@@ -178,7 +178,7 @@
     font-weight: bold;
 }
 
-#body .container .buy button:not(.active):hover {
+#body .container.product .buy button:not(.active):hover {
     cursor: pointer;
     -webkit-filter: grayscale(0);
     filter: grayscale(0);
@@ -189,8 +189,8 @@
     color: rgb(217,125,50);
 }
 
-#body .container .buy button.active,
-#body .container .buy button.active:hover {
+#body .container.product .buy button.active,
+#body .container.product .buy button.active:hover {
     cursor: pointer;
     -webkit-filter: grayscale(0);
     filter: grayscale(0);
@@ -201,25 +201,25 @@
     color: rgb(0,0,0);
 }
 
-#body .container .buy button:not(.active):hover {
+#body .container.product .buy button:not(.active):hover {
     box-shadow: rgb(239,176,129) 0px 0px 12px;
 }
 
-#body .container .buy button.active:hover {
+#body .container.product .buy button.active:hover {
     box-shadow: #80DC09 0px 0px 12px;
 }
 
-#body .container .buy button.processing {
+#body .container.product .buy button.processing {
     background-image      :       url('../img/ui/icons/product_processing_invalid.gif');
     background-size       :       16px 16px;
 }
 
-#body .container .buy button.active.processing {
+#body .container.product .buy button.active.processing {
     background-image      :       url('../img/ui/icons/product_processing.gif');
     background-size       :       16px 16px;
 }
 
-#body .container .buy button img {
+#body .container.product .buy button img {
     display: inline-block;
     
     position: relative;
@@ -229,7 +229,7 @@
     max-height: 20px;
 }
 
-#body .container .buy label {
+#body .container.product .buy label {
     display: inline-block;
     /* width: 100%; */
     height: 16px;
@@ -243,7 +243,7 @@
     line-height: 16px;
 }
 
-#body .container .buy .add_to_cart {
+#body .container.product .buy .add_to_cart {
     display: block;
     
     position: relative;
@@ -253,13 +253,13 @@
     float: left;
 }
 
-#body .container .buy .add_to_cart > * {
+#body .container.product .buy .add_to_cart > * {
     display: inline-block;
     
     text-align: center;
 }
 
-#body .container .content .content_tabs {
+#body .container.product .content .content_tabs {
     display: block;
     width: 100%;
     height: 40px;
@@ -271,8 +271,8 @@
     border: none;
 }
 
-#body .container .content .content_tabs,
-#body .container .content .content_tabs li {
+#body .container.product .content .content_tabs,
+#body .container.product .content .content_tabs li {
     margin: 0;
     padding: 0;
     
@@ -282,7 +282,7 @@
     text-align: center;
 }
 
-#body .container .content .content_tabs li {
+#body .container.product .content .content_tabs li {
     display: block;
     
     float: left;
@@ -303,39 +303,39 @@
     background: rgb(241, 241, 241);
 }
 
-#body .container .content .content_tabs.four li {
+#body .container.product .content .content_tabs.four li {
     width: 25%;
 }
 
-#body .container .content .content_tabs.three li {
+#body .container.product .content .content_tabs.three li {
     width: calc( 100% / 3 );
 }
 
-#body .container .content .content_tabs.two li {
+#body .container.product .content .content_tabs.two li {
     width: 50%;
 }
 
-#body .container .content .content_tabs li.active {
+#body .container.product .content .content_tabs li.active {
     border-width: 2px 2px 0px;
     border-radius: 5px 5px 0px 0px;
     
     background: rgb(255,255,255);
 }
 
-#body .container .content .content_tabs li:first-child.active {
+#body .container.product .content .content_tabs li:first-child.active {
     border-width: 2px 2px 0px 0px;
     border-radius: 0px 5px 0px 0px;
 }
 
-#body .container .content .content_tabs li:last-child.active {
+#body .container.product .content .content_tabs li:last-child.active {
     border-width: 2px 0px 0px 2px;
     border-radius: 5px 0px 0px 0px;
 }
 
-#body .container .content .content_tabs li:hover {
+#body .container.product .content .content_tabs li:hover {
 }
 
-#body .container .content .content_tabs li a {
+#body .container.product .content .content_tabs li a {
     
     display: block;
     height: 100%;
@@ -346,36 +346,36 @@
     color: #999;
 }
 
-#body .container .content .content_tabs li.active a {
+#body .container.product .content .content_tabs li.active a {
     padding: 2px 0px 4px;
 }
 
-#body .container .content .content_tabs li:first-child a{
+#body .container.product .content .content_tabs li:first-child a{
     padding-left: 1px;
     padding-right: 1px;
 }
 
-#body .container .content .content_tabs li:first-child.active a{
+#body .container.product .content .content_tabs li:first-child.active a{
     padding-left: 2px;
     padding-right: 0px;
 }
 
-#body .container .content .content_tabs li:last-child a{
+#body .container.product .content .content_tabs li:last-child a{
     padding-left: 1px;
     padding-right: 1px;
 }
 
-#body .container .content .content_tabs li:last-child.active a{
+#body .container.product .content .content_tabs li:last-child.active a{
     padding-left: 0px;
     padding-right: 2px;
 }
     
-#body .container .content .content_tabs li.active a,
-#body .container .content .content_tabs li a:hover {
+#body .container.product .content .content_tabs li.active a,
+#body .container.product .content .content_tabs li a:hover {
     color: #000;
 }
 
-#body .container .content .content_tabs li a img {
+#body .container.product .content .content_tabs li a img {
     transition: all 300ms ease-in-out;
     
     display: block;
@@ -393,25 +393,25 @@
     -moz-filter:grayscale(100%);
 }
 
-#body .container .content .content_tabs li.active a img,
-#body .container .content .content_tabs li a:hover img {
+#body .container.product .content .content_tabs li.active a img,
+#body .container.product .content .content_tabs li a:hover img {
     filter:grayscale(0%);
     -webkit-filter:grayscale(0%);
     -moz-filter:grayscale(0%);
 }
     
-#body .container.product .content .content_data {
+#body .container.product.product .content .content_data {
     display: none;
     height: auto;
     position: relative;
     opacity: 0.0;
 }
 
-#body .container.product .content .content_data > div:not(:first-child) {
+#body .container.product.product .content .content_data > div:not(:first-child) {
     margin-top: 24px;
 }
 
-#body .container.product .content .content_data h4 {
+#body .container.product.product .content .content_data h4 {
     color: #000;
     font-size: 20px;
     font-weight: normal;
@@ -419,14 +419,14 @@
     margin-bottom: 12px;
 }
 
-#body .container.product .content .content_data .columns_two h4 {
+#body .container.product.product .content .content_data .columns_two h4 {
     display: block;
     column-span: all;
     -webkit-column-span: all;
     -moz-column-span: all;
 }
 
-#body .container.product .content .content_data .columns_two p:first-of-type {
+#body .container.product.product .content .content_data .columns_two p:first-of-type {
     display: block;
     column-span: all;
     -webkit-column-span: all;
@@ -435,12 +435,12 @@
     font-style: italic;
 }
 
-#body .container.product .content .content_data.active {
+#body .container.product.product .content .content_data.active {
     display: block;
     opacity: 1.0;
 }
 
-#body .container.product .content #rabatter table {
+#body .container.product.product .content #rabatter table {
     display: table;
     width: 100%;
     
@@ -452,50 +452,50 @@
     font-size: 12px;
 }
 
-#body .container.product .content #rabatter table tobdy,
-#body .container.product .content #rabatter table tobdy tr:last-child {
+#body .container.product.product .content #rabatter table tobdy,
+#body .container.product.product .content #rabatter table tobdy tr:last-child {
     border-radius: 0px 0px 5px 5px;
 }
 
-#body .container.product .content #rabatter table tobdy tr:last-child td:first-child {
+#body .container.product.product .content #rabatter table tobdy tr:last-child td:first-child {
     border-radius: 0px 0px 0px 5px;
 }
 
-#body .container.product .content #rabatter table tobdy tr:last-child td:last-child {
+#body .container.product.product .content #rabatter table tobdy tr:last-child td:last-child {
     border-radius: 0px 0px 5px 0px;
 }
 
-#body .container.product .content #rabatter table thead {
+#body .container.product.product .content #rabatter table thead {
     font-family:'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
     font-weight: bold;
 }
 
-#body .container.product .content #rabatter table td {
+#body .container.product.product .content #rabatter table td {
     width: calc( 100% / 3 );
     padding: 3px 6px;
 }
 
-#body .container.product .content #rabatter table tbody tr:not(.title):nth-child(odd) {
+#body .container.product.product .content #rabatter table tbody tr:not(.title):nth-child(odd) {
     background-color: #fafafa;
 }
 
-#body .container.product .content #rabatter table tbody tr:not(.title):nth-child(even) {
+#body .container.product.product .content #rabatter table tbody tr:not(.title):nth-child(even) {
     background-color: #f0f0f0;
 }
 
-#body .container.product .content #rabatter table tbody tr.title:not(:first-child) td {
+#body .container.product.product .content #rabatter table tbody tr.title:not(:first-child) td {
     padding-top: 12px;
 }
 
-#body .container.product .content #rabatter table tr td {
+#body .container.product.product .content #rabatter table tr td {
     text-align: center;
 }
 
-#body .container.product .content #rabatter table tr td:first-child {
+#body .container.product.product .content #rabatter table tr td:first-child {
     text-align: left;
 }
 
-#body .container.product .content #rabatter table h5 {
+#body .container.product.product .content #rabatter table h5 {
     width: 100%;
     
     color: rgb(217,125,50);

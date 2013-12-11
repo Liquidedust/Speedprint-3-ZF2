@@ -21,6 +21,18 @@ return array(
                     ),
                 ),
             ),
+            'ajax' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/ajax',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'Index',
+                        'action'        => 'ajax',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'menu' => array(
                 'type'    => 'Literal',
                 'options' => array(

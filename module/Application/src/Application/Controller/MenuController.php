@@ -21,6 +21,9 @@ Exception;
 class MenuController extends AbstractActionController {
     
     protected $em;
+    protected $headLink;
+    protected $headScript;
+    protected $inlineScript;
     
     public function getEntityManager() {
         if (null === $this->em) {

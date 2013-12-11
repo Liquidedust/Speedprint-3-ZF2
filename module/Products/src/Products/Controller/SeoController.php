@@ -22,6 +22,26 @@ class SeoController extends AbstractActionController {
     
     private $product;
     
+    protected $headLink = Array(
+        '/plugins/fancybox/css/jquery.fancybox.css',
+        '/plugins/fancybox/css/jquery.fancybox-buttons.css',
+        '/plugins/fancybox/css/jquery.fancybox-thumbs.css',
+        '/plugins/ldscarousel/css/jquery.ldscarousel.css',
+        '/css/products.css'
+    );
+    
+    protected $headScript = Array(
+        '/plugins/validate/js/jquery.validate.js',
+        '/plugins/autogrow/js/jquery.input.autogrow.js',
+        '/plugins/fancybox/js/jquery.fancybox-thumbs.js',
+        '/plugins/fancybox/js/jquery.fancybox.js'
+    );
+    
+    protected $inlineScript = Array(
+        '/plugins/ldscarousel/js/jquery.ldscarousel.js',
+        '/js/products.js'
+    );
+    
     /**             
     * @var Doctrine\ORM\EntityManager
     */                
@@ -88,7 +108,12 @@ class SeoController extends AbstractActionController {
                 $resultset[] = $row;
             }
         
-            return new ViewModel( array( 'resultset' => $resultset ) );
+            return new ViewModel( array(
+                'resultset' => $resultset,
+                'inlineScript' => $this->inlineScript,
+                'headScript' => $this->headScript,
+                'headLink' => $this->headLink
+            ) );
         }
     }
     
@@ -162,7 +187,13 @@ class SeoController extends AbstractActionController {
                 $resultset[] = $row;
             }
             
-            $viewModel = new ViewModel( array( 'resultset' => $resultset ) );
+            $viewModel = new ViewModel( array(
+                'resultset' => $resultset,
+                'inlineScript' => $this->inlineScript,
+                'headScript' => $this->headScript,
+                'headLink' => $this->headLink
+            ) );
+            
             $viewModel->setTemplate('products/seo/seo')
                       ->setTerminal(true);
 
@@ -173,6 +204,12 @@ class SeoController extends AbstractActionController {
             $jsonModel = new JsonModel(array(
                 'success' => true,
                 'html' => $htmlOutput,
+                'title' => $resultset[0]['product_name'],
+                'options' => array(
+                    'inlineScript' => $this->inlineScript,
+                    'headScript' => $this->headScript,
+                    'headLink' => $this->headLink
+                )
             ));
             
         }
