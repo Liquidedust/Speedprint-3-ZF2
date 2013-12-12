@@ -667,11 +667,11 @@ $('.search').change(function(){
 /****  Body Container Actions  ****/
 /**********************************/
 
-$("#body .actions").hover(function(){
+$('#body').on('mouseenter','.actions',function(){
     $(this).closest(".header").css({'overflow':'visible'});
 });
 
-$("#body > .container").mouseleave(function(){
+$('#body').on('mouseleave','.container',function(){
     $(this).find("div.header").css({'overflow':'hidden'});
 });
 

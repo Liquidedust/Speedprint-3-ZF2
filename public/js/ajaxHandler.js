@@ -43,7 +43,7 @@ $.extend({
                         $("body").append( $("<div id='page_loading'></div>") );
                         $("#page_loading").spin('speedprint');
                     }
-                    $("#page_loading").transition({
+                    $("#page_loading").show().transition({
                         opacity: 1.0
                     });
                 }
@@ -67,14 +67,14 @@ $.extend({
                         }
                         $("#page_loading").transition({
                             opacity: 0.0
-                        });
+                        }).delay(300).hide();
                         $this.domInsert(data,target);
                     },duration);
                 }).fail(function( data ){
                     setTimeout(function(){
-                        $('#page_loading').fadeOut(500,function(){
-                            $(this).remove();
-                        })
+                        $("#page_loading").transition({
+                            opacity: 0.0
+                        }).delay(300).hide();
                     },duration);
                 });
             },
@@ -266,7 +266,17 @@ window.onload = function(e) {
 };
 
 $(document).on('click','a.ajax',function(e){
+    
     e.preventDefault();
     href = $(this).attr('href') === '/' ? '/ajax' : $(this).attr('href') + "\/ajax";
-    $.speedPrint.ajaxHandler.domLoad( href , '#body' );
+    var newLocation = $(this).attr('href');
+    
+    console.log( 'currentLocation : ' + $.speedPrint.ajaxHandler.currentLocation );
+    console.log( 'newLocation : ' + newLocation  );
+    
+    if(newLocation !== $.speedPrint.ajaxHandler.currentLocation) {
+        $.speedPrint.ajaxHandler.domLoad( href , '#body' );
+    }
+    
+    $.speedPrint.ajaxHandler.currentLocation = newLocation;
 });
