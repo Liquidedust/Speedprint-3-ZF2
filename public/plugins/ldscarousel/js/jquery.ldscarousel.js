@@ -236,9 +236,9 @@ $(window).resize(function(){
                 var $set = $(this).children('li');
                 var $active = $(this).children('li.focus');
                 var $this = $( $set ).index( $active );
-
-                var $x1 = $(this).closest('.image').width() / 2;
-                var $x = $x1 - ($this*180) - 90;
+                
+                var $x1 = $(this).closest('.carousel_wrapper').width() / 2;
+                var $x = $x1 - 90;
                 return $x + 'px';
             }
         });

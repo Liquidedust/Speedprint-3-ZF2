@@ -27,25 +27,45 @@ $.extend({
             },
             
             // domLoad, load content to manipulate
-            domLoad:        function(get,target,replace){
+            domLoad:        function(get,target,replace,popstate){
                 var $this = this;
                 var duration = this.getDuration();
                 var replace = replace;
                 
+                if( !popstate ) {
+                    $("body").append( $("<div id='page_loading'></div>") );
+                    $("#page_loading").spin('speedprint');
+                }
+                
                 $.ajax({
                     type: 'GET',
-                    url: get
+                    url: get,
+                    cache: false
                 }).done(function( data ){
                     setTimeout(function(){
+                        pattern = ( get === '/ajax' ) ? '/' : '';
                         if( replace === true ) {
-                            history.replaceState(new Object({'url':get,'target':target,'myTag':true}),data.title,get.replace('/ajax',''));
+                            history.replaceState(new Object({'url':get,'target':target,'myTag':true}),data.title,get.replace('/ajax',pattern));
                         } else {
-                            history.pushState(new Object({'url':get,'target':target,'myTag':true}),data.title,get.replace('/ajax',''));
+                            history.pushState(new Object({'url':get,'target':target,'myTag':true}),data.title,get.replace('/ajax',pattern));
                         }
+                        if( data.title !== '' ) {
+                            document.title = data.title + ' :: SpeedPrint 3.0';
+                        } else {
+                            document.title = 'SpeedPrint 3.0';
+                        }
+                        
+                        $('#page_loading').fadeOut(500,function(){
+                            $(this).remove();
+                        })
+                        
                         $this.domInsert(data,target);
                     },duration);
                 }).fail(function( data ){
                     setTimeout(function(){
+                        $('#page_loading').fadeOut(500,function(){
+                            $(this).remove();
+                        })
                     },duration);
                 });
             },
@@ -58,6 +78,17 @@ $.extend({
                 var duration = this.getDuration();
                 if( target === '#body' ){
                     // fadeout current body, then insert new content with a fadein
+                            
+                    // load css dependencies
+                    headLink = $data.options.headLink;
+                    $.each( headLink, function(i,css){
+                        if( $("head link[href=\'" + css  + "\']").length === 0 ){
+                            setTimeout(function(){
+                                $( $this.linkElem.replace("$css",css) ).insertAfter('head link:last-of-type');
+                            },i);
+                        }
+                    });
+                            
                     this.domRemove(target,function(){
                             
                             var $fadeIn = $($this.bodyFadeIn);
@@ -65,34 +96,12 @@ $.extend({
                             $body.appendTo( $fadeIn );
                             $($fadeIn).find('.carousel_wrapper ul').addClass('notransition');
                             $fadeIn.appendTo(target);
-                            
-                            // load css dependencies
-                            headLink = $data.options.headLink;
-                            $.each( headLink, function(i,css){
-                                if( $("head link[href=\'" + css  + "\']").length === 0 ){
-                                    setTimeout(function(){
-                                        $( $this.linkElem.replace("$css",css) ).insertAfter('head link:last-of-type');
                                         
-                                        // if inserted element has a carousel wrapper
-                                        // make sure the carousel is reset to default position
-                                        if( $($fadeIn).find('.carousel_wrapper ul').length > 0 ){
-                                            $($fadeIn).find(".carousel_wrapper ul")
-                                            .css({
-                                                'left'      :       function(){
-                                                    var $x1 = $(this).closest('.carousel_wrapper').width() / 2;
-                                                    var $x = $x1 - 90;
-                                                    return $x + 'px';
-                                                }
-                                            }).closest('.carousel_wrapper')
-                                            .find('.navigation a').eq(0).addClass('focus').nextAll('a').removeClass('focus')
-                                            .closest('.carousel_wrapper').find('.prev').addClass('inactive');
-                                            setTimeout(function(){
-                                                $("#body").find('.carousel_wrapper ul').removeClass('notransition');
-                                            },50);
-                                        }
-                                    },i);
-                                }
-                            });
+                            // if inserted element has a carousel wrapper
+                            // make sure the carousel is reset to default position
+                            if( $($fadeIn).find('.carousel_wrapper ul').length > 0 ){
+                                $this.carouselInitialState( $($fadeIn).find('.carousel_wrapper ul') );
+                            }
 
                             setTimeout(function(){
                                 $switch = $( $("#fadeIn").html() );
@@ -164,26 +173,54 @@ $.extend({
                     
             domPopState:    function(e){
                 state = e.state;
-                
+                console.log( document.location.href );
                 if( document.location === this.initialPage && this.initialPage !== null ) {
                     console.log( document.location );
                 } else {
                     console.log( 'e.state.url       : ' + e.state.url );
-                    this.domLoad( e.state.url, e.state.target, true );
+                    this.domLoad( e.state.url, e.state.target,true,true);
                 }
+            },
+            
+            carouselInitialState:   function(e) {
+                $(e)
+                .css({
+                    'left'      :       function(){
+                        var $x1 = $(this).closest('.carousel_wrapper').width() / 2;
+                        var $x = $x1 - 90;
+                        return $x + 'px';
+                    }
+                }).find('li').eq(0).addClass('focus').nextAll().each(function(i){
+                    $(this).find('img').css({
+                        'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
+                        '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                        'opacity'           :   1 - ((i+1)/10)
+                    });
+                }).closest('.carousel_wrapper')
+                .find('.navigation a').eq(0).addClass('focus').nextAll('a').removeClass('focus')
+                .closest('.carousel_wrapper').find('.prev').addClass('inactive');
+                setTimeout(function(){
+                    $("#body").find('.carousel_wrapper ul').removeClass('notransition');
+                },50);
             }
         })
     })
 });
 
-$(window).bind('popstate', function(e){
+window.onpopstate = function(e){
     if(e.state.myTag !== undefined){
         if(!e.state.myTag){ return; };
         $.speedPrint.ajaxHandler.domPopState(e);
     };
-});
+};
 
 window.onload = function(e) {
     history.replaceState({url:document.URL+'ajax',target:'#body',myTag: true},null,document.URL);
     $.speedPrint.ajaxHandler.initialPage = document.URL;
 };
+
+$(document).on('click','a.ajax',function(e){
+    e.preventDefault();
+    href = $(this).attr('href') === '/' ? '/ajax' : $(this).attr('href') + "\/ajax";
+    $.speedPrint.ajaxHandler.domLoad( href , '#body' );
+});
