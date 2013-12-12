@@ -2637,6 +2637,13 @@ h2 {
     left: 50%;
     
     z-index: 20000;
+    
+    background-image: url('../img/speedprint.loading.blue.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 35%, 35%;
+    
+    opacity: 0;
 }
 
 a {
@@ -2653,13 +2660,13 @@ a:hover {
 @-webkit-keyframes pulsate { 0%, 100% { -webkit-transform: scale(1.0); } 50% { -webkit-transform: scale(1.2); } }
 @-moz-keyframes pulsate { 0%, 100% { -moz-transform: scale(1.0); } 50% { -moz-transform: scale(1.2); } }
 
-@-webkit-keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
-@-moz-keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
-@keyframes fadeIn { from { opacity:0; left: 25%; } to { opacity:1; left: 0%; } }
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
-@-webkit-keyframes fadeOut { from { opacity:1; right: 0%; } to { opacity:0; right: 25%; } }
-@-moz-keyframes fadeOut { from { opacity:1; right: 0%; } to { opacity:0; right: 25%; } }
-@keyframes fadeOut { from { opacity:1; right: 0%; } to { opacity:0; right: 25%; } }
+@-webkit-keyframes fadeOut { from { opacity:1; } to { opacity:0; } }
+@-moz-keyframes fadeOut { from { opacity:1; } to { opacity:0; } }
+@keyframes fadeOut { from { opacity:1; } to { opacity:0; } }
 
 
 @-webkit-keyframes bounceUp { 0% { top: -3px; } 25% { top: -9px; } 50% { top: -3px; } 75%,100% { top: -6px; } }
@@ -2672,20 +2679,12 @@ a:hover {
 @keyframes bounceDown { 0% { top: -3px; } 25% { top: 3px; } 50% { top: -3px; } 75%,100% { top: 0px; } }
 
 
-@-webkit-keyframes fadeToGreen {
-    100% { background-color: rgb(129, 178, 69); }
-}
-@keyframes fadeToGreen {
-    100% { background-color: rgb(129, 178, 69); }
-}
+@-webkit-keyframes fadeToGreen { 100% { background-color: rgb(129, 178, 69); } }
+@keyframes fadeToGreen { 100% { background-color: rgb(129, 178, 69); } }
 
 
-@-webkit-keyframes fadeToRed {
-    100% { background-color: rgb(217,125,50); }
-}
-@keyframes fadeToRed {
-    100% { background-color: rgb(217,125,50); }
-}
+@-webkit-keyframes fadeToRed { 100% { background-color: rgb(217,125,50); } }
+@keyframes fadeToRed { 100% { background-color: rgb(217,125,50); } }
 
 
 @-webkit-keyframes menuSlideToRight { 0% { padding-left: 12px; } 50%, 100% { padding-left: 80px; } }
@@ -2716,10 +2715,6 @@ a:hover {
 @-webkit-keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
 @-moz-keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
 @keyframes logoSlideOut { 0%,50% { left: -361px; } 100% { left: -15px; } }
-
-.no-opacity {
-    opacity: 0;
-}
 
 .fade-in {
     -webkit-animation:fadeIn linear 500ms;

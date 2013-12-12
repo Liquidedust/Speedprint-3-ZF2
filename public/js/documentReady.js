@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 if (!$.support.transition) {
     $.fn.transition = $.fn.animate;
 }
@@ -372,8 +373,6 @@ var cart = new Object({
     },
     insert: function(template,id,animate){
         
-        console.log( '302 => ' + animate );
-        
         $("#sidebar-cart table tbody").append( $.parseHTML( template ) );
         
         if(animate!==false) {
@@ -518,8 +517,11 @@ if( cookie.read("active_tab") ){
     });
 }
 
+// $("input[name=listformat]").removeProp('checked');
 if( cookie.read("list-format") ) {
     $("input[name=listformat][data-format=" + cookie.read("list-format") + "]").prop('checked', true);
+} else {
+    $("input[name=listformat][data-format=expanded]").prop('checked', true);
 }
 
 if( $(document).width() >= 1100 ){
@@ -580,7 +582,7 @@ cart.count();
 cart.from_cookie();
 
 // Hide Page Body
-$("#body .container").addClass('no-opacity');
+// $("#body .container").addClass('no-opacity');
 
 $("#sidebar .toggle > a, a[data-sidebar=open]").click(function(event){
     if( !$('#sidebar').hasClass('maximized') || $(this).closest(".toggle").hasClass('active') ) {
@@ -637,8 +639,20 @@ $("input[data-sidebar=open]").on('blur', function(){
     $("#sidebar .toggle[data-for=" + $(this).attr('data-for') + "]").removeClass("hovering");
 });
 
-$("input[name=listformat]").click(function(){
+
+$("#body .container:not(.product) .content").dotdotdot();
+$("#sidebar-cart .name").dotdotdot();
+
+$(document).on('click',"input[name=listformat]",function(){
     cookie.create('list-format',$(this).attr('data-format'));
+});
+
+$(document).on('change',"input[name=listformat]",function(){
+    $("#body .container .content").dotdotdot();
+});
+
+$(document).on('click',".list-type",function(){
+    $("#body #do_compare").removeAttr('style');
 });
 
 $('.search').siblings(".empty").bind('click',function(){
@@ -647,17 +661,6 @@ $('.search').siblings(".empty").bind('click',function(){
 
 $('.search').change(function(){
     $(this).mouseleave();
-});
-
-$("#body .container:not(.product) .content").dotdotdot();
-$("#sidebar-cart .name").dotdotdot();
-
-$("input[name=listformat]").change(function(){
-    $("#body .container .content").dotdotdot();
-});
-
-$("#body .list-type").click(function(){
-    $("#body #do_compare").removeAttr('style');
 });
 
 /**********************************/
@@ -763,7 +766,7 @@ $.fn.spin.presets.speedprint = {
   color: '#0290D0', // #rgb or #rrggbb or array of colors
   speed: 1, // Rounds per second
   trail: 60, // Afterglow percentage
-  shadow: true, // Whether to render a shadow
+  shadow: false, // Whether to render a shadow
   hwaccel: true, // Whether to use hardware acceleration
   className: 'spinner', // The CSS class to assign to the spinner
   zIndex: 2e9, // The z-index (defaults to 2000000000)
@@ -772,14 +775,12 @@ $.fn.spin.presets.speedprint = {
 }
 
 $(document).ready(function(){
-    $(".carousel").css({opacity: 0.0});
     $('body').removeClass('preload');
     $("body").removeClass("preload",function(){
         $('#body .container').each(function(i) {
-            $(this).css({opacity:'0.0'});
-            $(this).delay(250*i).queue(function(next){
-                $(this).addClass('fade-in').removeClass('no-opacity').css('opacity','').find(".carousel").each(function(i){
-                    $(this).delay(750 + 250*i).queue(function(next){
+            $(this).css({opacity:0}).delay(250*i).transition({opacity:1}).queue(function(next){
+                
+                $(this).find(".carousel").each(function(i){
                         $(".carousel_wrapper ul").css({
                             'left'      :       function(){
                                 var $x1 = $(this).closest('.carousel_wrapper').width() / 2;
@@ -795,10 +796,6 @@ $(document).ready(function(){
                         }).closest('.carousel_wrapper')
                         .find('.navigation a').eq(0).addClass('focus').nextAll('a').removeClass('focus')
                         .closest('.carousel_wrapper').find('.prev').addClass('inactive');
-                        
-                        $(this).addClass('fade-in').delay(550).removeClass('fade-in');
-                        $(".carousel").css('opacity','');
-                    });
                 });
             });
         });

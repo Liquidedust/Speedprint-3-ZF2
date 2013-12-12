@@ -4,37 +4,48 @@ $.extend({
     speedPrint: new Object({
         ajaxHandler: new Object({
 
-            // statics
-            bodyFadeIn:         "<div id='fadeIn' class='fade-in'></div>",
+            // statics and variables
+            bodyFadeIn:             "<div id='fadeIn' style='opacity:0;'></div>",
 
-            bodyFadeOut:        "<div id='fadeOut' class='fade-out'></div>",
+            bodyFadeOut:            "<div id='fadeOut' style='opacity:1;'></div>",
             
-            scriptElem:   "<script type='text/javascript' src='$script'></script>",
+            scriptElem:             "<script type='text/javascript' src='$script'></script>",
             
-            linkElem:   "<link href='$css' media='screen' rel='stylesheet' type='text/css'>",
+            linkElem:               "<link href='$css' media='screen' rel='stylesheet' type='text/css'>",
             
-            duration:       500,
+            duration:               500,
             
-            timeOut:        null,
+            timeOut:                null,
             
-            initialPage:    null,
+            initialPage:            null,
+            
+            currentlocation:        null,
             
             // functions
             
+            getLocation:            function() {
+                return location.pathname + location.search;
+            },
+            
             // get the duration for page switching
-            getDuration:    function(){
+            getDuration:            function(){
                 return this.duration;
             },
             
             // domLoad, load content to manipulate
-            domLoad:        function(get,target,replace,popstate){
+            domLoad:                function(get,target,replace,popstate){
                 var $this = this;
                 var duration = this.getDuration();
                 var replace = replace;
                 
                 if( !popstate ) {
-                    $("body").append( $("<div id='page_loading'></div>") );
-                    $("#page_loading").spin('speedprint');
+                    if( $("#page_loading").length === 0 ) {
+                        $("body").append( $("<div id='page_loading'></div>") );
+                        $("#page_loading").spin('speedprint');
+                    }
+                    $("#page_loading").transition({
+                        opacity: 1.0
+                    });
                 }
                 
                 $.ajax({
@@ -54,11 +65,9 @@ $.extend({
                         } else {
                             document.title = 'SpeedPrint 3.0';
                         }
-                        
-                        $('#page_loading').fadeOut(500,function(){
-                            $(this).remove();
-                        })
-                        
+                        $("#page_loading").transition({
+                            opacity: 0.0
+                        });
                         $this.domInsert(data,target);
                     },duration);
                 }).fail(function( data ){
@@ -72,7 +81,7 @@ $.extend({
             
             // domInsert, insert content into document
             // togather with css and scripts
-            domInsert:      function(data,target,callback){
+            domInsert:              function(data,target,callback){
                 var $this = this;
                 var $data = data;
                 var duration = this.getDuration();
@@ -94,8 +103,16 @@ $.extend({
                             var $fadeIn = $($this.bodyFadeIn);
                             $body = $($data.html);
                             $body.appendTo( $fadeIn );
+                
                             $($fadeIn).find('.carousel_wrapper ul').addClass('notransition');
                             $fadeIn.appendTo(target);
+                            
+                            // fadein the new body
+                            $fadeIn.transition({
+                                opacity: 1.0
+                            });
+                            
+                            $this.changeListFormat();
                                         
                             // if inserted element has a carousel wrapper
                             // make sure the carousel is reset to default position
@@ -107,6 +124,8 @@ $.extend({
                                 $switch = $( $("#fadeIn").html() );
                                 $switch.appendTo(target);
                                 $("#fadeIn").remove();
+                
+                                $this.changeListFormat();
                                 
                                 setTimeout(function(){
                                     inlineScript = $data.options.inlineScript;
@@ -143,7 +162,7 @@ $.extend({
                 }
             },
                     
-            domRemove:      function(target,callback){
+            domRemove:              function(target,callback){
                 var $this = this;
                 var duration = this.getDuration();
                 var $fadeOut = $( this.bodyFadeOut );
@@ -154,6 +173,13 @@ $.extend({
                 $($fadeOut).find('.fade-in').removeClass('fade-in');
                 $($fadeOut).prependTo( target );
                 
+                // fadeout the previous body
+                $fadeOut.transition({
+                    opacity: 0.0
+                });
+                
+                this.changeListFormat();
+                
                 setTimeout(function(){
                     $($fadeOut).remove();
                     if(typeof callback === 'function'){
@@ -162,7 +188,7 @@ $.extend({
                 },duration + 50);
             },
             
-            domReplace:     function(target,callback){
+            domReplace:             function(target,callback){
                 var $this = this;
                 var duration = this.getDuration();
                 
@@ -171,9 +197,9 @@ $.extend({
                 }
             },
                     
-            domPopState:    function(e){
+            domPopState:            function(e){
                 state = e.state;
-                console.log( document.location.href );
+                console.log( 'document.location.href : ' + document.location.href );
                 if( document.location === this.initialPage && this.initialPage !== null ) {
                     console.log( document.location );
                 } else {
@@ -202,16 +228,36 @@ $.extend({
                 setTimeout(function(){
                     $("#body").find('.carousel_wrapper ul').removeClass('notransition');
                 },50);
+            },
+            
+            changeListFormat:       function() {
+                console.log( 'list format length : ' + $("input[name=listformat]").length );
+                if( $("input[name=listformat]").length >= 1 ) {
+                    if( cookie.read("list-format") ) {
+                        console.log( 'list-format : ' + cookie.read("list-format") );
+                        $("input[name=listformat][data-format=" + cookie.read("list-format") + "]").prop('checked', true);
+                    } else {
+                        $("input[name=listformat][data-format=expanded]").prop('checked', true);
+                    }
+                }
             }
         })
     })
 });
 
+$.speedPrint.ajaxHandler.currentLocation = $.speedPrint.ajaxHandler.getLocation();
+
 window.onpopstate = function(e){
-    if(e.state.myTag !== undefined){
-        if(!e.state.myTag){ return; };
-        $.speedPrint.ajaxHandler.domPopState(e);
-    };
+    var newLocation = $.speedPrint.ajaxHandler.getLocation();
+    console.log( 'currentLocation : ' + $.speedPrint.ajaxHandler.currentLocation );
+    console.log( 'newLocation : ' + newLocation  );
+    if(newLocation !== $.speedPrint.ajaxHandler.currentLocation) {
+        if(e.state.myTag !== undefined){
+            if(!e.state.myTag){ return; };
+            $.speedPrint.ajaxHandler.domPopState(e);
+        };
+    }
+    $.speedPrint.ajaxHandler.currentLocation = newLocation;
 };
 
 window.onload = function(e) {
