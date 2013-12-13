@@ -4,42 +4,59 @@
  */
 
 var productActions = new Object({
-    tabClick: function(element){
-        // e.preventDefault();
+    tabClick:       function(event,e){
+        // event.preventDefault();
+        var event = event;
+        if( event === 'scroll' ) {
+            var e = $('a[href=' + e + ']');
+        } else {
+            var e = e;
+        }
         
-        var $this = element;
+        $(e).closest('li').addClass('active').siblings('li').removeClass('active');
         
-        var $content_data_wrapper = $($this).closest('.content').find('.content_information');
-        var $active_content = $($this).closest('.content').find('.content_data');
-        var $active_product_tab = $($this).attr('href');
-        
-        if( $($active_content).filter('.active').attr('id') !== $($this).attr('href').replace('#','')  ) {
+        var $content_data_wrapper = $(e).closest('.content').find('.content_information');
+        var $active_content = $(e).closest('.content').find('.content_data');
+        var $active_product_tab = $(e).attr('href');
+
+        if( $($active_content).filter('.active').attr('id') !== $(e).attr('href').replace('#','')  ) {
+
             if( $($active_content).filter('.active').length >= 1 ){
                 var $current_height = $($active_content).filter('.active').show().height();
             } else {
                 var $current_height = 0;
             }
-            if( $($active_content).filter( $($this).attr('href') ).length >= 1 ){
-                var $new_height = $($active_content).filter( $(this).attr('href') ).show().height();
-                $($active_content).filter( $($this).attr('href') ).hide();
+
+            if( $($active_content).filter( $(e).attr('href') ).length >= 1 ){
+                var $new_height = $($active_content).filter( $(e).attr('href') ).show().height();
+                $($active_content).filter( $(e).attr('href') ).hide();
             } else {
                 var $new_height = 0;
             }
+
             $($content_data_wrapper).css({
                 height      :       $current_height
             });
-            $($active_content).not($active_product_tab).transition({
+
+            // @TODO Fix the resizing on .on commands for dynamically generated content.
+
+            $($active_content).transition({
                 'opacity': '0.0'
-            }, 400 , function(){
-                $($active_content).not($active_product_tab).hide().removeClass('active');
+            }, 300 , function(){
+                $($active_content).hide().removeClass('active');
                 $($content_data_wrapper).transition({
                     height      :       $new_height
-                }, 400, function(){
-                    $($content_data_wrapper).attr('style','');
+                }, 300, function(){
                     $($active_content).filter($active_product_tab).addClass('active').show().transition({
                         'opacity': '1.0'
-                    }, 400, function(){
-                        $($this).addClass('active');
+                    }, 300, function(){
+                        $(this).addClass('active');
+                        duration = 0;
+                        if( event !== 'scroll' ){
+                            $('html, body').animate({scrollTop:$( this ).offset().top - 70}, 300);
+                        } else {
+                            $('html, body').animate({scrollTop:$( this ).offset().top - 70}, 1000);
+                        }
                     });
                 });
             });
@@ -60,9 +77,7 @@ $("input.antal").autoGrowInput({
 });
 
 $('button').click(function(e){
-
     e.preventDefault();
-
     var $this = this;
 
     $(this).addClass('processing');
@@ -73,69 +88,6 @@ $('button').click(function(e){
     $button_reset = setTimeout(function(){
         $($this).removeClass('processing');
     },1000);
-
-    /* @TODO remember to remove this */
-    /*
-    $.getJSON( "/produkter/roll_up_classic/ajax", function( data ){
-        if( data.success === true ){
-
-            var $fadeOut = $("<div id='fadeOut' class='fade-out'></div>");
-            var $fadeIn = $("<div id='fadeIn' class='fade-in'></div>");
-
-            $( "#body" ).find(".container").removeClass("fade-in");
-            $current = $( $("#body").html() );
-            $current.prependTo( $fadeOut );
-
-            $("#body").html('');
-            $($fadeOut).prependTo("#body");
-
-            setTimeout(function(){
-                $($fadeOut).remove();
-                $body = $(data.html);
-                $body.appendTo( $fadeIn );
-
-                $fadeIn.appendTo('#body');
-
-                setTimeout(function(){
-                    $switch = $( $("#fadeIn").html() );
-                    $switch.appendTo("#body");
-                    $("#fadeIn").remove();
-                },650);
-
-                $("#body").find('.content_tabs a').click(function(e){
-                    productActions.tabClick( $(this) );
-                });
-
-                $("#body .container .carousel").each(function(i){
-                    $(this).delay(0).queue(function(next){
-                        $(".carousel_wrapper ul").css({
-                            'left'      :       function(){
-                                var $x1 = $(this).closest('.carousel_wrapper').width() / 2;
-                                var $x = $x1 - 90;
-                                return $x + 'px';
-                            }
-                        }).find('li').eq(0).addClass('focus').nextAll().each(function(i){
-                            $(this).find('img').css({
-                                'transform'         :   'scale(' + (1 - ((i+1)/8) ) + ')',
-                                '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
-                                'opacity'           :   1 - ((i+1)/10)
-                            });
-                        }).closest('.carousel_wrapper')
-                        .find('.navigation a').eq(0).addClass('focus').nextAll('a').removeClass('focus')
-                        .closest('.carousel_wrapper').find('.prev').addClass('inactive');
-
-                        $(this).addClass('fade-in').delay(550).removeClass('fade-in');
-                        $(".carousel").css('opacity','');
-                    });
-                });
-
-            },650);
-        }
-    });
-    */
-
-    $.speedPrint.ajaxHandler.domLoad('/produkter/roll_up_classic/ajax','#body');
-
 });
 
 $("#body .container form.buy").validate({
@@ -164,49 +116,22 @@ $("#body .container form.buy input.antal").rules('add', {
 });
 
 $("#body").on("click",".content_tabs a", function(e){
-    e.preventDefault();
-    var $content_data_wrapper = $(this).closest('.content').find('.content_information');
-    var $active_content = $(this).closest('.content').find('.content_data');
-    var $active_product_tab = $(this).attr('href');
+    productActions.tabClick( e, $(this) );
+});
 
-    if( $($active_content).filter('.active').attr('id') !== $(this).attr('href').replace('#','')  ) {
-
-        if( $($active_content).filter('.active').length >= 1 ){
-            var $current_height = $($active_content).filter('.active').show().height();
-        } else {
-            var $current_height = 0;
+$(document).ready(function() {
+    if(window.location.hash) {
+        if( $( window.location.hash ).length > 0 ){
+            productActions.tabClick( 'scroll', window.location.hash );
+            $('html, body').animate({
+                scrollTop: $(window.location.hash).offset().top - 70
+            }, 1000);
         }
-
-        if( $($active_content).filter( $(this).attr('href') ).length >= 1 ){
-            var $new_height = $($active_content).filter( $(this).attr('href') ).show().height();
-            $($active_content).filter( $(this).attr('href') ).hide();
-        } else {
-            var $new_height = 0;
-        }
-
-        console.log( '=' + ($new_height - $current_height) + 'px' );
-
-        $($content_data_wrapper).css({
-            height      :       $current_height
-        });
-
-        // @TODO Fix the resizing on .on commands for dynamically generated content.
-
-        $($active_content).not($active_product_tab).transition({
-            'opacity': '0.0'
-        }, 400 , function(){
-            $($active_content).not($active_product_tab).hide().removeClass('active');
-            $($content_data_wrapper).transition({
-                height      :       $new_height
-            }, 400, function(){
-                $($content_data_wrapper).attr('style','');
-                $($active_content).filter($active_product_tab).addClass('active').show().transition({
-                    'opacity': '1.0'
-                }, 400, function(){
-                    $(this).addClass('active');
-                });
-            });
-        });
     }
-   // productActions.tabClick( $(this) );
+});
+
+$(window).on('resize',function(){
+    $('.content .content_information').height(function(){
+        return $(this).find('.content_data.active').height;
+    });
 });

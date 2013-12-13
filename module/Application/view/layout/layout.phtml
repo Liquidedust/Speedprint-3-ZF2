@@ -185,17 +185,15 @@
                     </div>
                 </div>
                 <div id="menu_wrapper">
-                    <ul id="menu" class="backshadow">
-                        <li><a href="#produkter" data-sidebar="open" data-for="products" data-toggle="true" title="Produkter"><img src="/img/ui/icons/menu_white.svg" alt="Produkter"></a></li>
-                        <li><a href="#information" data-sidebar="open" data-for="information" data-toggle="true" title="Information"><img src="/img/ui/icons/information_white.svg" alt="Information"></a></li>
-                        <li><a href="#varukorg" data-sidebar="open" data-for="varukorg" data-toggle="true" title="Varukorg"><img src="/img/ui/icons/shopping_trolley_white.svg" alt="Varukorg"></a></li>
-                        <li><a href="#user_account" data-sidebar="open" data-for="user_account" data-toggle="true" title="Användarkonto"><img src="/img/ui/icons/user_white.svg" alt="Användarkonto"></a></li>
-                        <li class="search">
-                            <input type="text" id="menu_search" class="search" placeholder="Sök Produkt . . ." data-sidebar="open" data-for="search" required>
-                            <a href="#clear" class="empty">
-                                <img src="<?php echo $this->basePath('img/ui/icons/close.png'); ?>">
-                            </a>
-                        </li>
+                    <ul id="menu">
+                        <li><a href="#produkter" data-sidebar="open" data-for="products" data-toggle="true"><img src="/img/ui/icons/menu_white.svg" alt="Produkter"><span>produkter</span></a></li>
+                        <li><a href="#information" data-sidebar="open" data-for="information" data-toggle="true"><img src="/img/ui/icons/information_white.svg" alt="Information"><span>information</span></a></li>
+                        <li><a href="#varukorg" data-sidebar="open" data-for="varukorg" data-toggle="true"><img src="/img/ui/icons/shopping_trolley_white.svg" alt="Varukorg"><span>varukorg</span></a></li>
+                        <!--
+                        <li><a href="#user_account" data-sidebar="open" data-for="user_account" data-toggle="true"><img src="/img/ui/icons/user_white.svg" alt="Användarkonto"><span>Användarkonto</span></a></li>
+                        -->
+                        <li class="search"><a href="#search" data-sidebar="open" data-for="search" data-toggle="true"><img src="/img/ui/icons/magnifying_glass_white.svg" alt="Sök"><span>sök</span></a></li>
+                        <div style="clear: both;"></div>
                     </ul>
                 </div>
                 <?php echo $this->navigation()->breadcrumbs()->render(); ?>

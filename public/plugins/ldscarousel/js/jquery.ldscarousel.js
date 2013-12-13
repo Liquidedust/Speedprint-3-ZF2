@@ -362,8 +362,9 @@ $('.fancybox').fancybox({
 
 });
 
-$(document).on('dragstart', '.carousel_wrapper img', function(event) {
+$(document).on('dragstart','.carousel_wrapper img',function(event) {
     event.preventDefault();
+    console.log('dragstart');
 });
 
 var wrap        =   $('.carousel_wrapper'),
@@ -374,6 +375,13 @@ var wrap        =   $('.carousel_wrapper'),
     i           =   slides.index(active),
     width;
 
+$(document).on('swipeleft','.carousel_wrapper',function(e){
+    console.log( 'left bacon?' );
+});
+$(document).on('swiperight','.carousel_wrapper',function(e){
+    console.log( 'right bacon?' );
+});
+/*
 $(".carousel_wrapper")
 .on('swipeleft', function(e){
     var $active = $(this);
@@ -491,7 +499,4 @@ $(".carousel_wrapper")
         $( $active ).find(".prev,.next").removeClass('inactive').blur();
     }
 });
-
-$(document).on("click","#body .container .content .content_tabs li a", function(e){
-    $(this).closest('li').addClass('active').siblings('li').removeClass('active');
-});
+*/

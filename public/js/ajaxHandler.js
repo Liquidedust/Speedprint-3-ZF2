@@ -2,7 +2,8 @@ var popped = ('state' in window.history), initialURL = location.href;
 
 $.extend({
     speedPrint: new Object({
-        ajaxHandler: new Object({
+        
+        ajaxHandler:        new Object({
 
             // statics and variables
             bodyFadeIn:             "<div id='fadeIn' style='opacity:0;'></div>",
@@ -33,10 +34,11 @@ $.extend({
             },
             
             // domLoad, load content to manipulate
-            domLoad:                function(get,target,replace,popstate){
+            domLoad:                function(get,target,newlocation,replace,popstate){
                 var $this = this;
                 var duration = this.getDuration();
                 var replace = replace;
+                var newLocation = newLocation;
                 
                 if( !popstate ) {
                     if( $("#page_loading").length === 0 ) {
@@ -68,9 +70,15 @@ $.extend({
                         $("#page_loading").transition({
                             opacity: 0.0
                         }).delay(300).hide();
+                        
+                        // Set the location for popstates identification
+                        $this.currentLocation = newLocation;
+                        
+                        // Insert node from get
                         $this.domInsert(data,target);
                     },duration);
                 }).fail(function( data ){
+                    console.log('failure');
                     setTimeout(function(){
                         $("#page_loading").transition({
                             opacity: 0.0
@@ -116,8 +124,10 @@ $.extend({
                                         
                             // if inserted element has a carousel wrapper
                             // make sure the carousel is reset to default position
+                            // and bind swipe events
                             if( $($fadeIn).find('.carousel_wrapper ul').length > 0 ){
-                                $this.carouselInitialState( $($fadeIn).find('.carousel_wrapper ul') );
+                                $.speedPrint.carouselHandler.initialState( $($fadeIn).find('.carousel_wrapper ul') );
+                                $.speedPrint.carouselHandler.bindEvents( $($fadeIn).find('.carousel_wrapper') );
                             }
 
                             setTimeout(function(){
@@ -197,18 +207,33 @@ $.extend({
                 }
             },
                     
-            domPopState:            function(e){
+            domPopState:            function(e,newLocation){
                 state = e.state;
                 console.log( 'document.location.href : ' + document.location.href );
                 if( document.location === this.initialPage && this.initialPage !== null ) {
                     console.log( document.location );
                 } else {
                     console.log( 'e.state.url       : ' + e.state.url );
-                    this.domLoad( e.state.url, e.state.target,true,true);
+                    this.domLoad( e.state.url, e.state.target,newLocation,true,true);
                 }
             },
             
-            carouselInitialState:   function(e) {
+            changeListFormat:       function() {
+                console.log( 'list format length : ' + $("input[name=listformat]").length );
+                if( $("input[name=listformat]").length >= 1 ) {
+                    if( cookie.read("list-format") ) {
+                        console.log( 'list-format : ' + cookie.read("list-format") );
+                        $("input[name=listformat][data-format=" + cookie.read("list-format") + "]").prop('checked', true);
+                    } else {
+                        $("input[name=listformat][data-format=expanded]").prop('checked', true);
+                    }
+                }
+            }
+        }),
+        
+        carouselHandler:    new Object({
+            // reset carousel to initial state
+            initialState:   function(e){
                 $(e)
                 .css({
                     'left'      :       function(){
@@ -230,16 +255,132 @@ $.extend({
                 },50);
             },
             
-            changeListFormat:       function() {
-                console.log( 'list format length : ' + $("input[name=listformat]").length );
-                if( $("input[name=listformat]").length >= 1 ) {
-                    if( cookie.read("list-format") ) {
-                        console.log( 'list-format : ' + cookie.read("list-format") );
-                        $("input[name=listformat][data-format=" + cookie.read("list-format") + "]").prop('checked', true);
+            bindEvents:     function(element){
+                
+                var element = element;
+                
+                $(element)
+                .bind('swipeleft', function(e){
+                    var $active = $(this);
+                    console.log( 'swipe : left' );
+                    var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
+                    var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
+                    var $index = $( $active ).find(".carousel li").index( $( $active ).find('li.focus') );
+
+                    if( $this === ( $( $active ).find(".carousel li").length -1) ){
+                        $this = $this;
                     } else {
-                        $("input[name=listformat][data-format=expanded]").prop('checked', true);
+                        $this = $this+1;
                     }
-                }
+
+                    var $i_diff = Math.abs( $this - $index );
+
+                    $( $active ).find('ul').css({
+                        'transition'    :   '300ms all ease-in-out'
+                    });
+
+                    $( $active ).find('.navigation a').eq( $this ).addClass('focus').siblings('a').removeClass('focus');
+
+                    $( $active ).find('ul li').removeClass('focus').eq( $this ).addClass('focus').find('img').attr('style', '');
+
+                    $( $active ).find('ul li.focus').nextAll().each(function(i){
+                        $(this).find('img').css({
+                            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
+                            '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                            'opacity'           :   1 - ((i+1)/10)
+                        });
+                    });
+
+                    $( $active ).find('ul li.focus').prevAll().each(function(i){
+                        $(this).find('img').css({
+                            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
+                            '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                            'opacity'           :   1 - ((i+1)/10)
+                        });
+                    });
+
+                    $( $active ).find('ul').css({
+                        'left'      :       function(){
+                            var $x1 = $(this).closest('.image').width() / 2;
+                            var $x2 = $this*180;
+                            var $x = $x1 - $x2 - 90;
+                            return $x + 'px';
+                        }
+                    });
+
+                    if( $this === 0  ) {
+                        $( $active ).find(".prev").addClass('inactive');
+                        $( $active ).find(".next").removeClass('inactive').blur();
+                    } else if( $this === $count  ) {
+                        $( $active ).find(".prev").removeClass('inactive').blur();
+                        $( $active ).find(".next").addClass('inactive');
+                    } else {
+                        $( $active ).find(".prev,.next").removeClass('inactive').blur();
+                    }
+                })
+                .bind('swiperight', function(e){
+                    var $active = $(this);
+                    console.log( 'swipe : right' );
+                    var $this = $( $active ).find(".carousel li").index( $( $active ).find(".carousel li.focus") );
+                    var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
+                    var $index = $( $active ).find(".carousel li").index( $( $active ).find('li.focus') );
+
+                    if( $this === 0 ){
+                        $this = $this;
+                    } else {
+                        $this = $this-1;
+                    }
+
+                    var $i_diff = Math.abs( $this - $index );
+
+                    $( $active ).find('ul').css({
+                        'transition'    :   '300ms all ease-in-out'
+                    });
+
+                    $( $active ).find('.navigation a').eq( $this ).addClass('focus').siblings('a').removeClass('focus');
+
+                    $( $active ).find('ul li').removeClass('focus').eq( $this ).addClass('focus').find('img').attr('style', '');
+
+                    $( $active ).find('ul li.focus').nextAll().each(function(i){
+                        $(this).find('img').css({
+                            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
+                            '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                            'opacity'           :   1 - ((i+1)/10)
+                        });
+                    });
+
+                    $( $active ).find('ul li.focus').prevAll().each(function(i){
+                        $(this).find('img').css({
+                            'transform'         :   'scale(' + (1 - ((i+1)/6) ) + ')',
+                            '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                            'opacity'           :   1 - ((i+1)/10)
+                        });
+                    });
+
+                    $( $active ).find('ul').css({
+                        'left'      :       function(){
+                            var $x1 = $(this).closest('.image').width() / 2;
+                            var $x2 = $this*180;
+                            var $x = $x1 - $x2 - 90;
+                            return $x + 'px';
+                        }
+                    });
+
+                    if( $this === 0  ) {
+                        $( $active ).find(".prev").addClass('inactive');
+                        $( $active ).find(".next").removeClass('inactive').blur();
+                    } else if( $this === $count  ) {
+                        $( $active ).find(".prev").removeClass('inactive').blur();
+                        $( $active ).find(".next").addClass('inactive');
+                    } else {
+                        $( $active ).find(".prev,.next").removeClass('inactive').blur();
+                    }
+                });
+                setTimeout(function(){
+                    $.each($._data(element, "events"), function(i, e) {
+                        console.log(i, e);
+                    });
+                },1000);
             }
         })
     })
@@ -249,15 +390,12 @@ $.speedPrint.ajaxHandler.currentLocation = $.speedPrint.ajaxHandler.getLocation(
 
 window.onpopstate = function(e){
     var newLocation = $.speedPrint.ajaxHandler.getLocation();
-    console.log( 'currentLocation : ' + $.speedPrint.ajaxHandler.currentLocation );
-    console.log( 'newLocation : ' + newLocation  );
     if(newLocation !== $.speedPrint.ajaxHandler.currentLocation) {
         if(e.state.myTag !== undefined){
             if(!e.state.myTag){ return; };
-            $.speedPrint.ajaxHandler.domPopState(e);
+            $.speedPrint.ajaxHandler.domPopState(e, newLocation);
         };
     }
-    $.speedPrint.ajaxHandler.currentLocation = newLocation;
 };
 
 window.onload = function(e) {
@@ -266,17 +404,10 @@ window.onload = function(e) {
 };
 
 $(document).on('click','a.ajax',function(e){
-    
     e.preventDefault();
     href = $(this).attr('href') === '/' ? '/ajax' : $(this).attr('href') + "\/ajax";
     var newLocation = $(this).attr('href');
-    
-    console.log( 'currentLocation : ' + $.speedPrint.ajaxHandler.currentLocation );
-    console.log( 'newLocation : ' + newLocation  );
-    
     if(newLocation !== $.speedPrint.ajaxHandler.currentLocation) {
-        $.speedPrint.ajaxHandler.domLoad( href , '#body' );
+        $.speedPrint.ajaxHandler.domLoad( href , '#body', newLocation );
     }
-    
-    $.speedPrint.ajaxHandler.currentLocation = newLocation;
 });

@@ -21,14 +21,14 @@
                             
                     <ul class='information'>
                         <li>
-                            <a href="<?php echo $this->basePath('/tillverkare/'.$value['manufacturer_seo']) . PHP_EOL; ?>" title="<?php echo( $value['manufacturer'] ); ?>"><?php echo( $value['manufacturer'] ); ?></a>
+                            <a href="<?php echo $this->basePath('/tillverkare/'.$value['manufacturer_seo']) . PHP_EOL; ?>" title="<?php echo( $value['manufacturer'] ); ?>" class="ajax"><?php echo( $value['manufacturer'] ); ?></a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->basePath('/kategori/roll_ups') . PHP_EOL; ?>" title="Roll-Ups">Roll-Ups</a>
+                            <a href="<?php echo $this->basePath('/kategori/roll_ups') . PHP_EOL; ?>" title="Roll-Ups" class="ajax">Roll-Ups</a>
                         </li>
                     </ul>
                     
-                    <div class="splash container single backshadow product">
+                    <div class="splash container single product">
 
                         <div class="header drag_handle">
                             
@@ -141,19 +141,23 @@
 
                         <div class="content">
                             
-                            <ul class="content_tabs three">
+                            <ul class="content_tabs four">
                                 <li class="active">
-                                    <a href="#beskrivning" title="Beskrivning"><img src="/img/ui/icons/information.svg" alt="Beskrivning"></a>
+                                    <a href="#beskrivning" title="Beskrivning"><img src="/img/ui/icons/information.svg" alt="Beskrivning"><span>beskrivning</span></a>
                                 </li>
                                 <li>
-                                    <a href="#rabatter" title="Priser"><img src="/img/ui/icons/price.svg" alt="Priser"></a>
+                                    <a href="#priser" title="Priser"><img src="/img/ui/icons/price.svg" alt="Priser"><span>priser</a>
                                 </li>
                                 <li>
-                                    <a href="#tillbehor" title="Tillbehör"><img src="/img/ui/icons/additionals.svg" alt="Tillbehör"></a>
+                                    <a href="#specifikationer" title="Specifikationer"><img src="/img/ui/icons/specifications.svg" alt="Specifikationer"><span>specifikationer</span></a>
+                                </li>
+                                <li>
+                                    <a href="#tillbehor" title="Tillbehör"><img src="/img/ui/icons/additionals.svg" alt="Tillbehör"><span>tillbehör / se även</span></a>
                                 </li>
                             </ul>
                             
                             <div class="content_information">
+                                
                                 <div id="beskrivning" class="content_data active">
                                     <div class="columns_two">
                                         <h4>Beskrivning</h4>
@@ -167,15 +171,10 @@
                                             }
                                         ?>
                                     </div>
-                                    <div>
-                                        <h4>Specifikationer</h4>
-                                    </div>
                                 </div>
 
-                                <div class="clear"></div>
-
-                                <div id="rabatter" class="content_data">
-                                <h4>Priser &amp; Mängdrabatter</h4>
+                                <div id="priser" class="content_data">
+                                    <h4>Priser &amp; Mängdrabatter</h4>
                                     <table>
                                         <thead>
                                             <tr>
@@ -240,6 +239,12 @@
                                         <?php } ?>
                                         </tbody>
                                     </table>
+                                </div>
+                                
+                                <div id="specifikationer" class="content_data">
+                                      <h4>Specifikationer</h4>
+                                      
+                                      <p>Bacon</p>
                                 </div>
                             
                             </div>

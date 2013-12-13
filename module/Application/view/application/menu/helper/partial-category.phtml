@@ -15,7 +15,7 @@
     <?php if (isset($category['children'])) : ?>
     <ul class="child">
         <?php foreach ($category['children'] as $child_category) :
-            echo $this->partial('application/menu/partial-category', array('category' => $child_category));
+            echo $this->partial('application/menu/helper/partial-category', array('category' => $child_category));
         endforeach; ?>
     </ul>
     <?php endif; ?>

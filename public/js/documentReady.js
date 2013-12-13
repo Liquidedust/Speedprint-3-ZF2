@@ -22,6 +22,50 @@ $.fn.hasParent = function(objs) {
 	return found;
 };
 
+/*
+ * A small jQuery extension that disables the propagation of scroll events from the first element in the set of matched elements.
+ * Original function by Troy Alford of Stack Overflow.
+ * $("#object").scrollLock() enables the lock, and .scrollRelease() disables it.
+ */
+
+$.fn.scrollLock=function(){
+    return $(this).on("DOMMouseScroll mousewheel",function(h){
+        var g=$(this),
+            f=this.scrollTop,
+            d=this.scrollHeight,
+            b=g.height(),
+            i=h.originalEvent.wheelDelta,
+            a=i>0,
+            c=function(){
+                h.stopPropagation();
+                h.preventDefault();
+                h.returnValue=false;
+                return false
+            };
+        if(!a&&-i>d-b-f){
+            g.scrollTop(d);
+            return c()
+        } else {
+            if(a&&i>f){
+                g.scrollTop(0);
+                return c()
+            }
+        }
+    }
+)};
+$.fn.scrollRelease=function(){
+    return $(this).off("DOMMouseScroll mousewheel");
+};
+
+$(document).on({
+    mouseenter: function(){
+        $(this).scrollLock();
+    },
+    mouseleave: function(){
+        $(this).scrollRelease();
+    }
+},'#sidebar');
+
 var cart_count = 0;
 var search_timer_obj;
 var resizeTimer;
@@ -667,7 +711,7 @@ $('.search').change(function(){
 /****  Body Container Actions  ****/
 /**********************************/
 
-$('#body').on('mouseenter','.actions',function(){
+$('#body').on('mouseenter','.actions a',function(){
     $(this).closest(".header").css({'overflow':'visible'});
 });
 
@@ -676,10 +720,32 @@ $('#body').on('mouseleave','.container',function(){
 });
 
 // Add items to cart
+/*
 $("#body .actions a[href=#buy]").click(function(e){
     e.preventDefault();
 });
 $("#body .actions a[href=#buy]:not(.has-children)").click(function(e){
+    e.preventDefault();
+    var data = $(this).siblings('div.data');
+    if( data.attr('data-id') in cart.contents ) {
+        cart.add({id:data.attr('data-id'),amount:1});
+    } else {
+        cart.add({
+            id:             data.attr('data-id'),
+            name:           data.attr('data-name'),
+            icon:           data.attr('data-icon'),
+            manufacturer:   data.attr('data-manufacturer'),
+            price:          data.attr('data-price'),
+            amount:         1,
+            vat:            data.attr('data-vat')
+        });
+    }
+});
+*/
+$(document).on('click','.actions a[href=#buy]',function(e){
+    e.preventDefault();
+});
+$(document).on('click','.actions a[href=#buy]:not(.has-children)',function(e){
     e.preventDefault();
     var data = $(this).siblings('div.data');
     if( data.attr('data-id') in cart.contents ) {
