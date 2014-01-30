@@ -90,7 +90,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     margin: 12px auto;
-    margin-left: 36px;
     
     font-size: 2.6em;
     line-height: 1em;
@@ -125,14 +124,16 @@ h2 {
 #header_top_wrapper {
     display: block;
     width: 100%;
-    height: 100px;
+    height: auto;
+    max-height: 100px;
 }
 
 #header_top {
     display: block;
     position: relative;
     width: 100%;
-    height: 100px;
+    height: auto;
+    max-height: 100px;
     overflow: visible;
     margin: 0 auto;
     
@@ -141,52 +142,11 @@ h2 {
 
 #header_top a {
     display: inline-block;
+    width: 100%;
+    max-width: 361px;
     
     position: relative;
     border: none;
-}
-
-#header_top a.sticky {
-    -webkit-animation: logoSlideDown linear 600ms;
-    -moz-animation: logoSlideDown linear 600ms;
-    -ms-animation: logoSlideDown linear 600ms;
-    animation: logoSlideDown linear 600ms;
- 
-    -webkit-animation-fill-mode:forwards;
-    -moz-animation-fill-mode:forwards;
-    -ms-animation-fill-mode:forwards;
-    animation-fill-mode:forwards;
- 
-    -webkit-animation-duration:600ms;
-    -moz-animation-duration:600ms;
-    -ms-animation-duration:600ms;
-    animation-duration:600ms;
-    
-    position: fixed;
-    width: 64px;
-    
-    top: 0px;
-    z-index: 10000;
-}
-
-#header_top a.sticky_return {
-    -webkit-animation:logoSlideUp linear 600ms;
-    -moz-animation:logoSlideUp linear 600ms;
-    animation:logoSlideUp linear 600ms;
- 
-    -webkit-animation-fill-mode:forwards;
-    -moz-animation-fill-mode:forwards;
-    animation-fill-mode:forwards;
- 
-    -webkit-animation-duration:600ms;
-    -moz-animation-duration:600ms;
-    animation-duration:600ms;
-    
-    width: 64px;
-    
-    position: absolute;
-    top: 0px;
-    z-index: 10000;
 }
 
 #header_top div.logo {
@@ -196,8 +156,9 @@ h2 {
     -webkit-transform: scale(1.12) rotate(-2deg);
     
     display: inline-block;
-    width: 361px;
-    height: 85px;
+    width: 100%;
+    max-width: 361px;
+    height: auto;
     margin: 0px;
     border: none;
     
@@ -205,26 +166,6 @@ h2 {
     
     overflow: visible;
     
-}
-
-#header_top a.sticky div.logo {
-    transform: scale(1.0) rotate(0deg);
-    -webkit-transform: scale(1.0) rotate(0deg);
-    -moz-transform: scale(1.0) rotate(0deg);
-    width: 64px;
-    
-    margin-left: 12px;
-}
-
-#header_top a.sticky_return div.logo {
-    -webkit-animation: logoRotateBack linear 600ms;
-    animation: logoRotateBack linear 600ms;
- 
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
- 
-    -webkit-animation-duration: 600ms;
-    animation-duration: 600ms;
 }
 
 #header_top div.logo_wrapper {
@@ -238,59 +179,29 @@ h2 {
     left: 0;
 }
 
-#header_top a.sticky .logo_wrapper:first-child {
-    width: 64px !important; /* stupid ie fix */
-}
-
-#header_top div.logo_wrapper img {
-    -webkit-filter: drop-shadow(2px 2px 4px rgba(0,0,0,.5));
-    -moz-filter: drop-shadow(2px 2px 4px rgba(0,0,0,.5));
-    -ms-filter: drop-shadow(2px 2px 4px rgba(0,0,0,.5));
-    -o-filter: drop-shadow(2px 2px 4px rgba(0,0,0,.5));
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,.5));
-}
-
-#header_top a.sticky div.logo_wrapper:first-child img {
-    height: 68px;
-}
-
 #header_top div.logo_wrapper:first-child {
+    width: 20%;
     z-index: 10;
 }
 
+#header_top div.logo_wrapper:first-child img {
+    width: 100%;
+}
+
 #header_top div.logo_wrapper:last-child {
-    width: 351px;
+    width: 95%;
     overflow: hidden;
     
     left: 15px;
     z-index: 9;
 }
 
-#header_top a.sticky div.logo_wrapper:last-child {
-    width: 15px;
-}
-
 #header_top div.logo_wrapper:last-child img {
     transition: all 300ms ease-in-out;
+    width: 100%;
     
     position: relative;
     left: -15px;
-}
-
-#header_top a.sticky div.logo_wrapper:last-child img {
-    position: relative;
-    left: -361px;
-}
-
-#header_top a.sticky_return div.logo_wrapper:last-child img {
-    -webkit-animation: logoSlideOut linear 600ms;
-    animation: logoSlideOut linear 600ms;
- 
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
- 
-    -webkit-animation-duration: 600ms;
-    animation-duration: 600ms;
 }
 
 @media (max-width: 1159px) {
@@ -340,7 +251,7 @@ h2 {
 
 @media (max-width: 730px) {
     #sidebar ~  #wrap #header_wrapper {
-        width: calc(100% - 90px);
+        width: calc(100% - 62px);
         min-width: 200px;
         left: 50px;
     }
@@ -366,6 +277,7 @@ h2 {
     z-index: 9999;
     
     position: relative;
+    top: 88px;
     left: 0%;
     right: 0%;
 }
@@ -381,6 +293,7 @@ h2 {
     height: 60px;
     margin-left: 0%;
     
+    top: 0px;
     left: 25%;
 }
 
@@ -461,7 +374,7 @@ h2 {
     display: block;
     position: relative;
     width: 100%;
-    height: auto;
+    height: 65px;
     
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -471,7 +384,7 @@ h2 {
     
     margin: 0 auto;
     border: none;
-    padding: 0 12px;
+    padding: 1px 12px;
     
     border-radius: 12px;
     
@@ -479,9 +392,10 @@ h2 {
     font-family: 'Trebuchet MS', 'Fira Sans Regular', 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
     font-weight: bold;
     font-style: normal;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 60px;
     letter-spacing: 2px;
+    text-align: center;
     
     background: #000;
     /* background: #000 url('../img/ui/bkg/menu_glass_effect.png') repeat-x center center; */
@@ -499,30 +413,6 @@ h2 {
     }
 }
 
-#menu_wrapper.sticky #menu {
-    padding-left: 80px;
-    
-    -webkit-animation: menuSlideToRight linear 600ms;
-    animation: menuSlideToRight linear 600ms;
- 
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
- 
-    -webkit-animation-duration: 600ms;
-    animation-duration: 600ms;
-}
-
-#menu.sticky_return {
-    -webkit-animation: menuSlideToRightReverse linear 600ms;
-    animation: menuSlideToRightReverse linear 600ms;
- 
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
- 
-    -webkit-animation-duration: 600ms;
-    animation-duration: 600ms;
-}
-
 #menu li {
 -webkit-transition: padding-left 500ms ease-in-out;
     -ms-transition: padding-left 500ms ease-in-out;
@@ -531,24 +421,26 @@ h2 {
     font-smoothing: subpixel-antialiased;
     transform: translate3d(0,0,0) translateZ(0);
     
-    display: block;
+    display: inline-block;
     position: relative;
     height: auto;
     
     list-style-type: none;
     list-style: none;
     
-    float: left;
+    /* float: left; */
     
     color: #fff;
     
      z-index: 1;
 }
 
-#menu li.search {
-    position: absolute;
-    right: 12px;
-    z-index: 2;
+#menu li:first-child {
+    display: none;
+}
+
+#menu_wrapper.sticky #menu li:first-child {
+    display: inline-block;
 }
 
 #menu li:hover {
@@ -568,7 +460,7 @@ h2 {
     position: relative;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
-    width: 110px;
+    width: 100px;
     height: auto;
     margin: 0px 3px;
     border-radius: 0px;
@@ -579,11 +471,12 @@ h2 {
     color: #fff;
 
     font-family: 'Fira Sans', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-variant: small-caps;
     font-weight: normal;
     
     line-height: 21px;
+    letter-spacing: 2px;
     
     text-align: center;
 }
@@ -778,7 +671,7 @@ h2 {
 
 @media (max-width: 730px) {
     #body {
-        width: calc(100% - 90px);
+        width: calc(100% - 62px);
         min-width: 230px;
         margin-left: 50px;
     }

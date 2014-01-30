@@ -40,19 +40,19 @@ $.fn.scrollLock=function(){
                 h.stopPropagation();
                 h.preventDefault();
                 h.returnValue=false;
-                return false
+                return false;
             };
         if(!a&&-i>d-b-f){
             g.scrollTop(d);
-            return c()
+            return c();
         } else {
             if(a&&i>f){
                 g.scrollTop(0);
-                return c()
+                return c();
             }
         }
     }
-)};
+);};
 $.fn.scrollRelease=function(){
     return $(this).off("DOMMouseScroll mousewheel");
 };
@@ -604,19 +604,12 @@ $(window).scroll(function(){
     },500);
     
     if ($("#header_wrapper").offset().top <= top - offset) {
-        $("#header_top a").removeClass("sticky_return").addClass("sticky");
         $("#menu_wrapper").removeClass("sticky_return").addClass("sticky");
         sticky = true;
         
     } else { 
         if( $("#menu_wrapper").hasClass('sticky') ) {
             $("#menu_wrapper").removeClass("sticky").find('#menu').addClass('sticky_return');
-        }
-        if( $("#header_top a").hasClass('sticky') ) {
-            $("#header_top a").removeClass("sticky").addClass('sticky_return');
-            header_logo_transition = setTimeout(function(){
-                $("#header_top a").removeClass("sticky_return")
-            },750);
         }
     }
 });
@@ -838,7 +831,7 @@ $.fn.spin.presets.speedprint = {
   zIndex: 2e9, // The z-index (defaults to 2000000000)
   top: 'auto', // Top position relative to parent in px
   left: 'auto' // Left position relative to parent in px
-}
+};
 
 $(document).ready(function(){
     $('body').removeClass('preload');
