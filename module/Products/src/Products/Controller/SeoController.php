@@ -65,7 +65,6 @@ class SeoController extends AbstractActionController {
             $this->getResponse()->setStatusCode(404);
             return;
         } else {
-            
             $stmt = $em ->getConnection()
                         ->prepare( ProductStatement::BySeo() );
             $stmt->bindValue(':seo',$this->params()->fromRoute('seo'));
@@ -90,7 +89,7 @@ class SeoController extends AbstractActionController {
                     $row['variants'] = $variants_resultset;
                 }
                 
-                // @TODO Add the prices and rebate fetching here below
+                // Prices and rebate fetching here
                 $prices_stmt = $em  ->getConnection()
                                     ->prepare( ProductStatement::PricesById() );
                 $prices_stmt->bindValue(':id',$row['product_id']);
@@ -104,6 +103,21 @@ class SeoController extends AbstractActionController {
 
                 $row['prices'] = $prices_resultset;
                 // End of prices and rebate fetching
+                
+                // Media fetching here
+                $media_stmt = $em  ->getConnection()
+                                    ->prepare( ProductStatement::MediaById() );
+                $media_stmt->bindValue(':id',$row['product_id']);
+                $media_stmt->execute();
+            
+                $media_resultset = array();
+                    
+                while($media_row = $media_stmt->fetch()){
+                    $media_resultset[] = $media_row;
+                }
+
+                $row['media'] = $media_resultset;
+                // End of media fetching
                 
                 $resultset[] = $row;
             }
@@ -183,6 +197,21 @@ class SeoController extends AbstractActionController {
 
                 $row['prices'] = $prices_resultset;
                 // End of prices and rebate fetching
+                
+                // Media fetching here
+                $media_stmt = $em  ->getConnection()
+                                    ->prepare( ProductStatement::MediaById() );
+                $media_stmt->bindValue(':id',$row['product_id']);
+                $media_stmt->execute();
+            
+                $media_resultset = array();
+                    
+                while($media_row = $media_stmt->fetch()){
+                    $media_resultset[] = $media_row;
+                }
+
+                $row['media'] = $media_resultset;
+                // End of media fetching
                 
                 $resultset[] = $row;
             }

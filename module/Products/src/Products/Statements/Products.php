@@ -188,6 +188,26 @@ ORDER BY
 product_id ASC,
 min_amount ASC";
     
+    protected static  $select_media_by_id = "SELECT
+
+media.name_media AS name_media,
+media.type_media AS type_media,
+media.external_media AS external_media,
+IF(media.external_media = 'y', media.url_media, media.filename_media) AS file_media,
+product_media_rel.primary_product_media_rel AS primary_media,
+product_media_rel.sort_product_media_rel AS media_sort_order
+
+FROM products
+
+LEFT JOIN product_media_rel ON products.id_products=product_media_rel.id_products
+LEFT JOIN media ON product_media_rel.id_media=media.id_media
+
+WHERE products.id_products = :id
+
+ORDER BY
+media_sort_order ASC,
+name_media ASC";
+    
     public static function ById() {
         return (string)Products::$select_by_id;
     }
@@ -202,5 +222,9 @@ min_amount ASC";
     
     public static function PricesById() {
         return (string)Products::$select_prices_by_id;
+    }
+    
+    public static function MediaById() {
+        return (string)Products::$select_media_by_id;
     }
 }

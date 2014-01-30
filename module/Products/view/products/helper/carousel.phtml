@@ -1,0 +1,43 @@
+
+                        
+                        <div class="image carousel_wrapper">
+                            <img src="<?php echo $this->basePath('img/ui/arrow_down_indicator.svg'); ?>" alt="Arrow Down Indicator" class="indicator">
+                            
+                            <div class="prev">
+                                <a href="#prev"> <img src="/plugins/ldscarousel/img/prev-arrow.png" /> </a>
+                            </div>
+                            
+                            <div class="carousel">
+                                
+                                <ul>
+                                <?php foreach($this->media as $media) : ?>
+                                    
+                                    <?php if($media['external_media'] == 'y') : ?>
+                                    <li>
+                                        <a href="<?php echo($media['file_media']) ?>" data-fancybox-group="product_image_carousel" class="various fancybox" data-fancybox-type="iframe">
+                                            <img src="<?php echo $this->basePath('img/produkter/rollup_classic_large_video.png'); ?>" alt="<?php echo( $media['name_media'] ) ?>" class="<?php if( $media['primary_media'] == 'y' ){ echo('focus'); } ?>">
+                                        </a>
+                                    </li>
+                                    <?php else: ?>
+                                    <li>
+                                        <a href="<?php echo $this->basePath('media/upload/'.$media['file_media']); ?>" data-fancybox-group="product_image_carousel" title="<?php echo( $media['name_media'] ) ?>" class="fancybox">
+                                            <img src="<?php echo $this->basePath('media/upload/'.$media['file_media']); ?>" alt="<?php echo( $media['name_media'] ) ?>" class="<?php if( $media['primary_media'] == 'y' ){ echo('focus'); } ?>">
+                                        </a>
+                                    </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                </ul>
+                                
+                            </div>
+                            
+                            <div class="next">
+                                <a href="#next"> <img src="/plugins/ldscarousel/img/next-arrow.png" /> </a>
+                            </div>
+                                
+                            <div class="navigation">
+                                <?php foreach($this->media as $media) : ?>
+                                <a href="#" class="<?php if( $media['primary_media'] == 'y' ){ echo('focus'); } ?>"><span></span></a>
+                                <?php endforeach; ?>
+                            </div>
+                            
+                        </div>
