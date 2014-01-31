@@ -14,10 +14,14 @@
     position: relative;
 }
 
+.carousel_wrapper .carousel ul li {
+    vertical-align: middle;
+}
+
 .carousel_wrapper .carousel img {
 }
 
-.carousel_wrapper .carousel img:hover {
+.carousel_wrapper .carousel a:hover img {
     filter: blur(0px) grayscale(0%) !important;
     -webkit-filter: blur(0px) grayscale(0%) !important;
     opacity: 1.0 !important;

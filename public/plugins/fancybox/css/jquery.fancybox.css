@@ -175,6 +175,8 @@
 	top: 0;
 	left: 0;
 	overflow: hidden !important;
+        overflow-y: scroll;
+        overflow-x: hidden;
 	display: none;
 	z-index: 12010;
 	background: url('../img/fancybox_overlay.png');

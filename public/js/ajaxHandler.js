@@ -137,6 +137,15 @@ $.extend({
                 
                                 $this.changeListFormat();
                                 
+                                // hide carousel controls if there is only one item in carousel
+                                if( $('.carousel ul li').size() <= 1 ) {
+                                    $('.lds_carousel_ui').hide();
+                                }
+                                
+                                // Add youtube watermarks to youtube images
+                                if( $('img.youtube').size() >= 1 ) {
+                                }
+                                
                                 setTimeout(function(){
                                     inlineScript = $data.options.inlineScript;
                                     headScript = $data.options.headScript.reverse();

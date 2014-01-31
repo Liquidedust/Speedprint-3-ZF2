@@ -34,7 +34,8 @@ class SeoController extends AbstractActionController {
         '/plugins/validate/js/jquery.validate.js',
         '/plugins/autogrow/js/jquery.input.autogrow.js',
         '/plugins/fancybox/js/jquery.fancybox-thumbs.js',
-        '/plugins/fancybox/js/jquery.fancybox.js'
+        '/plugins/fancybox/js/jquery.fancybox.js',
+        '/plugins/watermark/js/watermark.jquery.js'
     );
     
     protected $inlineScript = Array(

@@ -1424,13 +1424,25 @@ h2 {
     float: left;
 }
 
+#body .container .carousel li a {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    
+    line-height: 180px;
+}
+
 #body .container .carousel img {
     transition: all 300ms ease-in-out;
     
     display: block;
-    margin: auto 12px;
-    position: relative;
+    
     margin: 0 auto;
+    
+    vertical-align: middle;
     
     max-height: 180px;
     max-width: 180px;
@@ -1439,6 +1451,10 @@ h2 {
     
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
+}
+
+#body .container .carousel ul li img {
+    display: inline;
 }
 
 #body .container .carousel img.fade-in {
@@ -1560,6 +1576,7 @@ h2 {
     font-style: normal;
     
     color: rgb(217,125,50);
+    color: #0290D0;
     
 }
 
