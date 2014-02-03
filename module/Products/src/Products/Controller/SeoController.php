@@ -159,7 +159,6 @@ class SeoController extends AbstractActionController {
                 'success' => false,
             ));
         } else {
-            
             $stmt = $em ->getConnection()
                         ->prepare( ProductStatement::BySeo() );
             $stmt->bindValue(':seo',$this->params()->fromRoute('seo'));

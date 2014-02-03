@@ -11,8 +11,11 @@ namespace Products\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController,
 Zend\View\Model\ViewModel,
+Zend\View\Model\JsonModel,
 Doctrine\ORM\EntityManager,
+Doctrine\ORM\Query\ResultSetMapping,
 Products\Entity\Product,
+Products\Statements\Products AS ProductStatement,
 Exception;
 
 class ProductController extends AbstractActionController {
@@ -43,5 +46,26 @@ class ProductController extends AbstractActionController {
         }
         
         // return new ViewModel();
+    }
+    
+    public function priceAction() {
+        
+        $em = $this->getEntityManager();
+        $repository = $em->getRepository('\Products\Entity\Products');
+        $product = $repository->findOneBy(array('id_products' => $this->params()->fromRoute('id')));
+        
+        $request_uri = $this->getRequest()->getUri()->getPath();
+        
+        if ($product === null) {
+            $this->getResponse()->setStatusCode(404);
+
+            $jsonModel = new JsonModel(array(
+                'success' => false,
+            ));
+        } else {
+            
+        }
+        
+        return $jsonModel;
     }
 }
