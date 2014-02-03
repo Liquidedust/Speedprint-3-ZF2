@@ -82,7 +82,7 @@ $('button').click(function(e){
 
     $(this).addClass('processing');
     console.log( $(this).closest('form').valid() );
-    console.log( 'select variant : ' + $(this).closest('form').find('select').valid() );
+    console.log( 'select variant : ' + $(this).closest('form').find('select.buy_variant').valid() );
     console.log( 'input.antal    : ' + $(this).closest('form').find('input.antal').valid() );
 
     $button_reset = setTimeout(function(){
@@ -97,22 +97,28 @@ $("#body .container form.buy").validate({
     },
     // set the errorClass as a random string to prevent label disappearing when valid
     errorClass : "baconaise",
+    // validation class for validated fields
+    validClass : "valid",
     // use highlight and unhighlight
     highlight: function (element, errorClass, validClass) {
         $(element.form).find("label[for=" + element.id + "]").addClass("error_label");
         $(element).addClass("error");
+        
+        $(element.form).find("label[for=" + element.id + "]").removeClass("valid");
+        $(element).removeClass("valid");
     },
     unhighlight: function (element, errorClass, validClass) {
         $(element.form).find("label[for=" + element.id + "]").removeClass("error_label");
         $(element).removeClass("error");
+        
+        $(element.form).find("label[for=" + element.id + "]").addClass("valid");
+        $(element).addClass("valid");
     },
-    onsubmit        : true,
+    onsubmit        : false,
     submitHandler   : function(){
+        console.log('submit succesful');
+        return false;
     }
-});
-
-$("#body .container form.buy input.antal").rules('add', {
-    digits          :   true,
 });
 
 $("#body").on("click",".content_tabs a", function(e){

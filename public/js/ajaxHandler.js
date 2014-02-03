@@ -129,6 +129,11 @@ $.extend({
                                 $.speedPrint.carouselHandler.initialState( $($fadeIn).find('.carousel_wrapper ul') );
                                 $.speedPrint.carouselHandler.bindEvents( $($fadeIn).find('.carousel_wrapper') );
                             }
+                            
+                            if( $("#body .container form.buy").length > 0 ){
+                                console.log( 'form exists!' );
+                                $.speedPrint.buyValidate.bindValidate();
+                            }
 
                             setTimeout(function(){
                                 $switch = $( $("#fadeIn").html() );
@@ -385,13 +390,20 @@ $.extend({
                         $( $active ).find(".prev,.next").removeClass('inactive').blur();
                     }
                 });
+                /*
                 setTimeout(function(){
                     $.each($._data(element, "events"), function(i, e) {
                         console.log(i, e);
                     });
                 },1000);
+                */
             }
-        })
+        }),
+        
+        buyValidate:        new Object({
+            bindValidate:   function() {
+            }
+        }),
     })
 });
 

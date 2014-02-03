@@ -497,6 +497,8 @@
 
 		// Navigate to gallery item by index
 		jumpto: function ( index, direction, router ) {
+                        console.log('onChange');
+                        
 			var current = F.current;
 
 			if (!current) {
@@ -514,12 +516,16 @@
 				}
 
 				index = index % current.group.length;
+                                F.new_index = index;
+                                F.trigger('onChange');
 			}
 
 			if (current.group[ index ] !== undefined) {
 				F.cancel();
 
 				F._start(index);
+                                F.new_index = index;
+                                F.trigger('onChange');
 			}
 		},
 
@@ -967,22 +973,20 @@
 			F.showLoading();
 
 			F.ajaxLoad = $.ajax($.extend({}, coming.ajax, {
-				url: coming.href,
-				error: function (jqXHR, textStatus) {
-					if (F.coming && textStatus !== 'abort') {
-						F._error( 'ajax', jqXHR );
-
-					} else {
-						F.hideLoading();
-					}
-				},
-				success: function (data, textStatus) {
-					if (textStatus === 'success') {
-						coming.content = data;
-
-						F._afterLoad();
-					}
-				}
+                            url: coming.href,
+                            error: function (jqXHR, textStatus) {
+                                if (F.coming && textStatus !== 'abort') {
+                                    F._error( 'ajax', jqXHR );
+                                } else {
+                                    F.hideLoading();
+                                }
+                            },
+                            success: function (data, textStatus) {
+                                if (textStatus === 'success') {
+                                    coming.content = data;
+                                    F._afterLoad();
+                                }
+                            }
 			}));
 		},
 
@@ -1847,6 +1851,10 @@
 
 			this.open(opts);
 		},
+                
+                // extension to Fancybox
+                onChange : function(opts) {
+                },
 
 		onUpdate : function() {
 			if (!this.fixed) {

@@ -2,59 +2,120 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-$(document).on("click",".carousel_wrapper .carousel ul li a", function(event){
-    event.preventDefault();
-    var $active = $(this).closest(".carousel_wrapper");
-    var $this = $( $active ).find(".carousel li").index( $(this).closest('li') );
-    var $count = Math.floor( $( $active ).find(".carousel li").length - 1 );
-    var $index = $( $active ).find(".carousel li").index( $(this).closest(".carousel_wrapper").find('li.focus') );
+
+$.extend({
+    ldsCarousel :   new Object({
+        change  :   function(elem,event) {
+            event.preventDefault();
+            var $active = $(elem).closest(".carousel_wrapper");
+            var $this = $( $active ).find(".carousel li").index( $(elem).closest('li') );
+            var $count = Math.floor( $( $active ).find(".carousel li").length - 1 );
+            var $index = $( $active ).find(".carousel li").index( $(elem).closest(".carousel_wrapper").find('li.focus') );
+
+            var $element = $(elem).closest('li');
+
+            var $i_diff = Math.abs( $this - $index );
+
+            $( $active ).find('ul').css({
+                'transition'    :   ( $i_diff * 300 ) + 'ms all ease-in-out'
+            });
+
+            $( $active ).find('.navigation a').removeClass('focus').eq($this).addClass('focus');
+
+            $( $active ).find('ul li').removeClass('focus').eq($this).addClass('focus').find('img').attr('style','');
+
+            $($element).parent().find('.focus').nextAll().each(function(i){
+                $(this).find('img').css({
+                    'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
+                    '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                    'opacity'           :   1 - ((i+1)/10)
+                });
+            });
+
+            $($element).parent().find('.focus').prevAll().each(function(i){
+                $(this).find('img').css({
+                    'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
+                    '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                    'opacity'           :   1 - ((i+1)/10)
+                });
+            });
+
+            $($element).closest('ul').css({
+                'left'      :       function(){
+                    $x1 = $(this).closest('.image').width() / 2;
+                    $x2 = $this*180;
+                    $x = $x1 - $x2 - 90;
+                    return $x + 'px';
+                }
+            });
+
+            if( $this === 0  ) {
+                $( $active ).find(".prev").addClass('inactive');
+                $( $active ).find(".next").removeClass('inactive');
+            } else if( $this === $count  ) {
+                $( $active ).find(".prev").removeClass('inactive');
+                $( $active ).find(".next").addClass('inactive');
+            } else {
+                $( $active ).find(".prev,.next").removeClass('inactive');
+            }
+        },
+        jumpto  :   function(carousel,index) {
+            var $active = $(carousel);
+            var $this = index;
+            var $nav_elem = $( $active ).find(".navigation a").eq( index );
+            var $count = Math.floor( $( $active ).find(".navigation a").length - 1 );
+            var $index = $( $active ).find(".carousel li").index( $(this).closest(".carousel_wrapper").find('li.focus') );
     
-    var $element = $(this).closest('li');
-    
-    var $i_diff = Math.abs( $this - $index );
-    
-    $( $active ).find('ul').css({
-        'transition'    :   ( $i_diff * 300 ) + 'ms all ease-in-out'
-    });
-    
-    $( $active ).find('.navigation a').removeClass('focus').eq($this).addClass('focus');
-    
-    $( $active ).find('ul li').removeClass('focus').eq($this).addClass('focus').find('img').attr('style','');
-    
-    $($element).parent().find('.focus').nextAll().each(function(i){
-        $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
-            '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
-            'opacity'           :   1 - ((i+1)/10)
-        });
-    });
-    
-    $($element).parent().find('.focus').prevAll().each(function(i){
-        $(this).find('img').css({
-            'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
-            '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
-            'opacity'           :   1 - ((i+1)/10)
-        });
-    });
-    
-    $($element).closest('ul').css({
-        'left'      :       function(){
-            $x1 = $(this).closest('.image').width() / 2;
-            $x2 = $this*180;
-            $x = $x1 - $x2 - 90;
-            return $x + 'px';
+            var $i_diff = Math.abs( $this - $index );
+
+            $( $active ).find('ul').css({
+                'transition'    :   300 + ( $i_diff * 50 ) + 'ms all ease-in-out'
+            });
+
+            $($nav_elem).addClass('focus').siblings('a').removeClass('focus');
+
+            $( $active ).find('ul li').removeClass('focus').eq($this).addClass('focus').find('img').attr('style', '');
+
+            $( $active ).find('ul li.focus').nextAll().each(function(i){
+                $(this).find('img').css({
+                    'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
+                    '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                    'opacity'           :   1 - ((i+1)/10)
+                });
+            });
+
+            $( $active ).find('ul li.focus').prevAll().each(function(i){
+                $(this).find('img').css({
+                    'transform'         :   'scale(' + (1 - ((i+1)/4) ) + ')',
+                    '-webkit-filter'    :   'blur(' + (i+1)*0.5 + 'px) grayscale(' + (25 * i) + '%)',
+                    'opacity'           :   1 - ((i+1)/10)
+                });
+            });
+
+            $( $active ).find('ul').css({
+                'left'      :       function(){
+                    var $x1 = $(this).closest('.image').width() / 2;
+                    var $x2 = $this*180;
+                    var $x = $x1 - $x2 - 90;
+                    return $x + 'px';
+                }
+            });
+
+            if( $this === 0  ) {
+                $( $active ).find(".prev").addClass('inactive');
+                $( $active ).find(".next").removeClass('inactive');
+            } else if( $this === $count  ) {
+                $( $active ).find(".prev").removeClass('inactive');
+                $( $active ).find(".next").addClass('inactive');
+            } else {
+                $( $active ).find(".prev,.next").removeClass('inactive');
+            }
         }
-    });
-    
-    if( $this === 0  ) {
-        $( $active ).find(".prev").addClass('inactive');
-        $( $active ).find(".next").removeClass('inactive');
-    } else if( $this === $count  ) {
-        $( $active ).find(".prev").removeClass('inactive');
-        $( $active ).find(".next").addClass('inactive');
-    } else {
-        $( $active ).find(".prev,.next").removeClass('inactive');
-    }
+    })
+});
+
+$(document).on( "click", ".carousel_wrapper .carousel ul li a", function(event) {
+    $.ldsCarousel.change(this,event);
 });
 
 $(document).on("click",".carousel_wrapper .navigation a", function(e){
@@ -67,7 +128,7 @@ $(document).on("click",".carousel_wrapper .navigation a", function(e){
     var $i_diff = Math.abs( $this - $index );
     
     $( $active ).find('ul').css({
-        'transition'    :   ( $i_diff * 300 ) + 'ms all ease-in-out'
+        'transition'    :   300 + ( $i_diff * 50 ) + 'ms all ease-in-out'
     });
     
     $(this).addClass('focus').siblings('a').removeClass('focus');
@@ -358,6 +419,12 @@ $('.fancybox').fancybox({
             $(this).removeClass('notransition');
         });
         window.scrollTo($.fancybox.fixed.scrollposition[0], $.fancybox.fixed.scrollposition[1]);
+    },
+    
+    onChange        : function(e) {
+        var index = $.fancybox.new_index;
+        var carousel = $( $.fancybox.current.element ).closest(".carousel_wrapper");
+        $.ldsCarousel.jumpto(carousel,index);
     }
 
 });

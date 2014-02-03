@@ -46,8 +46,10 @@
                                         if( array_key_exists('variants', $value ) ) {
                                     ?>
                                     <label for="product-<?php echo( $value['product_id'] ); ?>-variants" class="antal"><?php echo( $value['variant_title'] ); ?></label>
-                                    <select id="product-<?php echo( $value['product_id'] ); ?>-variants" title="Var god välj en <?php echo( $value['variant_title'] ); ?>" class="required" required>
-                                        <option value=""></option>
+                                    <select id="product-<?php echo( $value['product_id'] ); ?>-variants" title="Var god välj en <?php echo( $value['variant_title'] ); ?>" class="buy_variant required" required>
+                                        <option value="" selected="" disabled="disabled">
+                                            Välj <?php echo( strtolower($value['variant_title']) ); ?> nedan
+                                        </option>
                                         <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
                                         <option value="<?php echo( $v_value['product_id'] ); ?>" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25">
                                             <?php echo( $v_value['product_variant'] ); ?> (från <?php echo( $v_value['fran_price'] ); ?>:-)
@@ -187,10 +189,15 @@
                                 <div id="specifikationer" class="content_data">
                                       <h4>Specifikationer</h4>
                                       
-                                      <p>Bacon</p>
-                                      <?php
-                                        echo( print_r( $value['media'] ) );
-                                      ?>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pretium sapien nec metus hendrerit aliquet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean ac bibendum ante. In semper, nisl vel scelerisque viverra, mauris sem sagittis libero, imperdiet mattis mauris turpis eget quam. Quisque rhoncus ipsum ut tempus rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas dictum tortor sit amet ligula ultricies, id mollis leo pretium. Morbi aliquet elit in diam blandit, at congue quam placerat. Nulla facilisi. Etiam ac consequat massa, vitae lobortis nibh. Etiam bibendum, velit id interdum ultrices, enim erat hendrerit velit, at scelerisque libero lectus placerat est. Sed viverra nulla vitae leo fermentum, at porttitor turpis consectetur. Nunc rutrum quam quis lorem pellentesque venenatis.</p>
+
+<p>Nullam elit felis, consequat eu sapien quis, egestas dictum massa. Proin et tortor sit amet sem luctus eleifend ut quis ligula. Nunc egestas auctor malesuada. Fusce placerat tincidunt consequat. Praesent nisl justo, dignissim id tellus id, scelerisque faucibus enim. Duis semper felis eu ligula dictum, eget ornare neque egestas. Suspendisse ut odio venenatis, mattis quam non, ullamcorper massa. Nam at massa justo. Maecenas eros risus, ultricies vitae lobortis vitae, tempor eu risus.</p>
+
+<p>Donec non ipsum tortor. Donec tincidunt, magna in suscipit iaculis, justo lectus faucibus quam, quis sodales orci metus non odio. Suspendisse potenti. Nam vitae blandit nulla. Vivamus nulla turpis, ornare tincidunt orci et, ullamcorper mattis felis. Etiam lacus dolor, ultricies molestie leo a, gravida posuere ante. Ut enim justo, vulputate sit amet varius vehicula, posuere a leo. Sed dictum mauris non semper porta. In porttitor nisi vitae dolor imperdiet pretium. Cras dignissim interdum elit, in laoreet nunc faucibus at.</p>
+
+<p>Nunc a purus dictum, eleifend dui a, placerat tellus. Nullam et pharetra risus, mattis interdum metus. Duis iaculis luctus semper. Duis imperdiet dui vitae posuere rutrum. Praesent et sem et nisl suscipit lobortis id vitae velit. Mauris aliquet, nunc et vulputate tempus, lacus erat facilisis metus, eget ultricies felis metus eu neque. Suspendisse fringilla velit ac purus volutpat accumsan.</p>
+
+<p>Duis nec ligula varius, porttitor nibh at, varius enim. Vivamus dui arcu, pulvinar porta odio quis, mollis convallis ligula. Fusce vel convallis dui. Vivamus aliquet eu ligula quis facilisis. Duis viverra, nibh in scelerisque pellentesque, nisi arcu molestie diam, accumsan bibendum elit ante ac nunc. Suspendisse a massa massa. Quisque sollicitudin urna non facilisis malesuada. Donec a odio mi. Maecenas pharetra nec arcu at aliquet.</p>
                                 </div>
                             
                             </div>

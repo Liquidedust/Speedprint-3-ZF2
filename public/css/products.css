@@ -132,8 +132,11 @@
 }
 
 #body .container.product .buy input.active,
+#body .container.product .buy input.valid,
 #body .container.product .buy select.active,
-#body .container.product .buy textarea.active {
+#body .container.product .buy select.valid,
+#body .container.product .buy textarea.active
+#body .container.product .buy textarea.valid {
     padding: 1px 11px;
     border-width: 2px;
     border-style: solid;
@@ -141,7 +144,8 @@
     color: #0290D0;
 }
 
-#body .container.product .buy label.antal.active {
+#body .container.product .buy label.antal.active,
+#body .container.product .buy label.antal.valid {
     color: #0290D0;
 }
 
