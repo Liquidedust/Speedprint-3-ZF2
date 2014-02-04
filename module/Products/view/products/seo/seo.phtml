@@ -40,13 +40,15 @@
                             <div class="clear"></div>
                             
                             <form id="produkt-<?php echo( $value['product_id'] ); ?>-addtocart-form" class="buy">
+                            
+                            <input id="produkt-<?php echo( $value['product_id'] ); ?>-id" type="hidden" name="product_id" value="<?php echo( $value['product_id'] ); ?>">
                                 
                                 <div class="buy_element">
                                     <?php
                                         if( array_key_exists('variants', $value ) ) {
                                     ?>
                                     <label for="product-<?php echo( $value['product_id'] ); ?>-variants" class="antal"><?php echo( $value['variant_title'] ); ?></label>
-                                    <select id="product-<?php echo( $value['product_id'] ); ?>-variants" title="Var god välj en <?php echo( $value['variant_title'] ); ?>" class="buy_variant required" required>
+                                    <select name="variant" id="product-<?php echo( $value['product_id'] ); ?>-variants" title="Var god välj en <?php echo( $value['variant_title'] ); ?>" class="buy_variant required" required>
                                         <option value="" selected="" disabled="disabled">
                                             Välj <?php echo( strtolower($value['variant_title']) ); ?> nedan
                                         </option>
@@ -65,10 +67,10 @@
                                     
                                     <div class="amount">
                                         <label for="produkt-<?php echo( $value['product_id'] ); ?>-antal" class="antal">Antal</label>
-                                        <input id="produkt-<?php echo( $value['product_id'] ); ?>-antal" type="text" placeholder="0" minlength="1" class="antal required" required>
+                                        <input name="antal" id="produkt-<?php echo( $value['product_id'] ); ?>-antal" type="text" placeholder="0" minlength="1" class="antal required" required>
                                     </div>
                                     
-                                    <button> Lägg i varukorgen </button>
+                                    <button class="submit"> Lägg i varukorgen </button>
                                     
                                 </div>
                                 

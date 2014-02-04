@@ -4,6 +4,11 @@
  */
 
 var productActions = new Object({
+    typing:         null,
+    fran_price:     new Object({
+        changed :   false,
+        default :   null
+    }),
     tabClick:       function(event,e){
         // event.preventDefault();
         var event = event;
@@ -61,33 +66,102 @@ var productActions = new Object({
                 });
             });
         }
+    },
+    getPrice:       function(e,product,amount) {
+        var $e = new Object({'element':e,'product':product,'amount':amount});
+        if( $e.product !== undefined && $e.amount !== undefined ) {
+            clearTimeout(this.typing);
+            this.typing = setTimeout(function(){
+                if( $e.product === 'null' || $e.amount.length < 1 || !( parseInt( $e.amount ) >= 1 ) || ( isNaN(parseFloat($e.amount)) && !isFinite($e.amount) ) ) {
+                    console.log('invalid');
+                    if( productActions.fran_price.changed ) {
+                        $($e.element).find('p.fran').html("från");
+                        $($e.element).find('p.amount').html( productActions.fran_price.default + ':-' );
+                    }
+                } else {
+                    console.log('valid');
+                    $e.product = $e.product.split('-');
+                    $.getJSON( "/produkter/pris/" + $e.product[0] + "/" + $e.product[1] + "/" + $e.amount , function( data ) {
+                        if( !productActions.fran_price.changed ) {
+                            productActions.fran_price.changed = true;
+                            productActions.fran_price.default = parseInt( $($e.element).find('p.amount').html().replace(':-','') );
+                            console.log( 'default: ' + productActions.fran_price.default );
+                        }
+                        
+                        if( data.price !== $($e.element).find('p.amount').html().replace(':-','') ) {
+                            $($e.element).transition({
+                                'filter'            :     'blur(5px)',
+                                '-webkit-filter'    :     'blur(5px)'
+                            },100,function(){
+                                $($e.element).find('p.fran').html("styckpris");
+                                $($e.element).find('p.amount').html( data.price + ':-' );
+                                    $($e.element).transition({
+                                        'filter'            :     'blur(0px)',
+                                        '-webkit-filter'    :     'blur(0px)'
+                                    },100);
+                            });
+                        }
+                    });
+                }
+            },1000);
+        } else {
+            if( productActions.fran_price.changed ) {
+                $($e.element).find('p.fran').html("från");
+                $($e.element).find('p.amount').html( productActions.fran_price.default + ':-' );
+            }
+        }
     }
 });
     
-$("#body .container .buy input, #body .container .buy select, #body .container .buy textarea").bind('focus', function(e){
+$("#body .container .buy input, #body .container .buy select, #body .container .buy textarea").on('focus', function(e){
     $(this).addClass('active').siblings('label').addClass('active');
-}).bind('blur', function(e){
+}).on('blur', function(e){
     $(this).removeClass('active').siblings('label').removeClass('active');
+    $(this).valid();
 });
 
-$("input.antal").autoGrowInput({
+$("#body .container .buy select").on('change', function(){
+    var product;
+    if( $(this).closest('form').find('select.buy_variant').val() === null ) {
+        product = 'null';
+    } else {
+        product = $(this).closest('form').find('select.buy_variant').val();
+    }
+    var amount = $(this).closest('form').find('input.antal').val();
+    productActions.getPrice( $(this).closest('.container').find('div.price'), product, amount );
+});
+
+$("#body .container .buy input, #body .container .buy textarea").on('keyup', function(){
+    var product;
+    if( $(this).closest('form').find('select.buy_variant').val() === null ) {
+        product = 'null';
+    } else {
+        product = $(this).closest('form').find('select.buy_variant').val();
+    }
+    var amount = $(this).closest('form').find('input.antal').val();
+    productActions.getPrice( $(this).closest('.container').find('div.price'), product, amount );
+});
+
+$("#body .container form.buy input.antal").autoGrowInput({
     maxWidth    :   60,
     minWidth    :   26,
     comfortZone :    8
 });
 
-$('button').click(function(e){
+$("#body .container form.buy").find('button').click(function(e){
     e.preventDefault();
     var $this = this;
+    
+    if( $(this).closest('form').valid() ) {
+        $(this).addClass('processing');
+        console.log( $(this).closest('form').valid() );
+        if( $(this).closest('form').find('select.buy_variant').length >= 1 ){
+            console.log( 'select variant : ' + $(this).closest('form').find('select.buy_variant').valid() );
+        }
+        console.log( 'input.antal    : ' + $(this).closest('form').find('input.antal').valid() );
 
-    $(this).addClass('processing');
-    console.log( $(this).closest('form').valid() );
-    console.log( 'select variant : ' + $(this).closest('form').find('select.buy_variant').valid() );
-    console.log( 'input.antal    : ' + $(this).closest('form').find('input.antal').valid() );
-
-    $button_reset = setTimeout(function(){
-        $($this).removeClass('processing');
-    },1000);
+        $(this).parents('form').submit();
+    }
 });
 
 $("#body .container form.buy").validate({
@@ -114,10 +188,25 @@ $("#body .container form.buy").validate({
         $(element.form).find("label[for=" + element.id + "]").addClass("valid");
         $(element).addClass("valid");
     },
-    onsubmit        : false,
-    submitHandler   : function(){
+    onsubmit        : true,
+    submitHandler   : function(form){
+        var $this = $(form).find('button.submit');
+
+        $button_reset = setTimeout(function(){
+            $($this).removeClass('processing');
+        },1000);
+        
         console.log('submit succesful');
         return false;
+    },
+    rules           : {
+        variant     : {
+            required    : true
+        },
+        antal     : {
+            required    : true,
+            digits      : true
+        }
     }
 });
 

@@ -1,8 +1,11 @@
+SET @seo = 'roll_up_professional', @variant = 5, @amount = 1;
 SELECT
 IFNULL(
 	product_variant_bulk.product_bulk_prices,
-	products.price_products
+	product_bulk.product_bulk_prices
 ) as price,
+
+@amount as amount,
 
 product_variant_bulk.product_bulk_rates_min_amount as min_amount,
 
@@ -12,8 +15,8 @@ SUM(
 	IFNULL(
 		product_variant_bulk.product_bulk_prices,
 		products.price_products
-	) * 50
-)
+	) * @amount
+) as total_price
 
 FROM products
 
@@ -29,15 +32,15 @@ LEFT JOIN product_bulk_rates AS product_variant_bulk ON product_variants_bulk_ra
 WHERE
 products.enabled_products = 'y'
 AND
-products.seo_products = 'roll_up_compact' #:seo
+products.seo_products = @seo #:seo
 AND
-product_variants.id_product_variants = 6 #:variant
+product_variants.id_product_variants = @variant #:variant
 AND (
-	50 >= product_variant_bulk.product_bulk_rates_min_amount #:amount
+	@amount >= product_variant_bulk.product_bulk_rates_min_amount #:amount
 	AND (
-		50 <= product_variant_bulk.product_bulk_rates_max_amount #:amount
+		@amount <= product_variant_bulk.product_bulk_rates_max_amount #:amount
 		OR (
-			50 > product_variant_bulk.product_bulk_rates_max_amount #:amount
+			@amount > product_variant_bulk.product_bulk_rates_max_amount #:amount
 			AND
 			product_variant_bulk.product_bulk_rates_min_amount = product_variant_bulk.product_bulk_rates_max_amount
 		)

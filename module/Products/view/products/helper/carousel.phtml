@@ -28,7 +28,7 @@
                                     <?php else: ?>
                                     <li>
                                         <a href="<?php echo $this->basePath('media/upload/'.$media['file_media']); ?>" data-fancybox-group="product_image_carousel" title="<?php echo( $media['name_media'] ) ?>" class="fancybox">
-                                            <img src="<?php echo $this->basePath('media/upload/'.$media['file_media']); ?>" alt="<?php echo( $media['name_media'] ) ?>" class="<?php if( $media['primary_media'] == 'y' ){ echo('focus'); } ?>">
+                                            <img src="<?php echo $this->basePath('media/upload/'.$media['file_thumbnail']); ?>" alt="<?php echo( $media['name_media'] ) ?>" class="<?php if( $media['primary_media'] == 'y' ){ echo('focus'); } ?>">
                                         </a>
                                     </li>
                                     <?php endif; ?>

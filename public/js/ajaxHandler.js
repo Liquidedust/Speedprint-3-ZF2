@@ -129,11 +129,6 @@ $.extend({
                                 $.speedPrint.carouselHandler.initialState( $($fadeIn).find('.carousel_wrapper ul') );
                                 $.speedPrint.carouselHandler.bindEvents( $($fadeIn).find('.carousel_wrapper') );
                             }
-                            
-                            if( $("#body .container form.buy").length > 0 ){
-                                console.log( 'form exists!' );
-                                $.speedPrint.buyValidate.bindValidate();
-                            }
 
                             setTimeout(function(){
                                 $switch = $( $("#fadeIn").html() );
@@ -148,7 +143,12 @@ $.extend({
                                 }
                                 
                                 // Add youtube watermarks to youtube images
+                                // @TODO youtube watersmarks on remote video linking
                                 if( $('img.youtube').size() >= 1 ) {
+                                }
+                            
+                                if( $('form.buy').size() > 0 ){
+                                    $.speedPrint.buyValidate.bindValidate( $('form.buy') );
                                 }
                                 
                                 setTimeout(function(){
@@ -233,10 +233,8 @@ $.extend({
             },
             
             changeListFormat:       function() {
-                console.log( 'list format length : ' + $("input[name=listformat]").length );
                 if( $("input[name=listformat]").length >= 1 ) {
                     if( cookie.read("list-format") ) {
-                        console.log( 'list-format : ' + cookie.read("list-format") );
                         $("input[name=listformat][data-format=" + cookie.read("list-format") + "]").prop('checked', true);
                     } else {
                         $("input[name=listformat][data-format=expanded]").prop('checked', true);
@@ -401,7 +399,72 @@ $.extend({
         }),
         
         buyValidate:        new Object({
-            bindValidate:   function() {
+
+            bindValidate:   function( elements) {
+                
+                elements.each(function(index){
+                    console.log( 'form exists!' );
+                    console.log( $(this).find('input.antal') );
+                    console.log( $(this).find('input,select,textarea') );
+    
+                    $(this).find('input,select,textarea').on('focus', function(e){
+                        $(this).addClass('active').siblings('label').addClass('active');
+                    }).on('blur', function(e){
+                        $(this).removeClass('active').siblings('label').removeClass('active');
+                        $(this).valid();
+                    });
+
+                    $(this).find('input.antal').autoGrowInput({
+                        maxWidth    :   60,
+                        minWidth    :   26,
+                        comfortZone :    8
+                    });
+
+                    $(this).find('button').click(function(e){
+                        e.preventDefault();
+                        var $this = this;
+
+                        $(this).addClass('processing');
+                        console.log( $(this).closest('form').valid() );
+                        console.log( 'select variant : ' + $(this).closest('form').find('select.buy_variant').valid() );
+                        console.log( 'input.antal    : ' + $(this).closest('form').find('input.antal').valid() );
+
+                        $button_reset = setTimeout(function(){
+                            $($this).removeClass('processing');
+                        },1000);
+                    });
+
+                    $(this).validate({
+                        // make sure error message isn't displayed
+                        errorPlacement  : function(error, element) {
+                            return true;
+                        },
+                        // set the errorClass as a random string to prevent label disappearing when valid
+                        errorClass : "baconaise",
+                        // validation class for validated fields
+                        validClass : "valid",
+                        // use highlight and unhighlight
+                        highlight: function (element, errorClass, validClass) {
+                            $(element.form).find("label[for=" + element.id + "]").addClass("error_label");
+                            $(element).addClass("error");
+
+                            $(element.form).find("label[for=" + element.id + "]").removeClass("valid");
+                            $(element).removeClass("valid");
+                        },
+                        unhighlight: function (element, errorClass, validClass) {
+                            $(element.form).find("label[for=" + element.id + "]").removeClass("error_label");
+                            $(element).removeClass("error");
+
+                            $(element.form).find("label[for=" + element.id + "]").addClass("valid");
+                            $(element).addClass("valid");
+                        },
+                        onsubmit        : false,
+                        submitHandler   : function(){
+                            console.log('submit succesful');
+                            return false;
+                        }
+                    });
+                });
             }
         }),
     })

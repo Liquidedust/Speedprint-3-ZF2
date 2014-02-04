@@ -58,12 +58,30 @@ class ProductController extends AbstractActionController {
         
         if ($product === null) {
             $this->getResponse()->setStatusCode(404);
-
+            
             $jsonModel = new JsonModel(array(
-                'success' => false,
+                'success' => false
             ));
         } else {
             
+            $stmt = $em ->getConnection()
+                        ->prepare( ProductStatement::PriceByIdAndAmount() );
+            $stmt->bindValue(':id',$this->params()->fromRoute('id'));
+            $stmt->bindValue(':variant',$this->params()->fromRoute('variant'));
+            $stmt->bindValue(':amount',$this->params()->fromRoute('amount'));
+            $stmt->execute();
+            
+            $resultset = array();
+            
+            while ($row = $stmt->fetch()) {
+                $resultset[] = $row;
+            }
+            
+            $jsonModel = new JsonModel(array(
+                'success' => true,
+                'price' => $resultset[0]['price'],
+                'total_price' => $resultset[0]['total_price']
+            ));
         }
         
         return $jsonModel;

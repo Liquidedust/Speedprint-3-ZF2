@@ -59,9 +59,9 @@ return array(
                         'options' => array(
                             'route'    => '/pris/[:id[/:variant][/:amount]]',
                             'constraints' => array(
-                                'id'   => '[0-9]*',
+                                'id'        => '[0-9]*',
                                 'variant'   => '[0-9]*',
-                                'amount'     => '[0-9]*',
+                                'amount'    => '[0-9]*',
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'Products\Controller',

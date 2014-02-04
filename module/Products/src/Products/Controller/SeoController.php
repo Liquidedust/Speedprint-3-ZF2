@@ -35,7 +35,7 @@ class SeoController extends AbstractActionController {
         '/plugins/autogrow/js/jquery.input.autogrow.js',
         '/plugins/fancybox/js/jquery.fancybox-thumbs.js',
         '/plugins/fancybox/js/jquery.fancybox.js',
-        '/plugins/watermark/js/watermark.jquery.js'
+        '/plugins/autogrow/js/jquery.input.autogrow.js'
     );
     
     protected $inlineScript = Array(
@@ -114,6 +114,7 @@ class SeoController extends AbstractActionController {
                 $media_resultset = array();
                     
                 while($media_row = $media_stmt->fetch()){
+                    $media_row['file_thumbnail'] = preg_replace_callback( '"\.(bmp|gif|jpg|png)$"', function ($matches) { return '_small'.$matches[0]; }, $media_row['file_media'] );
                     $media_resultset[] = $media_row;
                 }
 
@@ -207,6 +208,7 @@ class SeoController extends AbstractActionController {
                 $media_resultset = array();
                     
                 while($media_row = $media_stmt->fetch()){
+                    $media_row['file_thumbnail'] = preg_replace_callback( '"\.(bmp|gif|jpg|png)$"', function ($matches) { return '_small'.$matches[0]; }, $media_row['file_media'] );
                     $media_resultset[] = $media_row;
                 }
 
