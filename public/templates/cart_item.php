@@ -1,6 +1,6 @@
                         <tr id="cart-product-:product_id" data-id=":product_id" data-processed="false" style="height: 0px;">
                             <td class="icon" style="display:none;opacity: 0.0;">
-                                <img src="/img/produkter/:icon">
+                                <img src=":icon">
                             </td>
                             <td class="name" style="display:none;opacity: 0.0;">
                                 :name

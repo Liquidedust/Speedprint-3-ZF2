@@ -137,32 +137,43 @@ $.extend({
                 
                                 $this.changeListFormat();
                                 
+                                // image carousel code
                                 // hide carousel controls if there is only one item in carousel
-                                if( $('.carousel ul li').size() <= 1 ) {
-                                    $('.lds_carousel_ui').hide();
+                                if( $('.carousel').size() <= 1 ) {
+                                    $('.carousel').each(function(i){
+                                        if( $(this).find('ul li').size() <= 1 ){
+                                            $(this).find('.lds_carousel_ui').hide();
+                                        }
+                                
+                                        // Add youtube watermarks to youtube images
+                                        // @TODO youtube watersmarks on remote video linking
+                                        if( $(this).find('img.youtube').size() >= 1 ){
+                                            
+                                        }
+                                    });
                                 }
                                 
-                                // Add youtube watermarks to youtube images
-                                // @TODO youtube watersmarks on remote video linking
-                                if( $('img.youtube').size() >= 1 ) {
-                                }
-                            
-                                if( $('form.buy').size() > 0 ){
-                                    $.speedPrint.buyValidate.bindValidate( $('form.buy') );
+                                // If there is one or more buy forms on the page
+                                // Initialize form validation and action binding code
+                                // @TODO needs to be fixed properly, right now its not certain that the required scripts are included prior to functions are called
+                                if( $('form.buy').size() >= 1 ){
+                                    $('form.buy').each(function(i){
+                                        $.speedPrint.buyFormHandler.processForm( $(this) );
+                                    });
                                 }
                                 
                                 setTimeout(function(){
                                     inlineScript = $data.options.inlineScript;
-                                    headScript = $data.options.headScript.reverse();
+                                    headScript = $data.options.headScript.reverse(); // so they are applied in correct order, this since ZF2 outputs them in reverse.
 
-                                    $.each( headScript, function(i,script){
-                                        if( $("head script[src=\'" + script  + "\']").length === 0 ){
+                                    $.each( headScript, function(i,script){ // insert headScripts before we do inlineScripts
+                                        if( $("head script[src=\'" + script  + "\']").length === 0 ){ // ensure that the script isn't loaded already
                                             setTimeout(function(){
                                                 $( $this.scriptElem.replace("$script",script) ).insertAfter('head script:last-of-type');
                                                 clearTimeout( $this.timeOut );
                                                 $this.timeOut = setTimeout(function(){
-                                                    $.each( inlineScript, function(i,script){
-                                                        if( $("body script[src=\'" + script  + "\']").length === 0 ){
+                                                    $.each( inlineScript, function(i,script){ // insert inlineScripts after headScripts
+                                                        if( $("body script[src=\'" + script  + "\']").length === 0 ){ // ensure that the script isn't loaded already
                                                             setTimeout(function(){
                                                                 $( $this.scriptElem.replace("$script",script) ).insertAfter('body script:last-of-type');
                                                             },50*i);
@@ -240,7 +251,13 @@ $.extend({
                         $("input[name=listformat][data-format=expanded]").prop('checked', true);
                     }
                 }
-            }
+            },
+            
+            domHeadLink:            function(link,callback){},
+            
+            domHeadScript:          function(script,callback){},
+            
+            domInlineScript:        function(script,callback){}
         }),
         
         carouselHandler:    new Object({
@@ -398,74 +415,66 @@ $.extend({
             }
         }),
         
-        buyValidate:        new Object({
+        buyFormHandler:     new Object({
+            
+            processForm:    function(forms){
+                forms.each(function(index){
+                    $.speedPrint.buyFormHandler.bindActions( $(this) );
+                });
+            },
+                    
+            bindActions:   function( form ) {
+                $( form ).find("input,select,textarea").on('focus', function(e){
+                    $(this).addClass('active').siblings('label').addClass('active');
+                }).on('blur', function(e){
+                    $(this).removeClass('active').siblings('label').removeClass('active');
+                    $(this).valid();
+                });
 
-            bindValidate:   function( elements) {
-                
-                elements.each(function(index){
-                    console.log( 'form exists!' );
-                    console.log( $(this).find('input.antal') );
-                    console.log( $(this).find('input,select,textarea') );
-    
-                    $(this).find('input,select,textarea').on('focus', function(e){
-                        $(this).addClass('active').siblings('label').addClass('active');
-                    }).on('blur', function(e){
-                        $(this).removeClass('active').siblings('label').removeClass('active');
-                        $(this).valid();
-                    });
+                $( form ).find("select").on('change', function(){
+                    var product;
+                    if( $(this).closest('form').find('select.buy_variant').val() === null ) {
+                        product = 'null';
+                    } else {
+                        product = $(this).closest('form').find('select.buy_variant').val();
+                    }
+                    var amount = $(this).closest('form').find('input.antal').val();
+                    $.speedPrint.productActions.getPrice( $(this).closest('.container').find('div.price'), product, amount );
+                });
 
-                    $(this).find('input.antal').autoGrowInput({
-                        maxWidth    :   60,
-                        minWidth    :   26,
-                        comfortZone :    8
-                    });
+                $( form ).find("input,textarea").on('keyup', function(){
+                    var product;
+                    if( $(this).closest('form').find('select.buy_variant').val() === null ) {
+                        product = 'null';
+                    } else {
+                        product = $(this).closest('form').find('select.buy_variant').val();
+                    }
+                    var amount = $(this).closest('form').find('input.antal').val();
+                    $.speedPrint.productActions.getPrice( $(this).closest('.container').find('div.price'), product, amount );
+                });
 
-                    $(this).find('button').click(function(e){
-                        e.preventDefault();
-                        var $this = this;
+                $( form ).find("input.antal").autoGrowInput({
+                    maxWidth    :   60,
+                    minWidth    :   26,
+                    comfortZone :    8
+                });
 
+                $( form ).find('button').click(function(e){
+                    e.preventDefault();
+                    var $this = this;
+
+                    if( $(this).closest('form').valid() ) {
                         $(this).addClass('processing');
                         console.log( $(this).closest('form').valid() );
-                        console.log( 'select variant : ' + $(this).closest('form').find('select.buy_variant').valid() );
+                        if( $(this).closest('form').find('select.buy_variant').length >= 1 ){
+                            console.log( 'select variant : ' + $(this).closest('form').find('select.buy_variant').valid() );
+                        }
                         console.log( 'input.antal    : ' + $(this).closest('form').find('input.antal').valid() );
 
-                        $button_reset = setTimeout(function(){
-                            $($this).removeClass('processing');
-                        },1000);
-                    });
-
-                    $(this).validate({
-                        // make sure error message isn't displayed
-                        errorPlacement  : function(error, element) {
-                            return true;
-                        },
-                        // set the errorClass as a random string to prevent label disappearing when valid
-                        errorClass : "baconaise",
-                        // validation class for validated fields
-                        validClass : "valid",
-                        // use highlight and unhighlight
-                        highlight: function (element, errorClass, validClass) {
-                            $(element.form).find("label[for=" + element.id + "]").addClass("error_label");
-                            $(element).addClass("error");
-
-                            $(element.form).find("label[for=" + element.id + "]").removeClass("valid");
-                            $(element).removeClass("valid");
-                        },
-                        unhighlight: function (element, errorClass, validClass) {
-                            $(element.form).find("label[for=" + element.id + "]").removeClass("error_label");
-                            $(element).removeClass("error");
-
-                            $(element.form).find("label[for=" + element.id + "]").addClass("valid");
-                            $(element).addClass("valid");
-                        },
-                        onsubmit        : false,
-                        submitHandler   : function(){
-                            console.log('submit succesful');
-                            return false;
-                        }
-                    });
+                        $(this).parents('form').submit();
+                    }
                 });
-            }
+            },
         }),
     })
 });
@@ -475,6 +484,7 @@ $.speedPrint.ajaxHandler.currentLocation = $.speedPrint.ajaxHandler.getLocation(
 window.onpopstate = function(e){
     var newLocation = $.speedPrint.ajaxHandler.getLocation();
     if(newLocation !== $.speedPrint.ajaxHandler.currentLocation) {
+        console.log( e );
         if(e.state.myTag !== undefined){
             if(!e.state.myTag){ return; };
             $.speedPrint.ajaxHandler.domPopState(e, newLocation);

@@ -567,11 +567,11 @@ if( cookie.read("list-format") ) {
 } else {
     $("input[name=listformat][data-format=expanded]").prop('checked', true);
 }
-
+/*
 if( $(document).width() >= 1100 ){
     $("#sidebar").addClass("maximized");
 }
-
+*/
 if( $(document).width() <= 1099 && cookie.read("sidebar") !== 'open' ){
     $("#sidebar").removeClass("maximized");
 }

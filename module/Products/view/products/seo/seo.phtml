@@ -44,6 +44,7 @@
                             <input id="produkt-<?php echo( $value['product_id'] ); ?>-id" type="hidden" name="product_id" value="<?php echo( $value['product_id'] ); ?>">
                                 
                                 <div class="buy_element">
+                                    <!-- <?php print_r( $value['media'] );  ?> -->
                                     <?php
                                         if( array_key_exists('variants', $value ) ) {
                                     ?>
@@ -53,7 +54,7 @@
                                             Välj <?php echo( strtolower($value['variant_title']) ); ?> nedan
                                         </option>
                                         <?php foreach( $value['variants'] as $v_key => $v_value ) { ?>
-                                        <option value="<?php echo( $v_value['product_id'] ); ?>" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="rollup_classic_large.png" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25">
+                                        <option value="<?php echo( $v_value['product_id'] ); ?>" data-id="<?php echo( $v_value['product_id'] ); ?>" data-name="<?php echo( $v_value['product_name'] ); ?>" data-icon="<?php echo( $this->basePath( 'media/upload/'.$value['media'][ $value['default_media'] ]['file_thumbnail'] ) ); ?>" data-manufacturer="<?php echo( $v_value['manufacturer'] ); ?>" data-price="<?php echo( $v_value['fran_price'] ); ?>" data-vat="25">
                                             <?php echo( $v_value['product_variant'] ); ?> (från <?php echo( $v_value['fran_price'] ); ?>:-)
                                         </option>
                                         <?php } ?>

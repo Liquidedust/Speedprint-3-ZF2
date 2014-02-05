@@ -117,13 +117,15 @@ class SeoController extends AbstractActionController {
                     $media_row['file_thumbnail'] = preg_replace_callback( '"\.(bmp|gif|jpg|png)$"', function ($matches) { return '_small'.$matches[0]; }, $media_row['file_media'] );
                     $media_resultset[] = $media_row;
                 }
-
+                
+                $row['default_media'] = $this->defaultMedia($media_resultset);
+                
                 $row['media'] = $media_resultset;
                 // End of media fetching
                 
                 $resultset[] = $row;
             }
-        
+            
             return new ViewModel( array(
                 'resultset' => $resultset,
                 'inlineScript' => $this->inlineScript,
@@ -211,6 +213,8 @@ class SeoController extends AbstractActionController {
                     $media_row['file_thumbnail'] = preg_replace_callback( '"\.(bmp|gif|jpg|png)$"', function ($matches) { return '_small'.$matches[0]; }, $media_row['file_media'] );
                     $media_resultset[] = $media_row;
                 }
+                
+                $row['default_media'] = $this->defaultMedia($media_resultset);
 
                 $row['media'] = $media_resultset;
                 // End of media fetching
@@ -247,5 +251,14 @@ class SeoController extends AbstractActionController {
         
         return $jsonModel;
         
+    }
+    
+    private function defaultMedia(array $media){
+        foreach($media as $key => $media) {
+            if ( $media['primary_media'] === 'y' ) {
+               return $key;
+            }
+        }
+        return false;
     }
 }
