@@ -153,37 +153,63 @@ $.extend({
                                     });
                                 }
                                 
-                                // If there is one or more buy forms on the page
-                                // Initialize form validation and action binding code
-                                // @TODO needs to be fixed properly, right now its not certain that the required scripts are included prior to functions are called
-                                if( $('form.buy').size() >= 1 ){
-                                    $('form.buy').each(function(i){
-                                        $.speedPrint.buyFormHandler.processForm( $(this) );
-                                    });
-                                }
+                                console.log( 'BACON!' + Math.random() );
                                 
-                                setTimeout(function(){
-                                    inlineScript = $data.options.inlineScript;
-                                    headScript = $data.options.headScript.reverse(); // so they are applied in correct order, this since ZF2 outputs them in reverse.
-
-                                    $.each( headScript, function(i,script){ // insert headScripts before we do inlineScripts
-                                        if( $("head script[src=\'" + script  + "\']").length === 0 ){ // ensure that the script isn't loaded already
-                                            setTimeout(function(){
-                                                $( $this.scriptElem.replace("$script",script) ).insertAfter('head script:last-of-type');
-                                                clearTimeout( $this.timeOut );
-                                                $this.timeOut = setTimeout(function(){
-                                                    $.each( inlineScript, function(i,script){ // insert inlineScripts after headScripts
-                                                        if( $("body script[src=\'" + script  + "\']").length === 0 ){ // ensure that the script isn't loaded already
-                                                            setTimeout(function(){
-                                                                $( $this.scriptElem.replace("$script",script) ).insertAfter('body script:last-of-type');
-                                                            },50*i);
-                                                        }
-                                                    });
-                                                },250);
-                                            },50*i);
-                                        }
+                                inlineScript = $data.options.inlineScript;
+                                headScript = $data.options.headScript.reverse(); // so they are applied in correct order, this since ZF2 outputs them in reverse.
+                                
+                                // @TODO still a darn mess, but getting there eventually just have to get the queue working for me, instead of against me!
+                                $('body').queue(function(next){ // headScripts before we do inlineScripts
+                                    headScriptLength = headScript.length - 1;
+                                    console.log( 'headscript length : ' + headScriptLength );
+                                    
+                                    $.each( headScript, function(i,script){
+                                        setTimeout(function(){
+                                            if( i === headScriptLength ){
+                                                $.speedPrint.ajaxHandler.domHeadScript(script,next());
+                                            } else {
+                                                $.speedPrint.ajaxHandler.domHeadScript(script);
+                                            }
+                                        },i*25);
                                     });
-                                },duration + 50);
+                                }).queue(function(next){ // after headScripts we do inlineScripts
+                                    inlineScriptLength = inlineScript.length - 1;
+                                    console.log( 'inlinescript length : ' + headScriptLength );
+                                    
+                                    $.each( inlineScript, function(i,script){
+                                        setTimeout(function(){
+                                            if( i === inlineScriptLength ){
+                                                $.speedPrint.ajaxHandler.domInlineScript(script,next());
+                                            } else {
+                                                $.speedPrint.ajaxHandler.domInlineScript(script);
+                                            }
+                                        },i*25);
+                                    });
+                                }).queue(function(next){ // finally bind all actions to elements
+                                    // If there is one or more buy forms on the page
+                                    // Initialize form validation and action binding code
+                                    // @TODO needs to be fixed properly, right now its not certain that the required scripts are included prior to functions are called
+                                    
+                                    console.log('form.buy.size() : ' + $('form.buy').size());
+                                    
+                                    if( $('form.buy').size() >= 1 ){
+                                        formLength = $('form.buy').size() - 1;
+                                        $('form.buy').each(function(i){
+                                            if( i === formLength ){
+                                                $.speedPrint.buyFormHandler.processForm( $(this), next() );
+                                            } else {
+                                                $.speedPrint.buyFormHandler.processForm( $(this) );
+                                            }
+                                        });
+                                    }
+                                }).queue(function(next){
+                                    if( $('section.product_box').size() >= 1 ){
+                                        $('section.product_box').each(function(i){
+                                            $.speedPrint.productActions.bindActions(this);
+                                        });
+                                    }
+                                });
+                                
                             },duration + 50);
                         
                         if(typeof callback === 'function'){
@@ -253,11 +279,29 @@ $.extend({
                 }
             },
             
-            domHeadLink:            function(link,callback){},
+            domHeadLink:            function(link,callback){
+                if(typeof callback === 'function'){
+                    callback.call();
+                }
+            },
             
-            domHeadScript:          function(script,callback){},
+            domHeadScript:          function(script,callback){
+                if( $("head script[src=\'" + script  + "\']").length === 0 ){
+                    $( this.scriptElem.replace("$script",script) ).insertAfter('head script:last-of-type');
+                }
+                if(typeof callback === 'function'){
+                    callback.call();
+                }
+            },
             
-            domInlineScript:        function(script,callback){}
+            domInlineScript:        function(script,callback){
+                if( $("body script[src=\'" + script  + "\']").length === 0 ){
+                    $( this.scriptElem.replace("$script",script) ).insertAfter('body script:last-of-type');
+                }
+                if(typeof callback === 'function'){
+                    callback.call();
+                }
+            }
         }),
         
         carouselHandler:    new Object({
@@ -417,19 +461,23 @@ $.extend({
         
         buyFormHandler:     new Object({
             
-            processForm:    function(forms){
+            processForm:    function(forms,callback){
                 forms.each(function(index){
                     $.speedPrint.buyFormHandler.bindActions( $(this) );
                 });
+                if(typeof callback === 'function'){
+                    callback.call();
+                }
             },
                     
-            bindActions:   function( form ) {
+            bindActions:   function(form,callback) {
                 $( form ).find("input,select,textarea").on('focus', function(e){
                     $(this).addClass('active').siblings('label').addClass('active');
                 }).on('blur', function(e){
                     $(this).removeClass('active').siblings('label').removeClass('active');
                     $(this).valid();
                 });
+                console.log('focus');
 
                 $( form ).find("select").on('change', function(){
                     var product;
@@ -441,6 +489,7 @@ $.extend({
                     var amount = $(this).closest('form').find('input.antal').val();
                     $.speedPrint.productActions.getPrice( $(this).closest('.container').find('div.price'), product, amount );
                 });
+                console.log('select');
 
                 $( form ).find("input,textarea").on('keyup', function(){
                     var product;
@@ -452,12 +501,14 @@ $.extend({
                     var amount = $(this).closest('form').find('input.antal').val();
                     $.speedPrint.productActions.getPrice( $(this).closest('.container').find('div.price'), product, amount );
                 });
-
+                console.log('keyup');
+                
                 $( form ).find("input.antal").autoGrowInput({
                     maxWidth    :   60,
                     minWidth    :   26,
                     comfortZone :    8
                 });
+                console.log('autogrowinput');
 
                 $( form ).find('button').click(function(e){
                     e.preventDefault();
@@ -474,8 +525,124 @@ $.extend({
                         $(this).parents('form').submit();
                     }
                 });
-            },
+                console.log('submit click');
+            }
+            
         }),
+        
+        productActions: new Object({
+            typing:         null,
+            fran_price:     new Object({
+                changed :   false,
+                default :   null
+            }),
+            tabClick:       function(event,e) {
+                // event.preventDefault();
+                var event = event;
+                if( event === 'scroll' ) {
+                    var e = $('a[href=' + e + ']');
+                } else {
+                    var e = e;
+                }
+
+                $(e).closest('li').addClass('active').siblings('li').removeClass('active');
+
+                var $content_data_wrapper = $(e).closest('.content').find('.content_information');
+                var $active_content = $(e).closest('.content').find('.content_data');
+                var $active_product_tab = $(e).attr('href');
+
+                if( $($active_content).filter('.active').attr('id') !== $(e).attr('href').replace('#','')  ) {
+
+                    if( $($active_content).filter('.active').length >= 1 ){
+                        var $current_height = $($active_content).filter('.active').show().height();
+                    } else {
+                        var $current_height = 0;
+                    }
+
+                    if( $($active_content).filter( $(e).attr('href') ).length >= 1 ){
+                        var $new_height = $($active_content).filter( $(e).attr('href') ).show().height();
+                        $($active_content).filter( $(e).attr('href') ).hide();
+                    } else {
+                        var $new_height = 0;
+                    }
+
+                    $($content_data_wrapper).css({
+                        height      :       $current_height
+                    });
+
+                    // @TODO Fix the resizing on .on commands for dynamically generated content.
+
+                    $($active_content).transition({
+                        'opacity': '0.0'
+                    }, 300 , function(){
+                        $($active_content).hide().removeClass('active');
+                        $($content_data_wrapper).transition({
+                            height      :       $new_height
+                        }, 300, function(){
+                            $($active_content).filter($active_product_tab).addClass('active').show().transition({
+                                'opacity': '1.0'
+                            }, 300, function(){
+                                $(this).addClass('active');
+                                duration = 0;
+                                if( event !== 'scroll' ){
+                                    $('html, body').animate({scrollTop:$( this ).offset().top - 70}, 300);
+                                } else {
+                                    $('html, body').animate({scrollTop:$( this ).offset().top - 70}, 1000);
+                                }
+                            });
+                        });
+                    });
+                }
+            },
+            getPrice:       function(e,product,amount) {
+                var $e = new Object({'element':e,'product':product,'amount':amount});
+                if( $e.product !== undefined && $e.amount !== undefined ) {
+                    clearTimeout(this.typing);
+                    this.typing = setTimeout(function(){
+                        if( $e.product === 'null' || $e.amount.length < 1 || !( parseInt( $e.amount ) >= 1 ) || ( isNaN(parseFloat($e.amount)) && !isFinite($e.amount) ) ) {
+                            console.log('invalid');
+                            if( $.speedPrint.productActions.fran_price.changed ) {
+                                $($e.element).find('p.fran').html("från");
+                                $($e.element).find('p.amount').html( $.speedPrint.productActions.fran_price.default + ':-' );
+                            }
+                        } else {
+                            console.log('valid');
+                            $e.product = $e.product.split('-');
+                            $.getJSON( "/produkter/pris/" + $e.product[0] + "/" + $e.product[1] + "/" + $e.amount , function( data ) {
+                                if( !$.speedPrint.productActions.fran_price.changed ) {
+                                    $.speedPrint.productActions.fran_price.changed = true;
+                                    $.speedPrint.productActions.fran_price.default = parseInt( $($e.element).find('p.amount').html().replace(':-','') );
+                                    console.log( 'default: ' + $.speedPrint.productActions.fran_price.default );
+                                }
+
+                                if( data.price !== $($e.element).find('p.amount').html().replace(':-','') ) {
+                                    $($e.element).transition({
+                                        'filter'            :     'blur(5px)',
+                                        '-webkit-filter'    :     'blur(5px)'
+                                    },100,function(){
+                                        $($e.element).find('p.fran').html("styckpris");
+                                        $($e.element).find('p.amount').html( data.price + ':-' );
+                                            $($e.element).transition({
+                                                'filter'            :     'blur(0px)',
+                                                '-webkit-filter'    :     'blur(0px)'
+                                            },100);
+                                    });
+                                }
+                            });
+                        }
+                    },1000);
+                } else {
+                    if( $.speedPrint.productActions.fran_price.changed ) {
+                        $($e.element).find('p.fran').html("från");
+                        $($e.element).find('p.amount').html( $.speedPrint.productActions.fran_price.default + ':-' );
+                    }
+                }
+            },
+            bindActions:    function(e,callback) {
+                $this = e;
+                console.log('binding product actions!');
+            }
+        })
     })
 });
 

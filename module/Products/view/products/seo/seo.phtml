@@ -15,6 +15,7 @@
     foreach($this->resultset as $key => $value) {
     $this->headTitle()->append( $value['product_name'] );
 ?>
+                    <section class="product_box">
                     <h1><?php echo( $value['product_name'] ) ?></h1>
                     
                     <div class="clear"></div>
@@ -212,6 +213,7 @@
                     </div>
 
                     <div class="clear"></div>
+                    </section>
 <?php
     }
 ?>
